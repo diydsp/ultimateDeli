@@ -1,0 +1,36 @@
+#!/usr/bin/python
+
+
+import argparse
+from pprint import pprint
+
+import params_funcs as params
+
+parser = argparse.ArgumentParser( description='write params' )
+
+parser.add_argument( '--level',
+                     dest='level_name',
+                     help='level name, e.g. m1_100' )
+
+parser.add_argument( '--model',
+                     dest='model_name',
+                     help='model name, e.g. class, confidence or gain' )
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+
+    file_in_name = params.filename_get( args.level_name, args.model_name )
+    print "reading from: " + file_in_name
+
+
+    param_vals = params.read( file_in_name )
+    # fields
+    print param_vals["iterations"]
+    pprint( param_vals )
+    
+
+        
+    
+
+  

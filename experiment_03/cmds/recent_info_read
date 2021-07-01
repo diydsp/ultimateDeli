@@ -1,0 +1,69 @@
+#!/usr/bin/python
+
+# read last 2-3 days of OHLCV from history_recent/
+# won't be in main database, cuz it only gets updated monthly or so
+
+
+from __future__ import print_function
+
+import urllib2
+import argparse
+import os
+import sys
+import json
+from pprint import pprint
+
+import recent_info_funcs as recent_info
+
+
+parser = argparse.ArgumentParser( description='write params' )
+
+# location of recent history dir
+history_dir_top = "history_recent"
+   
+
+# request parameters
+parser.add_argument( '--ticker',
+                     dest='ticker',
+                     help='ticker name, e.g. INSY' )
+
+
+
+
+
+   
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+    # Prepare
+    history_dir = history_dir_top + "/" + args.ticker
+    history_filename = history_dir + "/" + "history.json"
+    print( 'history_filename: ' + history_filename )
+
+
+    # 2. Load file back into memory
+    # Note: You'd think it's still in memory from prevoius step of downloading from
+    #       server, but in development that step is skipped to save time and API calls
+    hist = recent_info.load_file_into_mem( history_filename )
+
+
+    # 3. parse out the info from today and last few days
+    date_desired =  '2017-07-28'
+    print( 'Yesterday: ' + date_desired + ': ', end="" )
+    recent_info.parse_out_info( hist, date_desired )   # fails because 2017-07-16 is invalid trading date, duh!!!!!!
+
+    date_desired =  '2017-07-31'
+    print( 'Today    : ' + date_desired + ': ', end="" )
+    recent_info.parse_out_info( hist, date_desired )
+
+    #date_desired =  '2017-07-24'
+    #print( 'Tomorrow : ' + date_desired + ': ', end="" )
+    #recent_info.parse_out_info( hist, date_desired )
+
+
+
+
+
+
+
+

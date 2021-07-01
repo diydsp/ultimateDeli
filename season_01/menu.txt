@@ -1,0 +1,10 @@
+ ./summar --month 10 -o sorted.csv
+
+./plot_05 -i sorted.csv -o seas.png
+
+cat tickers/me.txt| while read -r line; do grep "$line" month_oct.txt; done
+
+./summar --month 11  | grep FRAN
+
+ ./introduce --ticker_list tickers/indus_lead_01.txt
+

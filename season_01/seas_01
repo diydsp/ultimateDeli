@@ -1,0 +1,86 @@
+#!/usr/bin/env python
+
+import argparse
+
+import csv
+import datetime as dt
+import numpy as np
+
+
+parser = argparse.ArgumentParser( description='control learner' )
+
+parser.add_argument( '-i',
+                     dest='input_file',
+                     help='input file, e.g. ticker_data.csv' )
+
+parser.add_argument( '--start',
+                     dest='date_start',
+                     help='first date, e.g. 2015-01-01' )
+
+parser.add_argument( '--end',
+                     dest='date_end',
+                     help='last date, e.g. 2015-12-31' )
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+
+    # read .csv file of ticker data
+
+    filename_input         = args.input_file
+
+    #date_start = dt.datetime( 2014,1,1 ).date()
+    #date_end   = dt.datetime( 2014,12,31 ).date()
+
+    date_start = dt.datetime.strptime( args.date_start, '%Y-%m-%d' ).date()
+    date_end   = dt.datetime.strptime( args.date_end,   '%Y-%m-%d' ).date()
+
+            
+    # Crawl through input file line-by-line
+    with open( filename_input ) as csvfile:
+
+
+        # Header
+        # initialize data loader
+        csvread = csv.reader( csvfile, delimiter=',' )
+
+        # read past input header
+        header_input = csvread.next()
+        print( header_input )
+
+        closes = []
+        for row in csvread:
+
+            #print( row[ 1 ] )
+            
+            date_row = dt.datetime.strptime( row[ 1 ], '%Y-%m-%d' ).date()
+            #print( date_row )
+            #print( ohlc[ row_num], date_row.day )
+            #print( row_num, ohlc[ row_num ] )
+
+            if date_row >= ( date_start - dt.timedelta( 3 ) ) and (date_row <= date_end + dt.timedelta( 3 ) ):
+                diff = date_row - date_start
+                close = row[ 5 ]
+                closes.append( close )
+                #print( diff, close, row )
+                print( diff, close )
+                #print( date_row )
+
+
+        # now scan through first few days and last few days and see all ratios
+        num_days = len( closes )
+        ratios = []
+        for beg in range( 3 ):
+            for end in range( 3 ):
+
+                st = float( closes[ beg ] )
+                en = float( closes[ num_days - end - 1 ] )
+
+                ratio = en / st
+                ratios.append( ratio )
+                print( beg, end, st, en, ratio )
+
+        the_mean = sum( ratios ) / float( len( ratios ) )
+        print( the_mean )
+
+        

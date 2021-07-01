@@ -1,0 +1,183 @@
+#!/usr/bin/python
+
+# build question vecture from daily ticker data
+# in _02, it reads entire file in before creating output
+# so that questions spanning several days can be created
+
+import csv
+import numpy as np
+import talib
+
+import argparse
+
+
+
+parser = argparse.ArgumentParser( description='control learner' )
+
+
+parser.add_argument( '-i',
+                     dest='input_file',
+                     help='input file, e.g. ticker_data.csv' )
+
+parser.add_argument( '-o',
+                     dest='output_file',
+                     help='optional output location, e.g. data.csv')
+
+parser.add_argument( '--ticker',
+                     dest='ticker',
+                     help='ticker symbol, e.g. INSY' )
+
+parser.add_argument( '--level',
+                     dest='level',
+                     help='level, e.g. m1_100' )
+
+parser.add_argument( '--ratio_select',
+                     dest='ratio_select',
+                     help='select which ratio to train on, e.g. 1 through 16' )
+
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+    print( 'Using ratio_select ', args.ratio_select )
+    print( 'Using ticker', args.ticker ) 
+
+
+# control parameters
+
+ticker_target = args.ticker
+
+
+# generate filenames
+
+filename_input         = args.input_file
+filename_output        = args.output_file
+
+#features_dir           =   'level_list/' + args.level + '/tick_list/' + args.ticker + '/class/features/'
+#filename_input         =  features_dir + 'ticker_data.csv'
+#filename_question      = features_dir + 'question.npy'
+#filename_answer        = features_dir + 'answer.npy'
+#filename_answer_onehot = features_dir + 'answer_onehot.npy'
+
+print( 'input:         ' + filename_input )
+print( 'output:        ' + filename_output )
+
+# choose which columns to load based on feature_select
+# column names are:
+# ticker,date,open,high,low,close,volume,ex-dividend,split_ratio,adj_open,adj_high,adj_low,adj_close,adj_volume
+cols_req = []
+cols_req.extend( [ 2, 3, 4, 5, 6 ] )  # open,hight,low,close,volume 
+#cols_req.extend( [ 2, 3, 4, 5 ] )   # open, high,low,close
+
+
+# Extract required columns
+# this is where extracted fields will go
+extracted_field = []
+    
+# Crawl through input file line-by-line
+with open( filename_input ) as csvfile:
+    
+    # open output file for writing
+    #with open( filename_output, 'w' ) as data_out:
+        #out_writer = csv.writer( data_out, delimiter=',' )
+
+
+    # Header
+    # initialize data loader
+    csvread = csv.reader( csvfile, delimiter=',' )
+
+    # read past input header
+    junk = csvread.next()
+        
+    # write output header
+    header = "daily_stuff"
+    #out_writer.writerow( [ header ] )    # TEMPORARILY DISABLED!!!!
+
+
+    # Data
+    # read whole input array(s) in
+    ohlc = []
+    for column_tuple in csvread:
+
+        row_out = []
+        #print column_tuple
+        for col_num in cols_req:
+            val = column_tuple[ col_num ]
+            #print type(val)
+            val2 = float( val )
+            row_out.extend( [ val2 ] )
+                
+        ohlc.append ( row_out )
+
+            
+            
+    # create SMA
+    sma_timeperiod = 25
+    ohlc_np = np.array( ohlc, dtype=float )
+    print( 'closes: ' )
+    p_st = 49
+    p_en = 51
+    print( ohlc[ p_st : p_en ] )
+    print( ohlc_np[ p_st : p_en, 3 ] )
+    # output = SMA(inputs, timeperiod=25, price='open')
+    sma     = talib.SMA( ohlc_np[ :, 1 ], timeperiod = sma_timeperiod )
+    print( sma[ p_st:p_en ] )
+
+    # create SMA 
+    sma_2   = talib.SMA( ohlc_np[ :, 0 ], timeperiod = sma_timeperiod )
+    print( sma[ p_st:p_en ] )
+
+    # create volume deviation
+    vol_sma_timeperiod = sma_timeperiod
+    vol_np = np.array( ohlc, dtype=float )
+    vol_sma = talib.SMA( ohlc_np[ :, 4], timeperiod = vol_sma_timeperiod )
+    vol_diff1 = ohlc_np[ :, 4] - vol_sma
+    vol_dev1  = []
+    for idx in range( len( ohlc ) ):
+        vol_dev = 100 * ( vol_diff1[ idx ] / vol_sma[ idx ] )
+        vol_dev1.append( vol_dev )
+            
+            
+        
+    # create question vectors from input array(s)
+    limit_end = len( ohlc ) - 2  # stop two days early bc predicting 2 days in future
+    limit_start = sma_timeperiod
+    print( 'banana1' )
+    for idx in range( limit_start, limit_end ):
+
+        row_temp = []
+        row_temp[ 0:3 ] =   ohlc[     idx ][ 0 : 4 ] # ohlc
+        row_temp[ 4:7 ] =   ohlc[ 1 + idx ][ 0 : 4 ] # ohlc_tmw
+        row_temp.append(    ohlc[ 2 + idx ][ 0 ] )   # o_uber_tmw
+        row_temp.append(    ohlc[ 2 + idx ][ 4 ] )   # volume
+        row_temp.append( vol_sma[ 2 + idx ] )        # volume SMA
+        row_temp.append( vol_diff1[ 2 + idx ] )       # volume diff from SMA
+        row_temp.append( vol_dev1[ 2 + idx ] )       # volume deviation
+        #row_temp.append(   sma[ 2 + idx ] )        # SMA
+        #row_temp.append( sma_2[ 2 + idx ] )        # SMA
+        #print( idx, ohlc[ idx ] )
+        print( idx, row_temp )
+        extracted_field.append ( row_temp )
+        #print( idx, extracted_field )
+        
+    print( 'banana2' )
+
+    # at this point, extracted_field is the python list
+    # and indicator_array is the numpy array
+
+    # move from python lists to 2d numpy array
+    print( type( extracted_field ) )
+    print( len( extracted_field ) )
+    print( type( extracted_field[ 0 ] ) )
+    print( len(  extracted_field[ 0 ] ) )
+    print( type( extracted_field[ 0 ][ 0 ] ) )
+    print(       extracted_field[ 0 ][ 0 ] )
+
+    indicator_array = np.array( extracted_field, dtype=float )
+    print( type( indicator_array ) )
+    print(  len( indicator_array ) )
+    print( indicator_array.shape )
+    print( indicator_array )
+
+    print( 'quitting' )
+    exit()

@@ -1,0 +1,77 @@
+#!/usr/bin/python
+
+# get last 2-3 days of OHLCV
+# won't be in main database, cuz it only gets updated monthly or so
+
+
+from __future__ import print_function
+
+import urllib2
+import argparse
+import os
+import sys
+import json
+from pprint import pprint
+
+import alphadvan as shr  # create URL requests for stock intraday given params
+
+parser = argparse.ArgumentParser( description='write params' )
+
+# where data go
+history_dir_top = "history_recent"
+   
+
+# request parameters
+parser.add_argument( '--ticker',
+                     dest='ticker',
+                     help='ticker name, e.g. INSY' )
+
+
+def history_all_get( ticker ):
+
+   # generate the URL that requests the data
+   req = shr.stock_history_request( ticker );
+   url = req.make_url();
+
+   print( url )
+
+   # download the data	
+   response = urllib2.urlopen( url )
+   response = response.read()
+
+   #print( response )
+
+   # make history directory if it doesn't exist yet
+   if not os.path.exists( history_dir ):
+      os.makedirs( history_dir );
+
+
+   # write the data to a file
+   f = open( history_filename, 'w')
+   f.write( response )
+   f.close()
+
+
+
+   
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+    # Prepare
+    history_dir = history_dir_top + "/" + args.ticker
+    history_filename = history_dir + "/" + "history.json"
+    print( 'history_filename: ' + history_filename )
+
+    # 1. Download recent history from realtime server, save to disk
+    history_all_get( args.ticker )
+
+
+
+
+
+
+
+
+
+
+

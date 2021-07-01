@@ -1,0 +1,98 @@
+#!/usr/bin/env python
+
+import argparse
+
+import csv
+import matplotlib
+matplotlib.use( 'Agg' )
+import matplotlib.pyplot as plt
+
+
+import numpy as np
+
+parser = argparse.ArgumentParser( description='control learner' )
+
+
+parser.add_argument( '-i',
+                     dest='input_file',
+                     help='input file, e.g. ticker_data.csv' )
+
+parser.add_argument( '-o',
+                     dest='output_file',
+                     help='optional output location, e.g. data.csv')
+
+
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+
+
+# read .csv file of ticker data
+cols_req = []
+cols_req.extend( [ 4, 5, 6, 7 ] ) 
+#cols_req.extend( [ 2, 3, 4, 5, 6 ] )  # open,high,low,close,volume 
+#cols_req.extend( [ 1, 2, 3, 4, 5 ] )   # date, open, high,low,close
+
+
+features_dir = '';
+filename_input         =  args.input_file
+plot_output_file       =  args.output_file
+
+# Crawl through input file line-by-line
+with open( filename_input ) as csvfile:
+
+
+    # Header
+    # initialize data loader
+    csvread = csv.reader( csvfile, delimiter=',' )
+
+    # read past input header
+    junk = csvread.next()
+
+    ohlc = []
+    for column_tuple in csvread:
+
+        row_out = []
+        #print column_tuple
+        for col_num in cols_req:
+            val = column_tuple[ col_num ]
+            #print type(val)
+
+            if col_num != 1:   # Col #1 is date in ASCII
+                val2 = float( val )
+            else:
+                val2 = val
+            row_out.extend( [ val2 ] )
+                
+        ohlc.append ( row_out )
+
+print( ohlc[1:10] )
+
+
+
+# extract dates from a time range
+ohlc_np = np.array( ohlc )
+print ohlc_np.shape
+
+
+
+# simple test plot
+print
+
+print( ohlc_np[10:15,1:5] )
+
+
+plt.plot( ohlc_np[:,1:5] )
+fig = matplotlib.pyplot.gcf()
+fig.set_size_inches(15,9)
+
+#plt.plot( [ 1, 2, 3, 4 ] )
+plt.ylabel( 'weeee' )
+plt.savefig( plot_output_file )
+#plt.savefig( 'hope.png' )
+
+
+exit()
+
+

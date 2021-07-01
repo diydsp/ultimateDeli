@@ -1,0 +1,174 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# load model, get answer from it given question
+
+
+'''candlestick predictor
+'''
+
+from __future__ import print_function
+
+# python/environment
+import argparse
+import sys
+
+import time
+
+# math libs
+import numpy as np
+
+# ML libs
+from keras.models import Sequential
+from keras.models import load_model
+from keras.engine.training import slice_X
+from keras.layers import Activation, TimeDistributed, Dense, RepeatVector, recurrent
+from keras.optimizers import SGD
+
+# math
+from sklearn.utils import shuffle
+
+# my stuff 
+import onehot as oh  # One-Hot encoding library for classifying
+
+# used to read recent history info
+sys.path.append( 'cmds' )
+import recent_info_funcs as recent_info
+import controls_read as controls
+
+
+
+
+# Command line args/control parameters
+parser = argparse.ArgumentParser( description='control learner' )
+
+# location of recent history dir
+history_dir_top = "history_recent"
+
+parser.add_argument( '--ticker',
+                     dest='ticker',
+                     help='ticker symbol, e.g. INSY' )
+
+parser.add_argument( '--level',
+                     dest='level',
+                     help='level, e.g. m1_100' )
+
+class prettyfloat( float ):
+    def __repr__( self ):
+        return "%0.3f" % self
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+
+
+# 1. Load Model
+class_dir              = 'level_list/' + args.level + '/tick_list/' + args.ticker + '/class/'
+model_dir              = class_dir + 'models/'
+filename_model         = model_dir + 'model.h5'
+print( 'Loading Model: ' + filename_model )
+time.sleep(1)
+model = load_model( filename_model )
+
+# 2. Get the recent data
+
+# A. Prepare
+history_dir = history_dir_top + "/" + args.ticker
+history_filename = history_dir + "/" + "history.json"
+print( 'history_filename: ' + history_filename )
+
+# B. Load file back into memory
+# Note: You'd think it's still in memory from prevoius step of downloading from
+#       server, but in development that step is skipped to save time and API calls
+hist = recent_info.load_file_into_mem( history_filename )
+
+# C. parse out the info from today and last few days
+controls = controls.read( 'controls/controls.json' )  # get controls
+
+date_yester = controls[ 'date_yester' ]
+#date_yester =  '2017-07-28'
+print( 'Yesterday        : ' + date_yester + ': ', end="" )
+data_for_yest  = recent_info.parse_out_info( hist, date_yester ) 
+
+date_uber_yester = controls[ 'date_uber_yester' ]
+#date_uber_yesterday =  '2017-07-31'
+print( 'UberYesterday    : ' + date_uber_yester + ': ', end="" )
+data_for_uberyest = recent_info.parse_out_info( hist, date_uber_yester)
+
+print( data_for_yest )
+print( data_for_uberyest )
+
+
+
+# 3. Form the "questions" to ask the model
+#question_base_str = [ 12.5700, 12.8500, 12.5500, 12.6900, 12.7900, 12.8500, 12.2500, 12.3100 ]
+question_base_str = []
+question_base_str += data_for_uberyest[ 0:4 ]  # get OHLC 
+question_base_str += data_for_yest[ 0:4 ]     # get OHLC 
+question_base     = [ float(x) for x in question_base_str ]  # convert to float.
+print( 'question_base :' + str( question_base ) )
+
+
+range_percent = 10;  # how far up and down to look
+range_steps   = 40;  # how many outputs to generate from low to high range
+
+# use previous close as center of output range
+center = question_base[ 7 ]  # point to recent close
+#center = 8.02  # ATW
+#center = 0.241;  # ACFN
+#center = 67.87;  # AGM
+#center = 12.31;  # INSY
+
+range_low  = center * ( 1.0 - range_percent / 100.0 )
+range_high = center * ( 1.0 + range_percent / 100.0 )
+range_step = ( range_high - range_low ) / range_steps;
+
+# 4. Make predictions over desired range
+open_val = range_low
+while open_val < range_high:
+    ovp = prettyfloat( open_val )
+    print( str( ovp ) + ': ', end='' )
+    #print( str( open_val ) + ': ', end='' )
+
+    # Modify the question for the opening value of interest
+    question_vec = list( question_base )
+    question_vec.append( open_val )
+    qvp = map( prettyfloat, question_vec )
+    print( str( qvp ), end='' )
+    #print( str( question_vec ), end='' )
+    mod_pred = model.predict( np.array( [ question_vec ] ) )
+    mpp = map( prettyfloat, mod_pred[0] )
+    print( mpp )
+    #print( model.predict( np.array( [ question_vec ] ) ) )
+
+    #question_vec = [ 12.5700, 12.8500, 12.5500, 12.6900, 12.7900, 12.8500, 12.2500, 12.3100, open_val ]
+    #print( model.predict( np.array( [ question_vec ] ) ) )
+
+    #print( model.predict( np.array( [ [ 12.5700, 12.8500, 12.5500, 12.6900, 12.7900, 12.8500, 12.2500, 12.3100, open_val ] ] ) ) )
+
+    # ATW
+    #print( model.predict( np.array( [ [ 7.9900, 8.4800, 7.9000, 8.3800, 8.4500, 8.5500, 7.7650, 8.0200, open_val ] ] ) ) )
+
+    # AGM
+    #print( model.predict( np.array( [ [ 67.2500, 69.2000, 66.9900, 68.4600, 68.5300, 68.5300, 67.5500, 67.8700, open_val ] ] ) ) )
+
+    # INSY
+    # print( model.predict( np.array( [ [ 12.5700, 12.8500, 12.5500, 12.6900, 12.7900, 12.8500, 12.2500, 12.3100, open_val ] ] ) ) )
+
+    # ACFN
+    #print( model.predict( np.array( [ [ 0.2300, 0.2400, 0.1800, 0.2300, 0.2380, 0.2500, 0.2280, 0.2410, open_val ] ] ) ) )
+
+
+    open_val += range_step
+    
+
+#def preview_visualize():
+#    preds  = model.predict( rowX, verbose = 0 )
+#    pred_class = oh.onehot2int( preds )
+#    #oh_out    = oh.int2onehot( pred_class, output_dimension )
+#    #print( 'pred_class = ', pred_class, '(', oh_out, ')' )
+#    preds = model.predict_classes(rowX, verbose=0)
+#    #pred_probas = model.predict_proba( rowX, verbose = 0 )
+    
+
+

@@ -1,0 +1,79 @@
+#!/usr/bin/python
+
+
+from __future__ import print_function
+
+# summarize files in data
+
+
+
+from os import listdir
+from os.path import isfile, join
+
+import csv
+
+from operator import itemgetter
+
+import argparse
+
+
+parser = argparse.ArgumentParser( description='control learner' )
+
+parser.add_argument( '--month',
+                     dest='month',
+                     help='month number, e.g. 0=January, 11=December' )
+
+parser.add_argument( '-o',
+                     dest='output_file',
+                     help='output file, e.g. sorted.csv' )
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+    mypath = 'data'
+    file_list = [ f for f in listdir( mypath ) if isfile( join( mypath, f ) ) ]
+
+    #print( file_list )
+
+    major_list = []
+
+    for file in file_list:
+
+        in_name = mypath + '/' + file
+        #print( in_name )
+        with open( in_name ) as file_in:
+
+            csvread = csv.reader( file_in, delimiter=',' )
+
+            rows = []
+            for row in csvread:
+                #print(row)
+                rows.append( row )
+
+            tmp_row = []
+            tmp_row.extend( [file] )
+            tmp_row.extend( rows[ int( args.month ) ] )
+
+            #print( tmp_row )
+        
+        major_list.append( tmp_row )
+
+
+    # final output
+    #print( major_list )
+    sorted_major = sorted( major_list, key=itemgetter(1) )
+
+    for idx in range( len( sorted_major ) ):
+        print( sorted_major[ idx ] )
+
+        #print( sorted_major )
+
+    with open( args.output_file, 'w' ) as out_file:
+        for idx in range( len( sorted_major ) ):
+            for val in sorted_major[ idx ]:
+                out_file.write( val + ', ' )
+            out_file.write( '\n' )
+            
+
+            
+

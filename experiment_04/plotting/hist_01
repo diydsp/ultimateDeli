@@ -1,0 +1,109 @@
+#!/usr/bin/env python
+
+import csv
+import matplotlib
+matplotlib.use( 'Agg' )
+import matplotlib.pyplot as plt
+import matplotlib.mlab as mlab
+
+#from matplotlib.dates import DateFormatter, WeekdayLocator, DayLocator, MONDAY
+#from matplotlib.finance import candlestick_ohlc
+
+import datetime as dt
+
+import numpy as np
+
+cols_req = []
+#cols_req.extend( [ 2, 3, 4, 5, 6 ] )  # open,high,low,close,volume 
+cols_req.extend( [ 1, 2, 3, 4, 5 ] )   # date, open, high,low,close
+
+features_dir = '';
+filename_input         =  features_dir + 'ticker_data.csv'
+
+# Crawl through input file line-by-line
+with open( filename_input ) as csvfile:
+
+
+
+    # Header
+    # initialize data loader
+    csvread = csv.reader( csvfile, delimiter=',' )
+
+    # read past input header
+    junk = csvread.next()
+
+
+    ohlc = []
+    for column_tuple in csvread:
+
+        row_out = []
+        #print column_tuple
+        for col_num in cols_req:
+            val = column_tuple[ col_num ]
+            #print type(val)
+
+            if col_num != 1:   # Col #1 is date in ASCII
+                val2 = float( val )
+            else:
+                val2 = val
+            row_out.extend( [ val2 ] )
+                
+        ohlc.append ( row_out )
+
+print( ohlc[1:10] )
+
+
+
+# extract dates from a time range
+ohlc_np = np.array( ohlc )
+print ohlc_np.shape
+
+date_start = dt.datetime( 2010,1,1 ).date()
+date_end   = dt.datetime( 2018,3,4 ).date()
+
+plot_arr = []
+for row_num in range( ohlc_np.shape[0] ):
+    
+    date_row = dt.datetime.strptime( ohlc[ row_num ][ 0 ], '%Y-%m-%d' ).date()
+    #print( date_row )
+    #print( ohlc[ row_num], date_row.day )
+    #print( row_num, ohlc[ row_num ] )
+
+    if date_row >= date_start and date_row <= date_end:
+        print( date_row )
+        t_open  = ohlc[ row_num ][ 1 ]
+        t_high  = ohlc[ row_num ][ 2 ]
+        t_low   = ohlc[ row_num ][ 3 ]
+        t_close = ohlc[ row_num ][ 4 ]
+        ratio  = t_high / t_open
+        #ratio  = t_close / t_open
+        #ratio  = t_high / t_low
+        plot_arr.append( ratio )
+        
+
+
+
+#mu, sigma = 100, 15
+#x = mu + sigma*np.random.randn( 10000 )
+
+# the histogram of the data
+#n, bins, patches = plt.hist( x, 50, normed=1, facecolor='green', alpha=0.75 )
+
+# add a 'best fit' line
+#y_vals = mlab.normpdf( bins, mu, sigma)
+
+#l = plt.plot(bins, y_vals, 'r--', linewidth=1)
+plt.figure(figsize=(15,10))
+l = plt.plot( plot_arr, 'r.-', linewidth=1)
+
+plt.xlabel('hist')
+plt.ylabel('Probability')
+plt.title(r'$\mathrm{Histogram\ of\ IQ:}\ \mu=100,\ \sigma=15$')
+#plt.axis([40, 160, 0, 0.03])
+plt.grid(True)
+
+plt.show()
+
+plt.savefig( 'hist.png' )
+
+

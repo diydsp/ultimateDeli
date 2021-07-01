@@ -1,0 +1,68 @@
+
+
+2016_12_04
+
+training on high_tmw / low_rmw:
+
+AIT bad
+DXPE: good
+FAST sticks
+GWW good
+HWCC bad
+MSM good
+NL bad
+PKOH good
+TITN good
+WAIR bad
+WCC good
+AEGN bad
+AGX bad
+DY good
+FLR bad
+GLDD bad
+GVA bad
+LAYN bad
+MTZ good
+ORN bad
+PRIM bad
+STRL good
+TPC bad
+
+
+DXPE good
+GWW good
+MSM good
+PKOH good
+TITN good
+WCC good
+DY good
+MTZ good
+STRL good
+
+AIT bad
+FAST bad
+HWCC bad
+NL bad
+WAIR bad
+AEGN bad
+AGX bad
+FLR bad
+GLDD bad
+GVA bad
+LAYN bad
+ORN bad
+PRIM bad
+TPC bad
+
+
+training on close_tmw / open_tmw
+ticker, high_tmw / low_tmw, close_tmw / open_tmw
+DXPE, good, good
+PKOH good, good
+STRL good, good
+TITN good, slow
+MTZ, good, slow
+GWW, good, stick
+MSM, good, stick
+WCC good, stick
+DY, good, stick

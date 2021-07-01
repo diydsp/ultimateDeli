@@ -1,0 +1,43 @@
+#!/usr/bin/python
+
+import datetime
+from datetime import datetime
+
+import argparse
+import os
+import sys
+
+
+
+def dir_add( dir_name ):
+    print( 'going to add dir: ', dir_name )    
+
+    if os.path.exists( dir_name ):
+        print "already found: " + dir_name
+        sys.exit( 1 )
+    else:
+        os.makedirs( dir_name, 0755 )
+
+
+
+
+parser = argparse.ArgumentParser( description='add a ticker' )
+
+parser.add_argument( '--ticker',
+                     dest='ticker',
+                     help='ticker name, e.g. INSY' )
+
+
+if __name__ == '__main__':
+
+    args = parser.parse_args()
+
+    date_part = datetime.now().isoformat()
+
+    path = "tick_list" + "/" + args.ticker + "/" + date_part
+
+    print( "dir path will be ", path )
+
+    # actually make the dir
+    dir_add( path )
+

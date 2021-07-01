@@ -1,0 +1,3 @@
+Loading Model: level_list/m1_100/tick_list/ACFN/class/models/model.h5
+history_filename: history_recent/ACFN/history.json
+UberYesterday: 2017-08-01: 

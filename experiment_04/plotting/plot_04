@@ -1,0 +1,146 @@
+#!/usr/bin/env python
+
+import argparse
+
+import csv
+import matplotlib
+matplotlib.use( 'Agg' )
+import matplotlib.pyplot as plt
+
+from matplotlib.dates import DateFormatter, WeekdayLocator,\
+    DayLocator, MONDAY
+from matplotlib.finance import candlestick_ohlc
+
+import datetime as dt
+
+import numpy as np
+
+parser = argparse.ArgumentParser( description='control learner' )
+
+
+parser.add_argument( '-i',
+                     dest='input_file',
+                     help='input file, e.g. ticker_data.csv' )
+
+parser.add_argument( '-o',
+                     dest='output_file',
+                     help='optional output location, e.g. data.csv')
+
+
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+    #print( 'Using ratio_select ', args.ratio_select )
+    #print( 'Using ticker', args.ticker ) 
+
+
+# read .csv file of ticker data
+cols_req = []
+#cols_req.extend( [ 2, 3, 4, 5, 6 ] )  # open,high,low,close,volume 
+cols_req.extend( [ 1, 2, 3, 4, 5 ] )   # date, open, high,low,close
+
+features_dir = '';
+filename_input         =  args.input_file
+plot_output_file       =  args.output_file
+
+# Crawl through input file line-by-line
+with open( filename_input ) as csvfile:
+
+
+    # Header
+    # initialize data loader
+    csvread = csv.reader( csvfile, delimiter=',' )
+
+    # read past input header
+    junk = csvread.next()
+
+    ohlc = []
+    for column_tuple in csvread:
+
+        row_out = []
+        #print column_tuple
+        for col_num in cols_req:
+            val = column_tuple[ col_num ]
+            #print type(val)
+
+            if col_num != 1:   # Col #1 is date in ASCII
+                val2 = float( val )
+            else:
+                val2 = val
+            row_out.extend( [ val2 ] )
+                
+        ohlc.append ( row_out )
+
+print( ohlc[1:10] )
+
+
+
+# extract dates from a time range
+ohlc_np = np.array( ohlc )
+print ohlc_np.shape
+
+date_start = dt.datetime( 2005,1,1 ).date()
+date_end   = dt.datetime( 2005,3,4 ).date()
+
+for row_num in range( ohlc_np.shape[0] ):
+    
+    date_row = dt.datetime.strptime( ohlc[ row_num ][ 0 ], '%Y-%m-%d' ).date()
+    #print( date_row )
+    #print( ohlc[ row_num], date_row.day )
+    #print( row_num, ohlc[ row_num ] )
+
+    if date_row >= date_start and date_row <= date_end:
+        print( date_row )
+
+    
+dt.datetime.strptime( '1989-06-01', '%Y-%m-%d' ).date().day
+dt.datetime.strptime( '1989-06-01', '%Y-%m-%d' ).date().month
+dt.datetime.strptime( '1989-06-01', '%Y-%m-%d' ).date().year
+dt.datetime.strptime( '1989-06-01', '%Y-%m-%d' ).date().year
+
+
+# simple test plot
+plt.plot( [ 1, 2, 3, 4 ] )
+plt.ylabel( 'weeee' )
+plt.savefig( plot_output_file )
+#plt.savefig( 'hope.png' )
+
+
+exit()
+
+
+
+
+# (Year, month, day) tuples suffice as args for quotes_historical_yahoo
+date1 = (2004, 2, 1)
+date2 = (2004, 4, 12)
+
+
+
+
+mondays = WeekdayLocator(MONDAY)        # major ticks on the mondays
+alldays = DayLocator()              # minor ticks on the days
+weekFormatter = DateFormatter('%b %d')  # e.g., Jan 12
+dayFormatter = DateFormatter('%d')      # e.g., 12
+
+quotes = quotes_historical_yahoo_ohlc('INTC', date1, date2)
+if len(quotes) == 0:
+    raise SystemExit
+
+fig, ax = plt.subplots()
+fig.subplots_adjust(bottom=0.2)
+ax.xaxis.set_major_locator(mondays)
+ax.xaxis.set_minor_locator(alldays)
+ax.xaxis.set_major_formatter(weekFormatter)
+#ax.xaxis.set_minor_formatter(dayFormatter)
+
+#plot_day_summary(ax, quotes, ticksize=3)
+candlestick_ohlc(ax, quotes, width=0.6)
+
+ax.xaxis_date()
+ax.autoscale_view()
+plt.setp(plt.gca().get_xticklabels(), rotation=45, horizontalalignment='right')
+
+plt.show()
+

@@ -1,0 +1,47 @@
+cmds/controls_write --req_date 2017-08-16 --date_yester 2017-08-15 --date_uber_yester 2017-08-14
+
+cmds/daily/at_premarket_open --level m1_100 --ticker_list level_list/m1_100/level_specific/controls/trading.csv
+
+more predictions/2017-08-16/ATW.txt
+
+
+
+cmds/level_add --level m1_100
+
+cmds/params_write --level m1_100 --model class --extra_layers 3 --dims_internal 5 --ratio_select 17
+
+cmds/params_read --level m1_100 --model class
+
+cmds/ticker_add  --level m1_100 --ticker INSY
+
+../tools/data_ticker_extract --level m1_100 --ticker INSY 
+
+level_list/m1_100/level_specific/feature_build --ticker INSY --level m1_100 --ratio_select 5
+
+level_list/m1_100/level_specific/fb_02 --level m1_100 --ticker HTWR --ratio_select 16
+
+level_list/m1_100/level_specific/model_create --level m1_100 --ticker HTWR
+
+level_list/m1_100/level_specific/model_train --ticker INSY --level m1_100 --iter 3
+
+more level_list/m1_100/tick_list/TRXC/class/models/results_out.txt
+
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker FOLD --iter 100
+
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --tick_list ticker_names.txt --iter 100
+
+level_list/m1_100/level_specific/answer --ticker ATW --level m1_100
+
+cmds/eval --level m1_100
+
+cmds/recent_info_dl --ticker INSY
+
+cmds/recent_info_read --ticker INSY
+
+cmds/controls_read 
+
+cmds/controls_write --req_date 2017-08-01 --date_yester 2017-07-31 --date_uber_yester 2017-07-30
+
+level_list/m1_100/level_specific/model_validate --level m1_100 --ticker APOG
+
+

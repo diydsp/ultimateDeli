@@ -1,0 +1,173 @@
+#!/usr/bin/env python
+
+# compute seasonality of a ticker
+from __future__ import print_function
+
+import argparse
+
+import csv
+import datetime as dt
+import numpy as np
+
+
+
+parser = argparse.ArgumentParser( description='control learner' )
+
+parser.add_argument( '-i',
+                     dest='input_file',
+                     help='input file, e.g. ticker_data.csv' )
+
+parser.add_argument( '-o',
+                     dest='output_file',
+                     help='output file, e.g. wang.csv' )
+
+parser.add_argument( '--start',
+                     dest='date_start',
+                     help='first date, e.g. 2015-01-01' )
+
+parser.add_argument( '--end',
+                     dest='date_end',
+                     help='last date, e.g. 2015-12-31' )
+
+# Crawl through input file line-by-line
+def load_data( filename_input ):    
+    rows = []
+    with open( filename_input ) as csvfile:
+
+        # initialize data loader
+        csvread = csv.reader( csvfile, delimiter=',' )
+
+        # read past input header
+        header_input = csvread.next()
+        print( header_input )
+
+        for row in csvread:
+            rows.append( row )
+
+        return rows
+
+def get_monthly_ratio( rows, date_start, date_end ):    
+
+    closes = []
+    for row in rows:
+        date_row = dt.datetime.strptime( row[ 1 ], '%Y-%m-%d' ).date()
+        #print( date_row )
+        #print( ohlc[ row_num], date_row.day )
+        #print( row_num, ohlc[ row_num ] )
+        
+        if date_row >= ( date_start - dt.timedelta( 3 ) ) and (date_row <= date_end + dt.timedelta( 3 ) ):
+            diff = date_row - date_start
+            close = row[ 5 ]
+            closes.append( close )
+            #print( diff, close, row )
+            #print( row[ 1 ], close )
+            #print( date_row )
+            
+
+    # now scan through first few days and last few days and see all ratios
+    num_days = len( closes )
+    if num_days > 5:
+        ratios = []
+        for beg in range( 3 ):
+            for end in range( 3 ):
+
+                st = float( closes[ beg ] )
+                en = float( closes[ num_days - end - 1 ] )
+
+                ratio = en / st
+                ratios.append( ratio )
+                #print( beg, end, st, en, ratio )
+
+        the_mean = sum( ratios ) / float( len( ratios ) )
+        print( year, month, the_mean )
+        return the_mean
+    else:
+        return None
+
+
+    
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+
+    # read .csv file of ticker data
+
+    filename_input         = args.input_file
+
+    #date_start = dt.datetime( 2014,1,1 ).date()
+    #date_end   = dt.datetime( 2014,12,31 ).date()
+    #date_start = dt.datetime.strptime( args.date_start, '%Y-%m-%d' ).date()
+    #date_end   = dt.datetime.strptime( args.date_end,   '%Y-%m-%d' ).date()
+
+    rows = load_data( filename_input )
+
+    # one for each month
+    ratios = [ [] for _ in range(12) ]
+    for year in range( 2010,2017 ):
+        for month in range( 1, 13 ):
+            date_beg = str( year ) + '-' + str( month ) + '-' + '1'
+            date_en  = str( year ) + '-' + str( month ) + '-' + '28'
+            
+            date_start = dt.datetime.strptime( date_beg, '%Y-%m-%d' ).date()
+            date_end   = dt.datetime.strptime( date_en,  '%Y-%m-%d' ).date()
+
+            ratio = get_monthly_ratio( rows, date_start, date_end )
+            if ratio:
+                ratios[ month - 1 ].append( ratio )
+
+    # summarize
+    #for month in range( 0, 12 ):
+        #print [ "%0.3f" % i for i in ratios[ month] ]
+        #print( ratios[ month ] )
+
+    avgs = []
+    stddevs = []
+    for month in range( 0, 12 ):
+        avg = sum( ratios[ month ] ) / len( ratios[ month ] )
+        avgs.append( avg )
+        
+
+        # compute std dev.
+        acc = 0;
+        for idx in range( len( ratios[ month] ) ):
+            val = ratios[ month ][ idx ] - avg;
+            acc = acc + val * val
+        stddev = acc / len( ratios[ month ] )
+        stddevs.append( stddev )
+
+    # print it to screen
+    for month in range( 0, 12 ):        
+        row = []
+        row.append( avgs[ month ] )
+        row.append( stddevs[ month ] )
+        for val in ratios[ month ]:
+            row.append( val )
+
+        for val in row:
+            print( "%0.3f," % val, end='' )
+        print()
+        
+
+    # save it to file
+    with open( args.output_file, 'w' ) as data_out:
+        for month in range( 0, 12 ):        
+            row = []
+            row.append( avgs[ month ] )
+            row.append( stddevs[ month ] )
+            for val in ratios[ month ]:
+                row.append( val )
+
+            for val in row:
+                data_out.write( "%0.3f, " % val )
+            data_out.write( "\n" )
+        
+        #print( [ "%0.4f," %i for i in row ])
+        #print( month + 1, avg, acc )
+        #print [ "%0.3f" % i for i in ratios[ month ] ]
+
+        
+                
+    
+
+
+        

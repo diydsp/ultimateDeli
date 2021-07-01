@@ -1,0 +1,213 @@
+#!/usr/bin/python
+
+# read a ticker's OHLC
+# calc indicators
+# compare prices with near future (e.g. 5-30 days)
+# label by price ratio in near future
+# e.g. 5 days,
+# 0 means < -5%
+# 1 means -5% <-> 5%
+# 2 means > 5%
+# generate question and answer file
+# create neural network, save it
+# load, train, save neural network
+
+
+
+import argparse
+from subprocess import call
+import sys
+
+from pprint import pprint
+
+sys.path.append( 'cmds' )
+import params_funcs as params
+
+# add a ticker, do initial training
+# cmds/ticker_add --level m1_100 --ticker THLD
+# ../tools/data_ticker_extract --ticker THLD --level m1_100
+# level_list/m1_100/level_specific/feature_build --ticker THLD --level m1_100 
+# level_list/m1_100/level_specific/model_create  --ticker THLD --level m1_100 
+# level_list/m1_100/level_specific/model_train   --ticker THLD --level m1_100 --iter 100
+
+
+live_mode = 1
+
+parser = argparse.ArgumentParser( description='control trainer' )
+
+
+parser.add_argument( '--ticker_list',
+                     dest='ticker_list',
+                     help='filename of tickernames, e.g. ticker_list.txt' )
+
+parser.add_argument( '--ticker',
+                     dest='ticker',
+                     help='ticker name, e.g. INSY' )
+
+parser.add_argument( '--level',
+                     dest='level_name',
+                     help='level, e.g. m1_100' )
+
+parser.add_argument( '--iter',
+                     dest='num_iterations',
+                     help='number of iterations to run' )
+
+#parser.add_argument( '--ratio_select',
+#                     dest='ratio_select',
+#                     help='select which ratio to train on, e.g. 1 through 16' )
+
+#parser.add_argument( '--dims_internal',
+#                     dest='internal_dims',
+#                     help='internal dimensions of network' )
+
+#parser.add_argument( '--extra_layers',
+#                     dest='extra_layers',
+#                     help='extra layers of network, 1 layer is default' )
+
+
+def do_introduce( ticker_name ):
+
+    # add ticker
+    # cmds/ticker_add --level m1_100 --ticker THLD
+    prg_add          = 'cmds/ticker_add'
+    arg_ticker       = '--ticker'
+    arg_level        = '--level'
+    level_name       = args.level_name
+
+    cmd = [ prg_add, arg_ticker, ticker_name, arg_level, level_name ]
+    print
+    print cmd
+    if live_mode == 1:
+        ret_val = call( cmd )
+        print( 'ret_val from ticker_add is: ' + str( ret_val ) )
+        if ret_val != 0:
+            print( 'introduce exiting after ticker_add returned -dir already exists-' )
+            return 1
+
+        
+    # get historical data from database
+    # ../tools/data_ticker_extract --ticker THLD --level m1_100
+    prg_data_extract = '../tools/data_ticker_extract'
+    arg_ticker       = '--ticker'
+    ticker_name      = ticker_name
+    arg_level        = '--level'
+    level_name       = args.level_name
+
+    cmd = [ prg_data_extract, arg_ticker, ticker_name, arg_level, level_name ]
+    print
+    print cmd
+    if live_mode == 1:
+        call( cmd )
+
+        
+    # read params for this model
+    model_name = 'class';
+    file_in_name = params.filename_get( args.level_name, model_name )
+    print( 'reading params from: ' + file_in_name )
+
+    param_vals = params.read( file_in_name )
+    # fields
+    #print param_vals[ 'dims_internal' ]
+    pprint( param_vals )
+
+    print( 'Using dims_internal: ', param_vals[ 'dims_internal' ] )
+    print( 'Using extra_layers:  ', param_vals[ 'extra_layers'  ] )
+        
+
+
+    # calculate features for this level
+    # level_list/m1_100/level_specific/feature_build --ticker THLD --level m1_100 --ratio_select 16
+    prg_feat_calc    = 'level_list/m1_100/level_specific/feature_build'
+    arg_ticker       = '--ticker'
+    ticker_name      = ticker_name
+    arg_level        = '--level'
+    level_name       = args.level_name
+
+    rat_sel_string   = '--ratio_select'
+    rat_sel          = param_vals[ 'ratio_select' ]
+    #rat_sel          = args.ratio_select
+
+    cmd = [ prg_feat_calc, arg_ticker, ticker_name, arg_level, level_name, rat_sel_string, rat_sel ]
+    print
+    print cmd
+    if live_mode == 1:
+        call( cmd )
+    
+
+    # Create Model 
+    # level_list/m1_100/level_specific/model_create --level m1_100 --ticker THLD 
+    prg_model_create = 'level_list/m1_100/level_specific/model_create'
+    arg_level        = '--level'
+    level_name       = args.level_name
+    arg_ticker       = '--ticker'
+    ticker_name      = ticker_name
+
+    #dims_int_str         = '--dims_internal'
+    #dims_int_num         = param_vals[ 'dims_internal' ]
+    #dims_int_num         = args.internal_dims
+    #layers_arg_str       = '--extra_layers'
+    #layers_int_num       = param_vals[ 'extra_layers' ]
+    #layers_int_num       = args.extra_layers
+
+    cmd = [ prg_model_create, arg_level, level_name, arg_ticker, ticker_name ]
+    print
+    print cmd
+    if live_mode == 1:
+        call( cmd )
+
+
+    # perform training
+    # level_list/m1_100/level_specific/model_train --ticker THLD --level m1_100 --iter 100
+    prg_model_train  = 'level_list/m1_100/level_specific/model_train'
+    arg_ticker       = '--ticker'
+    ticker_name      = ticker_name
+    arg_level        = '--level'
+    level_name       = args.level_name
+
+    iters_str            = '--iter'
+    iters_num            = args.num_iterations
+
+    cmd = [ prg_model_train, arg_ticker, ticker_name, arg_level, level_name, iters_str, iters_num ]
+    print
+    print cmd
+    if live_mode == 1:
+        call( cmd )
+
+    print( 'introduced: ' + ticker_name )
+    print
+
+        
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+    # Introduce either 1) the given ticker name or 2) the list of ticker names in the file
+    if args.ticker_list is not None:
+        print "using ticker_list:" + args.ticker_list
+        with open( args.ticker_list ) as ticker_list_in:
+            for ticker_name in ticker_list_in:
+                do_introduce( ticker_name.strip() )
+        
+    else:
+        ticker_name = args.ticker
+        print( 'Using ticker', ticker_name ) 
+        do_introduce( ticker_name )
+        
+    
+    # store results for judgement
+    #cmd_cp                = 'cp'
+    #results_in_filename   = 'tmp/results_out.txt'
+    #results_out_filename  = 'results/results_'
+    #results_out_filename += 'ticker_'   + str( ticker         ) + '_'
+    #results_out_filename += 'ratsel_'   + str( ratio_select   ) + '_'        
+    #results_out_filename += 'iter_'     + str( iters_num      ) + '_'
+    #results_out_filename += 'dimsint_'  + str( dims_int_num   ) + '_'
+    #results_out_filename += 'extlayer_' + str( layers_int_num )
+    #results_out_filename += '.txt' 
+    #cmd = [ cmd_cp, results_in_filename, results_out_filename ]
+    #print
+    #print cmd
+    #if live_mode == 1:
+    #    call( cmd )
+
+            
+        

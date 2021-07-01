@@ -1,0 +1,181 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# create model, don't train it, save it empty
+
+
+'''candlestick predictor
+'''
+
+from __future__ import print_function
+
+# python/environment
+import argparse
+import sys
+
+# math libs
+import numpy as np
+
+from keras.models import Sequential
+from keras.engine.training import slice_X
+from keras.layers import Activation, TimeDistributed, Dense, RepeatVector, recurrent
+from keras.optimizers import SGD
+
+from sklearn.utils import shuffle
+
+from pprint import pprint
+
+# my stuff
+import onehot as oh
+
+sys.path.append( 'cmds' )
+import params_funcs as params
+
+results_dir = 'tmp'
+
+# command line args/control parameters
+parser = argparse.ArgumentParser( description='control learner' )
+
+parser.add_argument( '--ticker',
+                     dest='ticker',
+                     help='ticker symbol, e.g. INSY' )
+
+parser.add_argument( '--level',
+                     dest='level_name',
+                     help='level, e.g. m1_100' )
+
+#parser.add_argument( '--dims_internal',
+#                     dest='internal_dims',
+#                     help='internal dimensions of network' )
+
+#parser.add_argument( '--extra_layers',
+#                     dest='extra_layers',
+#                     help='extra layers of network, 1 layer is default' )
+
+visualize_validation = 0
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+    # read params for this model
+    model_name = 'class';
+    file_in_name = params.filename_get( args.level_name, model_name )
+    print( 'reading params from: ' + file_in_name )
+
+    param_vals = params.read( file_in_name )
+    # fields
+    #print param_vals[ 'dims_internal' ]
+    pprint( param_vals )
+
+    print( 'Using dims_internal: ', param_vals[ 'dims_internal' ] )
+    print( 'Using extra_layers:  ', param_vals[ 'extra_layers'  ] )
+
+
+data_in_dir = 'data_imported'
+
+
+# Parameters for the model and dataset
+epoch_size     = 200
+internal_dims  = int( param_vals[ 'dims_internal' ] )
+extra_layers   = int( param_vals[ 'extra_layers'  ] )
+#internal_dims  = int( args.internal_dims )  # typical 4 through 20
+#extra_layers   = int( args.extra_layers  )  # typical 2 through 5
+BATCH_SIZE     = 500
+visualization_length = 100;
+
+
+# load data
+print('loading data...')
+class_dir              = 'level_list/' + args.level_name + '/tick_list/' + args.ticker + '/class/'
+features_dir           = class_dir + 'features/'
+model_dir              = class_dir + 'models/'
+filename_question      = features_dir + 'question.npy'
+filename_answer_onehot = features_dir + 'answer_onehot.npy'
+filename_results       = model_dir + 'results_out.txt'
+filename_model         = model_dir + 'model.h5'
+
+X = np.load( filename_question )
+y = np.load( filename_answer_onehot )
+
+print("shapes")
+print(X.shape)
+print(y.shape)
+
+# must shuffle because partitioning for validation based on
+# final N values only gets most recent values in time
+X, y = shuffle( X, y, random_state = 0 )
+
+
+# Explicitly set apart 10% for validation data that we never train over
+split_at = len(X) - len(X) / 10
+(X_train, X_val) = (slice_X(X, 0, split_at), slice_X(X, split_at))
+(y_train, y_val) = (y[:split_at], y[split_at:])
+print("X_train.shape")
+print(X_train.shape)
+print("y_train.shape")
+print(y_train.shape)
+print("X_train.shape[1]")
+print(X_train.shape[1])
+input_dimension = X_train.shape[1]
+output_dimension = y_train.shape[1]   
+#output_dimension = 1   # used with single-dimensional answer array
+
+
+print('Build model...')
+model = Sequential()
+
+# initial layer
+model.add( Dense( output_dim=internal_dims, input_dim=input_dimension ) )
+model.add(Activation('softmax'))
+#model.add( Activation('sigmoid'))
+#model.add( Activation('relu'))
+#model.add( Activation('tanh'))
+
+# intermediate layers
+for layers_count in range( extra_layers ):
+    model.add( Dense( output_dim=internal_dims) )
+    model.add( Activation('softmax'))
+
+# final layer
+model.add( Dense( output_dim=output_dimension ) )
+model.add(Activation('softmax'))
+
+# compile model
+sgd = SGD( lr = 0.1,
+           decay=1e-6,
+           momentum=0.9,
+           nesterov=True
+)
+
+model.compile(
+    loss='mse',
+    #loss='categorical_crossentropy',
+    #loss='sparse_categorical_crossentropy',
+
+    optimizer='adam',   # mostly used
+
+    #optimizer='adadelta',
+    #optimizer='rmsprop',
+    #optimizer=sgd,
+    #metrics=['accuracy']
+)
+
+
+# save progress
+model.save( filename_model )
+
+
+    
+    
+        
+
+
+            
+
+
+
+
+
+
+
+

@@ -1,0 +1,94 @@
+#!/usr/bin/python
+
+import argparse
+from subprocess import call
+import sys
+
+from pprint import pprint
+
+sys.path.append( 'cmds' )
+
+live_mode = 1
+
+parser = argparse.ArgumentParser( description='control trainer' )
+
+
+parser.add_argument( '--ticker_list',
+                     dest='ticker_list',
+                     help='filename of tickernames, e.g. ticker_list.txt' )
+
+parser.add_argument( '--ticker',
+                     dest='ticker',
+                     help='ticker name, e.g. INSY' )
+
+def do_introduce( ticker_name ):
+
+    # get historical data from database
+    # ../tools/data_ticker_extract_02 --ticker THLD -o data.csv
+    prg_data_extract = '../tools/data_ticker_extract_02'
+    arg_ticker       = '--ticker'
+    ticker_name      = ticker_name
+    arg_output       = '-o'
+    arg_fname        = 'data.csv'
+
+    cmd = [ prg_data_extract, arg_ticker, ticker_name, arg_output, arg_fname ]
+    print
+    print cmd
+    if live_mode == 1:
+        call( cmd )
+
+        
+    # run the scanner
+    #  ./seas_02 -i data.csv --start xxx --end xxx
+    prg_scan         = './seas_02'
+    arg_input        = '-i'
+    file_inp         = 'data.csv'
+    arg_output       = '-o'
+    file_out         = 'data/' + ticker_name
+    arg_start        = '--start'
+    date_start       = 'xxx'    # cuz program generates args internally ATM
+    arg_end          = '--end'
+    date_end         = 'xxx'    # cuz program generates args internally ATM
+
+    cmd = [ prg_scan, arg_input, file_inp, arg_output, file_out, arg_start, date_start, arg_end, date_end ]
+    print
+    print cmd
+    if live_mode == 1:
+        call( cmd )
+
+
+        
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+    # Introduce either 1) the given ticker name or 2) the list of ticker names in the file
+    if args.ticker_list is not None:
+        print "using ticker_list:" + args.ticker_list
+        with open( args.ticker_list ) as ticker_list_in:
+            for ticker_name in ticker_list_in:
+                do_introduce( ticker_name.strip() )
+        
+    else:
+        ticker_name = args.ticker
+        print( 'Using ticker', ticker_name ) 
+        do_introduce( ticker_name )
+        
+    
+    # store results for judgement
+    #cmd_cp                = 'cp'
+    #results_in_filename   = 'tmp/results_out.txt'
+    #results_out_filename  = 'results/results_'
+    #results_out_filename += 'ticker_'   + str( ticker         ) + '_'
+    #results_out_filename += 'ratsel_'   + str( ratio_select   ) + '_'        
+    #results_out_filename += 'iter_'     + str( iters_num      ) + '_'
+    #results_out_filename += 'dimsint_'  + str( dims_int_num   ) + '_'
+    #results_out_filename += 'extlayer_' + str( layers_int_num )
+    #results_out_filename += '.txt' 
+    #cmd = [ cmd_cp, results_in_filename, results_out_filename ]
+    #print
+    #print cmd
+    #if live_mode == 1:
+    #    call( cmd )
+
+            
+        

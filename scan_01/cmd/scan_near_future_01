@@ -1,0 +1,359 @@
+#!/usr/bin/python
+
+# see what conditions indicate a great uptick in near future
+# try to connect conditions with up or downticks in near future
+
+
+
+import csv
+import numpy as np
+import talib
+
+import argparse
+
+
+parser = argparse.ArgumentParser( description='control learner' )
+
+parser.add_argument( '-i',
+                     dest='file_input',
+                     help='input file, e.g. tmp/data.csv' )
+
+parser.add_argument( '--seek_days',
+                     dest='seek_days',
+                     help='how many days into the future to compare, e.g. 5' )
+
+def ohlcv_read( filename_input ):
+    
+
+    # choose which columns to load based on feature_select
+    # column names are:
+    # ticker,date,open,high,low,close,volume,ex-dividend,split_ratio,adj_open,adj_high,adj_low,adj_close,adj_volume
+    cols_req = []
+    cols_req.extend( [ 2, 3, 4, 5, 6 ] )  # open,high,low,close,volume, date
+
+    # Extract required columns
+    # this is where extracted fields will go
+    extracted_field = []
+    
+    # Crawl through input file line-by-line
+    with open( filename_input ) as csvfile:
+
+        # initialize data loader
+        csvread = csv.reader( csvfile, delimiter=',' )
+
+        # read past input header
+        header_input = csvread.next()
+        
+        # read OHLCV fields
+        tmp = []
+        for column_tuple in csvread:
+            row_out = []
+            for col_num in cols_req:
+                val = column_tuple[ col_num ]
+                val2 = float( val )
+                row_out.extend( [ val2 ] )
+                
+            tmp.append ( row_out )
+
+    # convert to numpy
+    ohlcv = np.array( tmp, dtype=float )
+    return ohlcv
+
+
+def ratios_seek_calc( ohlcv, seek_days ):
+
+    tmp = []
+    for idx in range( len( ohlcv ) - seek_days ):
+        ratio = ohlcv[ idx + seek_days, 0 ] / ohlcv[ idx, 0 ]
+        vec = [ ohlcv[ idx, 0 ], ohlcv[ idx + seek_days, 0 ], ratio ]
+        #print( ", ".join("%.3f" % f for f in vec) )
+        tmp.append( vec )
+
+
+    # filler at end to keep array original length
+    for idx in range( seek_days ):
+        vec = [ -1, -1, -1 ]
+        tmp.append( vec )
+
+    unsorted = np.array( tmp, dtype=float )
+    sorted = unsorted[unsorted[:,2].argsort()]
+    #for idx in range( len( sorted ) ):
+    #    print( unsorted[ idx ] )
+
+    return unsorted
+
+
+
+
+def feature_gen():
+    # create SMA
+    sma_timeperiod = 25
+
+    print( 'closes: ' )
+    p_st = 49
+    p_en = 51
+    print( ohlcv[ p_st : p_en ] )
+    print( ohlcv[ p_st : p_en, 3 ] )
+    # output = SMA(inputs, timeperiod=25, price='open')
+    sma     = talib.SMA( ohlcv[ :, 1 ], timeperiod = sma_timeperiod )
+    print( sma[ p_st:p_en ] )
+
+    # create SMA 
+    sma_2   = talib.SMA( ohlcv[ :, 0 ], timeperiod = sma_timeperiod )
+    print( sma[ p_st:p_en ] )
+
+    # create volume deviation
+    vol_sma_timeperiod = sma_timeperiod
+    vol_np = np.array( ohlcv, dtype=float )
+    vol_sma = talib.SMA( ohlcv[ :, 4], timeperiod = vol_sma_timeperiod )
+    vol_diff1 = ohlcv[ :, 4] - vol_sma
+    vol_dev1  = []
+    for idx in range( len( ohlcv ) ):
+        vol_dev = 100 * ( vol_diff1[ idx ] / vol_sma[ idx ] )
+        vol_dev1.append( vol_dev )
+            
+            
+        
+    # create question vectors from input array(s)
+    limit_end = len( ohlcv ) - 2  # stop two days early bc predicting 2 days in future
+    limit_start = sma_timeperiod
+    print( 'banana1' )
+    for idx in range( limit_start, limit_end ):
+
+        row_temp = []
+        row_temp[ 0:3 ] =   ohlcv[     idx ][ 0 : 4 ] # ohlcv
+        row_temp[ 4:7 ] =   ohlcv[ 1 + idx ][ 0 : 4 ] # ohlcv_tmw
+        row_temp.append(    ohlcv[ 2 + idx ][ 0 ] )   # o_uber_tmw
+        row_temp.append(    ohlcv[ 2 + idx ][ 4 ] )   # volume
+        row_temp.append( vol_sma[ 2 + idx ] )        # volume SMA
+        row_temp.append( vol_diff1[ 2 + idx ] )       # volume diff from SMA
+        row_temp.append( vol_dev1[ 2 + idx ] )       # volume deviation
+        #row_temp.append(   sma[ 2 + idx ] )        # SMA
+        #row_temp.append( sma_2[ 2 + idx ] )        # SMA
+        #print( idx, ohlcv[ idx ] )
+        print( idx, row_temp )
+        extracted_field.append ( row_temp )
+        #print( idx, extracted_field )
+
+        
+
+# compute SMAs at various periods
+def compute_SMAs( ohlcv, sma_periods ):
+
+    sma = np.empty( shape=[ ohlcv.shape[ 0 ], 0 ] )
+
+    for period in sma_periods:
+        tmp = talib.SMA( ohlcv[ :, 0 ], timeperiod = period )
+        # convert to 1xN instead of 1-dimension array:
+        # https://stackoverflow.com/questions/39694318/difference-between-single-and-double-bracket-numpy-array
+        tmp = tmp.reshape( tmp.size, 1 )
+        sma = np.append( sma, tmp, 1 )
+    
+    return sma
+
+
+# compute RSIs at various periods
+def compute_RSIs( ohlcv, rsi_periods ):
+
+    rsi = np.empty( shape=[ ohlcv.shape[ 0 ], 0 ] )
+
+    for period in rsi_periods:
+        tmp = talib.RSI( ohlcv[ :, 0 ], timeperiod = period )
+        # convert to 1xN instead of 1-dimension array:
+        # https://stackoverflow.com/questions/39694318/difference-between-single-and-double-bracket-numpy-array
+        tmp = tmp.reshape( tmp.size, 1 )
+        rsi = np.append( rsi, tmp, 1 )
+    
+    return rsi
+
+
+def SMAs_scale( SMAs, dailies ):
+
+    # start with an exact copy
+    scaled = SMAs
+
+    num_smas = SMAs.shape[ 1 ]
+    #print( 'there are ' + str( num_smas ) + 'smas'  )
+    for row in range( len( ohlcv ) - seek_days ):
+        for col in range( num_smas ):
+            scaled[ row, col ] = ( SMAs[ row, col ] / dailies[ row, 0 ] ) - 1
+        
+    return scaled
+
+
+# shift 0 to 100 into range -1 to 1
+# RSIw = ( RSI - 50 ) / 50
+def RSIs_whiten( RSIs ):
+
+    # start with an exact copy
+    RSIws = RSIs
+
+    num_rsis = RSIs.shape[ 1 ]
+    #print( 'there are ' + str( num_rsis ) + 'RSIs'  )
+    for row in range( len( ohlcv ) - seek_days ):
+        for col in range( num_rsis ):
+            RSIws[ row, col ] = ( RSIs[ row, col ] - 50 ) / 50
+
+    return RSIws
+        
+
+
+# compute MFIs at various periods
+def compute_MFIs( ohlcv, mfi_periods ):
+
+    mfi = np.empty( shape=[ ohlcv.shape[ 0 ], 0 ] )
+
+    for period in mfi_periods:
+        # input are: high, low, close, volume
+        # http://svn.code.sf.net/p/ta-lib/code/trunk/ta-lib/c/src/ta_func/ta_MFI.c
+        tmp = talib.MFI( ohlcv[ :, 1 ], ohlcv[ :, 2 ], ohlcv[ :, 3 ], ohlcv[ :, 4 ],
+                         timeperiod = period )
+        #tmp = talib.MFI( ohlcv[ :, 0 ], timeperiod = period )
+        # convert to 1xN instead of 1-dimension array:
+        tmp = tmp.reshape( tmp.size, 1 )
+        mfi = np.append( mfi, tmp, 1 )
+    
+    return mfi
+
+
+
+
+# shift 0 to 100 into range -1 to 1
+# mfiw = ( mfi - 50 ) / 50
+def MFIs_whiten( mfis ):
+
+    # start with an exact copy
+    mfiws = mfis
+
+    num_rsis = mfis.shape[ 1 ]
+    #print( 'there are ' + str( num_rsis ) + 'mfis'  )
+    for row in range( len( ohlcv ) - seek_days ):
+        for col in range( num_rsis ):
+            mfiws[ row, col ] = ( mfis[ row, col ] - 50 ) / 50
+
+    return mfiws
+
+
+
+
+# compute ADs
+def compute_ADs( ohlcv ):
+
+    # Volume
+    ad = np.empty( shape=[ ohlcv.shape[ 0 ], 0 ] )
+
+    # input are: high, low, close, volume
+    # http://svn.code.sf.net/p/ta-lib/code/trunk/ta-lib/c/src/ta_func/ta_AD.c
+    tmp = talib.AD( ohlcv[ :, 1 ], ohlcv[ :, 2 ], ohlcv[ :, 3 ], ohlcv[ :, 4 ] )
+    #tmp = talib.AD( ohlcv[ :, 0 ], timeperiod = period )
+    # convert to 1xN instead of 1-dimension array:
+    tmp = tmp.reshape( tmp.size, 1 )
+    ad = np.append( ad, tmp, 1 )
+    
+    return ad
+
+# compute BBands
+def compute_BBands( ohlcv ):
+
+    # based on open
+    ad = np.empty( shape=[ ohlcv.shape[ 0 ], 0 ] )
+
+    # input is in this case: open
+    # http://svn.code.sf.net/p/ta-lib/code/trunk/ta-lib/c/src/ta_func/ta_BBANDS.c
+    tmp = talib.BBANDS( ohlcv[ :, 0 ] )
+    # convert to 3xN instead of 1-dimension array:
+    print(tmp)
+    
+    print( tmp.size )
+    
+    tmp = tmp.reshape( tmp.size, 3 )
+    bbands = np.append( ad, tmp, 3 )
+    
+    return bbands
+
+
+
+# compute MACDs
+def compute_MACDs( ohlcv ):
+
+    # start with empty
+    macd = np.empty( shape=[ ohlcv.shape[ 0 ], 0 ] )
+
+    # input: close
+    # http://svn.code.sf.net/p/ta-lib/code/trunk/ta-lib/c/src/ta_func/ta_MACD.c
+    tmp = talib.MACD( ohlcv[ :, 3 ] )
+    print( tmp )
+    print( 'macd shape: ' + tmp.size )
+    # convert to 1xN instead of 1-dimension array:
+    tmp = tmp.reshape( tmp.size, 1 )
+    macd = np.append( macd, tmp, 1 )
+    
+    return macd
+
+
+
+
+
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+    # read the data
+    filename_input         =  args.file_input
+    ohlcv = ohlcv_read( filename_input )
+
+    # compute ratios for seek time
+    seek_days = int( args.seek_days )
+    with_ratios = ratios_seek_calc( ohlcv, seek_days )
+
+
+    # compute SMAs
+    sma_periods = [ 2, 4, 8, 16, 32, 64 ]
+    SMAs = compute_SMAs( ohlcv, sma_periods )
+
+    # scale SMAs by daily price
+    SMAs_scaled = SMAs_scale( SMAs, with_ratios )
+    
+    acc = np.append( with_ratios, SMAs_scaled, 1 )  # append scaled SMAs to ratios
+    #acc = np.append( with_ratios, SMAs, 1 )  # append SMAs to ratios
+
+
+    # compute RSIs
+    rsi_periods = [ 2, 4, 8, 16, 32, 64 ]
+    RSIs = compute_RSIs( ohlcv, rsi_periods )
+
+    # RSIs whiten
+    RSIws = RSIs_whiten( RSIs )
+    
+    acc = np.append( acc, RSIws, 1 )  # append to acc
+    #acc = np.append( acc, RSIs, 1 )  # append to acc
+
+    
+    # compute MFIs
+    mfi_periods = [ 8, 14, 20 ]
+    MFIs = compute_MFIs( ohlcv, mfi_periods )
+
+    # note: MFI can be whitened in the same way as RSI
+    MFIws = MFIs_whiten( MFIs )
+    
+    acc = np.append( acc, MFIws, 1 )  # append to acc    
+    #acc = np.append( acc, MFIs, 1 )  # append to acc    
+
+
+    # compute MACDs
+    #MACDs = compute_MACDs( ohlcv )
+    
+    
+
+    # compute ADs
+    ADs = compute_ADs( ohlcv )
+    acc = np.append( acc, ADs, 1 ) # append to acc
+
+    
+    # print matrix so far
+    for idx in range( len( acc ) ):
+        print( ", ".join("%.3f" % f for f in acc[ idx ] ) )
+
+
+    # compute Bollinger Bands
+    BBands = compute_BBands( ohlcv )

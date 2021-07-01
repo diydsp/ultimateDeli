@@ -1,0 +1,17 @@
+history_filename: history_recent/AGM/history.json
+https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=AGM&apikey=W6QULATJ9IZDXXOF
+Prediction output directory: predictions/2017-08-02
+going to add dir: predictions/2017-08-02
+already found: predictions/2017-08-02
+
+Running premarket_ticker on: AGM
+
+['cmds/recent_info_dl', '--ticker', 'AGM']
+
+['level_list/m1_100/level_specific/answer', '--level', 'm1_100', '--ticker', 'AGM']
+
+Running premarket_ticker on: ATW
+
+['cmds/recent_info_dl', '--ticker', 'ATW']
+history_filename: history_recent/ATW/history.json
+https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=ATW&apikey=W6QULATJ9IZDXXOF

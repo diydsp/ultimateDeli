@@ -1,0 +1,122 @@
+#!/usr/bin/python
+
+# get last 2-3 days of OHLCV
+# won't be in main database, cuz it only gets updated monthly or so
+
+
+from __future__ import print_function
+
+import urllib2
+import argparse
+import os
+import sys
+import json
+from pprint import pprint
+
+import alphadvan as shr  # create URL requests for stock intraday given params
+
+parser = argparse.ArgumentParser( description='write params' )
+
+# where data go
+history_dir_top = "history_recent"
+   
+
+# request parameters
+parser.add_argument( '--ticker',
+                     dest='ticker',
+                     help='ticker name, e.g. INSY' )
+
+
+def history_all_get( ticker ):
+
+   # generate the URL that requests the data
+   req = shr.stock_history_request( ticker );
+   url = req.make_url();
+
+   print( url )
+
+   # download the data	
+   response = urllib2.urlopen( url )
+   response = response.read()
+
+   #print( response )
+
+   # make history directory if it doesn't exist yet
+   if not os.path.exists( history_dir ):
+      os.makedirs( history_dir );
+
+
+   # write the data to a file
+   f = open( history_filename, 'w')
+   f.write( response )
+   f.close()
+
+
+def load_file_into_mem( history_filename ):
+   with open( history_filename, 'r' ) as fff:
+      hist = json.load( fff )
+
+   #pprint( hist )  # optional pretty print for verification
+   return hist
+
+def parse_out_info( hist, date_desired ):
+
+   bbb        = hist[ 'Time Series (Daily)' ][ date_desired ]
+   #{u'5. volume': u'449351', u'4. close': u'12.3900', u'2. high': u'12.6300',
+   # u'1. open': u'12.1500', u'3. low': u|'12.1000'}
+
+   t_open   = bbb['1. open']
+   t_high   = bbb['2. high']
+   t_low    = bbb['3. low']
+   t_close  = bbb['4. close']
+   t_volume = bbb['5. volume']
+
+   out_str  = ''
+   out_str += 'OHLCV: '
+   out_str += t_open   + ', '
+   out_str += t_high   + ', '
+   out_str += t_low    + ', '
+   out_str += t_close  + ', '
+   out_str += t_volume 
+   print( out_str )
+
+
+   
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+    # Prepare
+    history_dir = history_dir_top + "/" + args.ticker
+    history_filename = history_dir + "/" + "history.json"
+    print( 'history_filename: ' + history_filename )
+
+    # 1. Download recent history from realtime server, save to disk
+    #history_all_get( args.ticker )
+
+
+    # 2. Load file back into memory
+    # Note: You'd think it's still in memory from prevoius step of downloading from
+    #       server, but in development that step is skipped to save time and API calls
+    hist = load_file_into_mem( history_filename )
+
+
+    # parse out the info from today and last few days
+    date_desired =  '2017-07-18'
+    print( 'Yesterday: ' + date_desired + ': ', end="" )
+    parse_out_info( hist, date_desired )   # fails because 2017-07-16 is invalid trading date, duh!!!!!!
+
+    date_desired =  '2017-07-19'
+    print( 'Today    : ' + date_desired + ': ', end="" )
+    parse_out_info( hist, date_desired )
+
+    date_desired =  '2017-07-20'
+    print( 'Tomorrow : ' + date_desired + ': ', end="" )
+    parse_out_info( hist, date_desired )
+
+
+
+
+
+
+
+

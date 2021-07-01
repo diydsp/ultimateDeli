@@ -1,0 +1,316 @@
+#!/usr/bin/python
+
+# build question vecture from daily ticker data
+# in _02, it reads entire file in before creating output
+# so that questions spanning several days can be created
+
+import csv
+import numpy as np
+import talib
+
+import argparse
+
+import onehot as oh
+
+parser = argparse.ArgumentParser( description='control learner' )
+
+parser.add_argument( '--ticker',
+                     dest='ticker',
+                     help='ticker symbol, e.g. INSY' )
+
+parser.add_argument( '--level',
+                     dest='level',
+                     help='level, e.g. m1_100' )
+
+parser.add_argument( '--ratio_select',
+                     dest='ratio_select',
+                     help='select which ratio to train on, e.g. 1 through 16' )
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+    print( 'Using ratio_select ', args.ratio_select )
+    print( 'Using ticker', args.ticker ) 
+
+
+# control parameters
+
+ticker_target = args.ticker
+
+
+# generate filenames
+
+features_dir           =   'level_list/' + args.level + '/tick_list/' + args.ticker + '/class/features/'
+filename_input         =  features_dir + 'ticker_data.csv'
+filename_output        = features_dir + 'ticker_data_features.csv'
+filename_question      = features_dir + 'question.npy'
+filename_answer        = features_dir + 'answer.npy'
+filename_answer_onehot = features_dir + 'answer_onehot.npy'
+
+print( 'input:         ' + filename_input )
+print( 'output:        ' + filename_output )
+print( 'question:      ' + filename_question )
+print( 'answer:        ' + filename_answer )
+print( 'answer_onehot: ' + filename_answer_onehot )
+
+# choose which columns to load based on feature_select
+# column names are:
+# ticker,date,open,high,low,close,volume,ex-dividend,split_ratio,adj_open,adj_high,adj_low,adj_close,adj_volume
+cols_req = []
+cols_req.extend( [ 2, 3, 4, 5, 6 ] )  # open,hight,low,close,volume 
+#cols_req.extend( [ 2, 3, 4, 5 ] )   # open, high,low,close
+
+
+# Extract required columns
+# this is where extracted fields will go
+extracted_field = []
+    
+# Crawl through input file line-by-line
+with open( filename_input ) as csvfile:
+    
+    # open output file for writing
+    #with open( filename_output, 'w' ) as data_out:
+        #out_writer = csv.writer( data_out, delimiter=',' )
+
+
+        # Header
+        # initialize data loader
+        csvread = csv.reader( csvfile, delimiter=',' )
+
+        # read past input header
+        junk = csvread.next()
+        
+        # write output header
+        header = "daily_stuff"
+        #out_writer.writerow( [ header ] )    # TEMPORARILY DISABLED!!!!
+
+
+        # Data
+        # read whole input array(s) in
+        ohlc = []
+        for column_tuple in csvread:
+
+            row_out = []
+            #print column_tuple
+            for col_num in cols_req:
+                val = column_tuple[ col_num ]
+                #print type(val)
+                val2 = float( val )
+                row_out.extend( [ val2 ] )
+                
+            ohlc.append ( row_out )
+
+            
+            
+        # create SMA
+        sma_timeperiod = 25
+        ohlc_np = np.array( ohlc, dtype=float )
+        print( 'closes: ' )
+        p_st = 49
+        p_en = 51
+        print( ohlc[ p_st : p_en ] )
+        print( ohlc_np[ p_st : p_en, 3 ] )
+        # output = SMA(inputs, timeperiod=25, price='open')
+        sma     = talib.SMA( ohlc_np[ :, 1 ], timeperiod = sma_timeperiod )
+        print( sma[ p_st:p_en ] )
+
+        # create SMA 
+        sma_2   = talib.SMA( ohlc_np[ :, 0 ], timeperiod = sma_timeperiod )
+        print( sma[ p_st:p_en ] )
+
+        # create volume deviation
+        vol_sma_timeperiod = sma_timeperiod
+        vol_np = np.array( ohlc, dtype=float )
+        vol_sma = talib.SMA( ohlc_np[ :, 4], timeperiod = vol_sma_timeperiod )
+        vol_diff1 = ohlc_np[ :, 4] - vol_sma
+        vol_dev1  = []
+        for idx in range( len( ohlc ) ):
+            vol_dev = 100 * ( vol_diff1[ idx ] / vol_sma[ idx ] )
+            vol_dev1.append( vol_dev )
+            
+            
+        
+        # create question vectors from input array(s)
+        limit_end = len( ohlc ) - 2  # stop two days early bc predicting 2 days in future
+        limit_start = sma_timeperiod
+        print( 'banana1' )
+        for idx in range( limit_start, limit_end ):
+
+            row_temp = []
+            row_temp[ 0:3 ] =   ohlc[     idx ][ 0 : 4 ] # ohlc
+            row_temp[ 4:7 ] =   ohlc[ 1 + idx ][ 0 : 4 ] # ohlc_tmw
+            row_temp.append(    ohlc[ 2 + idx ][ 0 ] )   # o_uber_tmw
+            row_temp.append(    ohlc[ 2 + idx ][ 4 ] )   # volume
+            row_temp.append( vol_sma[ 2 + idx ] )        # volume SMA
+            row_temp.append( vol_diff1[ 2 + idx ] )       # volume diff from SMA
+            row_temp.append( vol_dev1[ 2 + idx ] )       # volume deviation
+            #row_temp.append(   sma[ 2 + idx ] )        # SMA
+            #row_temp.append( sma_2[ 2 + idx ] )        # SMA
+            #print( idx, ohlc[ idx ] )
+            print( idx, row_temp )
+            extracted_field.append ( row_temp )
+            #print( idx, extracted_field )
+        print( 'banana2' )
+
+        # at this point, extracted_field is the python list
+        # and indicator_array is the numpy array
+
+        # move from python lists to 2d numpy array
+        print( type( extracted_field ) )
+        print( len( extracted_field ) )
+        print( type( extracted_field[ 0 ] ) )
+        print( len(  extracted_field[ 0 ] ) )
+        print( type( extracted_field[ 0 ][ 0 ] ) )
+        print(       extracted_field[ 0 ][ 0 ] )
+
+        indicator_array = np.array( extracted_field, dtype=float )
+        print( type( indicator_array ) )
+        print(  len( indicator_array ) )
+        print( indicator_array.shape )
+        print( indicator_array )
+
+        #print( 'quitting' )
+        #exit()
+
+        # write questions to file
+        question_out = open( filename_question, 'w' )
+        indic_arr_len = len( indicator_array )
+        # note predicting following day, so N-1 data rows
+        np.save( question_out, indicator_array[ 0: indic_arr_len - 1 ] )
+        question_out.close()
+
+        # also save in .csv for easy verification
+        #a_tmp = np.as
+        np.savetxt( filename_output, indicator_array, delimiter=',')
+        
+
+        # create answers
+        # convert answers to onehot
+        num_classes = 3
+        answer_onehot = np.zeros( ( len( indicator_array ) - 1, num_classes ) )
+
+        # first compute all ratios
+        ratios = np.zeros( indic_arr_len )
+        ratio_select = int( args.ratio_select )
+        print( 'Using ratio_select ', ratio_select )
+        if ratio_select == None:
+            quit()
+        for idx in range( indic_arr_len - 2 ):
+
+            open_yest   = indicator_array[ 0 + idx ][ 0 ]
+            high_yest   = indicator_array[ 0 + idx ][ 1 ]
+            low_yest    = indicator_array[ 0 + idx ][ 2 ]
+            close_yest  = indicator_array[ 0 + idx ][ 3 ]
+
+            open_today  = indicator_array[ 1 + idx ][ 0 ]
+            high_today  = indicator_array[ 1 + idx ][ 1 ]
+            low_today   = indicator_array[ 1 + idx ][ 2 ]
+            close_today = indicator_array[ 1 + idx ][ 3 ]
+            
+            open_tmw    = indicator_array[ 2 + idx ][ 0 ]
+            high_tmw    = indicator_array[ 2 + idx ][ 1 ]
+            low_tmw     = indicator_array[ 2 + idx ][ 2 ]
+            close_tmw   = indicator_array[ 2 + idx ][ 3 ]
+
+            if ratio_select == 16:
+                ratio = high_tmw / open_tmw
+            if ratio_select == 17:
+                ratio = low_tmw / open_tmw
+            if ratio_select == 18:
+                ratio = close_tmw / open_tmw
+
+
+            if ratio_select == 0:
+                ratio = open_tmw / open_today
+            if ratio_select == 1:
+                ratio = open_tmw / high_today
+            if ratio_select == 2:
+                ratio = open_tmw / low_today
+            if ratio_select == 3:
+                ratio = open_tmw / close_today
+
+            if ratio_select == 4:
+                ratio = high_tmw / open_today
+            if ratio_select == 5:
+                ratio = high_tmw / high_today
+            if ratio_select == 6:
+                ratio = high_tmw / low_today
+            if ratio_select == 7:
+                ratio = high_tmw / close_today
+
+            if ratio_select == 8:
+                ratio = low_tmw / open_today
+            if ratio_select == 9:
+                ratio = low_tmw / high_today
+            if ratio_select == 10:
+                ratio = low_tmw / low_today
+            if ratio_select == 11:
+                ratio = low_tmw / close_today
+                
+            if ratio_select == 12:
+                ratio = close_tmw / open_today
+            if ratio_select == 13:
+                ratio = close_tmw / high_today
+            if ratio_select == 14:
+                ratio = close_tmw / low_today
+            if ratio_select == 15:
+                ratio = close_tmw / close_today
+
+            #print( ratio )
+            ratios[ idx ] = ratio
+            
+        # auto-generate thresholds
+        sorted_ratios = np.sort( ratios )
+
+        for idx in range( len( sorted_ratios )):
+            print( sorted_ratios[ idx ] )
+
+        index_upper = int( 0.666 * indic_arr_len )
+        index_lower = int( 0.333 * indic_arr_len )
+        thresh_upper = sorted_ratios[ index_upper ]
+        thresh_lower = sorted_ratios[ index_lower ]
+        print( thresh_upper )
+        print( thresh_lower )
+
+        # now classify each ratio
+        for idx in range( indic_arr_len - 1 ):
+
+            class_num = 1
+            if ratios[ idx ] > thresh_upper:
+                class_num = 2
+            if ratios[ idx ] < thresh_lower:
+                class_num = 0
+
+            temp = oh.int2onehot( class_num, num_classes )
+            for dst_x in range( num_classes ):
+                answer_onehot[ idx, dst_x ] = temp[ dst_x ]
+                        
+            
+        print( answer_onehot[ 1:800 ] )
+        print answer_onehot.sum( axis = 0 )
+                        
+        # write answer_onehot to file
+        #filename_out = out_dir + '/' + 'answer_onehot.npy'
+        answer_onehot_out = open( filename_answer_onehot, 'w' )
+        #answer_onehot_out = open( 'answer_onehot.npy', 'w' )
+        np.save( answer_onehot_out, answer_onehot )
+        answer_onehot_out.close()
+        
+
+
+
+        # different type of answer, non-categorized
+        answer = np.zeros( ( len( indicator_array ) - 1 ) )
+        for idx in range( indic_arr_len - 1 ):
+
+            open_tmw  = indicator_array[ 1 + idx ][ 0 ]
+            answer[ idx ] = open_tmw
+
+        # write answer to file
+        #filename_out = out_dir + '/' + 'answer.npy'
+        answer_out = open( filename_answer, 'w' )
+        np.save( answer_out, answer )
+        answer_out.close()
+    
+        
+

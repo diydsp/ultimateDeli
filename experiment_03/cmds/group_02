@@ -1,0 +1,34 @@
+#!/usr/bin/python
+
+# read ticker names from list, run introduce to introduce the mto level
+
+live_mode = 0
+
+ticker_list = {'abcde','fghij','klmno','pqrst','uvwyxz' }
+
+for ticker_name in ticker_list:
+
+    #cmds/introduce  --ratio_select 17 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker AAMC --iter 100
+    prg_introduce= 'cmds/introduce'
+
+    arg_ticker       = '--ticker'
+    #ticker_name      = args.ticker
+
+    arg_level        = '--level'
+    level_name       = args.level
+
+    dims_int_str         = '--dims_internal'
+    dims_int_num         = args.internal_dims
+    layers_arg_str       = '--extra_layers'
+    layers_int_num       = args.extra_layers
+    iters_str            = '--iter'
+    iters_num            = args.num_iterations
+
+    cmd = [ prg_introduce, arg_ticker, ticker_name, arg_level, level_name, dims_int_str, dims_int_num, layers_arg_str, layers_int_num,
+    	                                                                   iters_str,    iters_num ]
+    print
+    print cmd
+    if live_mode == 1:
+        call( cmd )
+
+

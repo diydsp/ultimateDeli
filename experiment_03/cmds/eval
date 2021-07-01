@@ -1,0 +1,60 @@
+#!/usr/bin/python
+
+import argparse
+from subprocess import call
+import sys
+
+from pprint import pprint
+
+import re
+
+import os
+
+import numpy as np
+
+parser = argparse.ArgumentParser( description='control trainer' )
+
+
+parser.add_argument( '--level',
+                     dest='level_name',
+                     help='level, e.g. m1_100' )
+
+
+def do_eval( ticker_name ):
+
+    print
+
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+
+    tick_list_dir = 'level_list/' + args.level_name + '/tick_list'
+    for dir in os.listdir( tick_list_dir ):
+    	#print( dir )
+	ticker_name = dir
+	class_dir              = tick_list_dir + '/' + ticker_name + '/class/'
+	model_dir              = class_dir + 'models/'
+	filename_results       = model_dir + 'results_out.txt'
+
+        if os.path.isfile( filename_results ):
+            #print( filename_results )
+
+            scores = []
+            with open( filename_results ) as results_in:
+                for line in results_in:
+                    #my_match = re.search( r'cf_score', line )
+                    my_match = re.search( r'nv_score', line )
+                    if my_match is not None:
+                        spl = line.split( ',' )
+                        score = spl[1].rstrip()
+                        #print score
+                        scores.append( float( score ) )
+
+            #print scores[-5:]
+            s2 = np.array( [scores] )
+            print( str( np.average(s2) ) + ', ' + ticker_name )
+            
+                
+                        
+                

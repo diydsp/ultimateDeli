@@ -1,0 +1,37 @@
+#!/bin/bash
+
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker A --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker AA --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker AAL --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker AAMC --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker AAN --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker AAOI --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker AAON --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker AAP --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker AAPL --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker AAT --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker AAWW --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ABAX --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ABBV --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ABC --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ABCB --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ABCO --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ABFS --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ABG --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ABM --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ABMD --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ABT --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ACAD --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ACAS --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ACAT --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ACC --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ACCL --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ACCO --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ACE --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ACET --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ACFN --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ACGL --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ACHC --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ACHN --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ACI --iter 100
+cmds/introduce  --ratio_select 16 --level m1_100 --dims_internal 5 --extra_layers 3 --ticker ACIW --iter 100

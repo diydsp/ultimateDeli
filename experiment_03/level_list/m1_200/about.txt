@@ -1,0 +1,5 @@
+
+These were trained with:
+
+--ratio_select 16 --dims_internal 6 --extra_layers 4
+

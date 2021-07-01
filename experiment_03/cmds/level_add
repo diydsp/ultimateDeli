@@ -1,0 +1,52 @@
+#!/usr/bin/python
+
+import argparse
+import os
+
+parser = argparse.ArgumentParser( description='add a level' )
+
+parser.add_argument( '--level',
+                     dest='level',
+                     help='level name, e.g. m1_100' )
+
+def dir_add( dir_name ):
+    print( 'going to add dir: ', dir_name )    
+
+    if os.path.exists( dir_name ):
+        print "already found: " + dir_name
+    else:
+        os.mkdir( dir_name, 0755 )
+
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+    # Level
+    path_level = "level_list/" + args.level;
+    dir_add( path_level )
+
+
+    # Params
+    path_params = path_level + "/params";
+    dir_add( path_params )
+
+    path_class = path_params + "/class";
+    dir_add( path_class )
+
+    path_confidence = path_params + "/confidence";
+    dir_add( path_confidence )
+
+    path_gain = path_params + "/gain";
+    dir_add( path_gain )
+
+
+    # Tick List
+    path_tick_list = path_level + "/tick_list";
+    dir_add( path_tick_list )
+
+    
+    # specific to this level, such as feature generation code
+    specific_dir = path_level + "/level_specific"
+    dir_add( specific_dir )
+
+    

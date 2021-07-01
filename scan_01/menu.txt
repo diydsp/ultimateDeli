@@ -1,0 +1,22 @@
+
+
+# extract data from archive
+../tools/data_ticker_extract_02 --ticker VRSN -o data.csv
+
+# calc indicators and label data w/r/t near future predictions
+cmd/scan_near_future_01 -i tmp/data.csv --seek_days 5   | more
+
+
+
+cmd/plot_06 -i hope.csv -o hope.png ; cp hope.png /var/www/html/nope/plot_04/hope.png
+
+
+
+
+
+
+
+
+cmd/ticker_process
+
+

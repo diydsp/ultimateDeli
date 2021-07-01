@@ -1,0 +1,103 @@
+#!/usr/bin/python
+
+
+'''list of activities to exec before end of premarket,
+   e.g. before 9:25AM each day.
+
+   Best done evening before after market closes and everything has settled down e.g. 5PM'''
+
+from __future__ import print_function
+
+import os
+
+import argparse
+from subprocess import call	
+
+import sys
+
+sys.path.append( 'cmds' )
+import controls_read as controls
+
+live_mode = 1
+
+parser = argparse.ArgumentParser( description='premarket control panel' )
+
+parser.add_argument( '--ticker_list',
+                     dest='ticker_list',
+                     help='filename of tickernames, e.g. ticker_list.txt' )
+
+parser.add_argument( '--level',
+                     dest='level',
+                     help='level, e.g. m1_100' )
+
+def dir_add( dir_name ):
+    print( 'going to add dir: ' + dir_name )    
+
+    if os.path.exists( dir_name ):
+        print( 'already found: ' + dir_name )
+    else:
+        os.mkdir( dir_name, 0755 )
+
+        
+def premarket_ticker( ticker, level ):
+
+   # 1. download its recent info
+   # writes into history_recent/$ticker/history.json
+   # cmds/recent_info_dl --ticker ATW
+   cmd = [ 'cmds/recent_info_dl', '--ticker', ticker ]
+   print()
+   print( cmd )
+   if live_mode == 1:
+      call( cmd )
+
+
+   #2. Generate predictions for a range of possible opens
+   # reads from recent_history/' + ticker' 
+   # level_list/m1_100/level_specific/answer --level m1_100 --ticker ATW > predictions/2017_07_19/ATW.txt
+   pred_filename = ticker + '.txt'  # change to .csv soon
+   output_dir = pred_output_dir
+   output_filename = output_dir + '/' + pred_filename
+   cmd = [ 'level_list/m1_100/level_specific/answer',
+           '--level',    level,
+	   '--ticker',   ticker
+         ]
+   print()
+   print( cmd )
+   if live_mode == 1:
+      with open( output_filename, 'w' ) as answer_results:
+         call( cmd, stdout=answer_results )
+	
+
+
+
+if __name__ == '__main__':
+   args = parser.parse_args()
+
+   # -1. Make Prediction output directory for the date
+   # mkdir ../../predictions/2017_06_24
+   controls = controls.read( 'controls/controls.json' )
+   requested_date = controls[ 'req_date' ]
+   #requested_date = '2017_08_01'
+   pred_output_dir = 'predictions/' + requested_date
+   print( 'Prediction output directory: ' + pred_output_dir )
+   if live_mode == 1:
+      dir_add( pred_output_dir )
+
+
+   # 0. Download the recent_history for actively trading tickers
+   # read through list: level_specfic/$level/controls/trading.csv
+   with open( args.ticker_list ) as ticker_list_in:
+
+      ticker_list_in.next()  # skip header
+      
+      # for each ticker in trading_list, do its premarket activities
+      for line in ticker_list_in:
+      #for ticker_name in ticker_list_in:
+         sp = line.split( ',' )
+         ticker_name = sp[ 0 ].rstrip()
+         
+         print()
+         print( 'Running premarket_ticker on: ' + ticker_name )
+         premarket_ticker( ticker_name, args.level )
+
+

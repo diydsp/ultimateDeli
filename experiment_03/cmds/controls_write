@@ -1,0 +1,62 @@
+#!/usr/bin/python
+
+# Write the specified controls
+
+import argparse
+#import os, sys
+import json
+
+#import params_funcs as params
+
+parser = argparse.ArgumentParser( description='write params' )
+parser.add_argument( '--req_date',
+                     dest='req_date',
+                     help='requested date, e.g. 2017-08-01' )
+
+parser.add_argument( '--date_yester',
+                     dest='date_yester',
+                     help='day before requested date, e.g. 2017-07-31' )
+
+parser.add_argument( '--date_uber_yester',
+                     dest='date_uber_yester',
+                     help='day before day before requested date, e.g. 2017-07-30' )
+
+
+
+def controls_write( controls_file, args ):
+#def write( params_file, args ):
+
+    # Build internal structure
+    controls={}
+    controls[ 'req_date' ] = args.req_date;
+    controls[ 'date_yester'  ] = args.date_yester;
+    controls[ 'date_uber_yester'  ] = args.date_uber_yester;
+
+    json_str = json.dumps( controls )
+    print json_str
+
+    #json_str = '{ "iterations": 5, "internal_dims":3, "date_yester":5 }'
+
+    # check it
+    parsed = json.loads( json_str )
+    print parsed[ 'req_date' ]
+
+    # write to a file
+    #file_out_name = controls_dir + "controls.json"
+    print "writing to: " + controls_file
+    with open( controls_file, 'w') as fff:
+        json.dump( controls, fff )
+
+
+        
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+    controls_filename = 'controls/controls.json' 
+    print "using controls_filename: " + controls_filename
+
+    # Note: only really need to send iters, req_date, date_yester at this time, but
+    # no harm in sending entire args struct
+    # 
+    controls_write( controls_filename, args )
+    

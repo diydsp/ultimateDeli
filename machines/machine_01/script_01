@@ -1,0 +1,13 @@
+
+python feature_build_02.py --ratio_select 1
+python noah_05.py --iter 3 --dims_internal 3
+
+python feature_build_02.py --ratio_select 1
+python noah_05.py --iter 3 --dims_internal 3
+
+python feature_build_02.py --ratio_select 1
+python noah_05.py --iter 3 --dims_internal 3
+
+python feature_build_02.py --ratio_select 1
+python noah_05.py --iter 3 --dims_internal 3
+
