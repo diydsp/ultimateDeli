@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 # see what conditions indicate a great uptick in near future
 # try to connect conditions with up or downticks in near future
