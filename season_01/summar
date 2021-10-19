@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
+"""
+# summarize files in data
+"""
 
 from __future__ import print_function
-
-# summarize files in data
 
 
 
@@ -11,61 +12,60 @@ from os import listdir
 from os.path import isfile, join
 
 import csv
-
 from operator import itemgetter
-
 import argparse
 
 
-parser = argparse.ArgumentParser( description='control learner' )
 
-parser.add_argument( '--month',
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser( description='control learner' )
+
+    parser.add_argument( '--month',
                      dest='month',
                      help='month number, e.g. 0=January, 11=December' )
 
-parser.add_argument( '-o',
+    parser.add_argument( '-o',
                      dest='output_file',
                      help='output file, e.g. sorted.csv' )
-
-if __name__ == '__main__':
     args = parser.parse_args()
 
+    # scan for all ticker files in directory, store in file_list
     mypath = 'data'
     file_list = [ f for f in listdir( mypath ) if isfile( join( mypath, f ) ) ]
-
     #print( file_list )
 
+
+    # read each ticker's data into a list
+    # and append all lists into major_list
     major_list = []
-
     for file in file_list:
-
         in_name = mypath + '/' + file
         #print( in_name )
         with open( in_name ) as file_in:
 
             csvread = csv.reader( file_in, delimiter=',' )
 
+            # seems to be 12 rows, one for ech month?
             rows = []
             for row in csvread:
-                #print(row)
+                print("row", row)
                 rows.append( row )
 
             tmp_row = []
-            tmp_row.extend( [file] )
-            tmp_row.extend( rows[ int( args.month ) ] )
-
-            #print( tmp_row )
+            tmp_row.extend( [file] ) #  ticker name
+            tmp_row.extend( rows[ int( args.month ) ] )  # rest of columns
+            print( "tmp_row", tmp_row )
         
         major_list.append( tmp_row )
 
 
     # final output
+    # sort them by first field which is probably a metric of how good they are!
     #print( major_list )
     sorted_major = sorted( major_list, key=itemgetter(1) )
 
     for idx in range( len( sorted_major ) ):
         print( sorted_major[ idx ] )
-
         #print( sorted_major )
 
     with open( args.output_file, 'w' ) as out_file:
