@@ -27,7 +27,7 @@ import numpy as np
 seq_len = 100
 
 # synth data
-mean = 40.00
+mean = 352
 stddev = 2
 
 # parameters
@@ -46,7 +46,7 @@ class Streak:
         self.reserve_funds = reserve_funds
         self.seq_len     = seq_len
         self.cons1       = cons1
-        self.prices        = np.random.normal( mean, stddev, seq_len )
+        #self.prices        = np.random.normal( mean, stddev, seq_len )
         self.shares_held = 0
         self.z_score     = 0
         self.num_shares  = 0
@@ -106,9 +106,11 @@ class Streak:
             self.printem( dayNum, price, perc_sell, perc_buy )
 
 
-def test_this_cons1( cons1 ):
+def test_this_cons1( cons1, stddev, prices ):
     for rep in range( num_reps ):
         streak = Streak( mean, stddev, 10000, seq_len, cons1, 0 )  # last is verbose 0/1
+        #streak.prices = np.random.normal( mean, stddev, seq_len )
+        streak.prices = prices
         #if rep != 0:
         streak.run()
         #print( f'{streak.reserve_funds:.2f} ')
@@ -120,18 +122,33 @@ def test_this_cons1( cons1 ):
             
 
 def test_this_stddev( stddev ):
-    for cons1 in np.arange( .1, 10, .5):
-        test_this_cons1( cons1 )
+    for cons1 in np.arange( .1, 10, 2):
+        test_this_cons1( cons1, stddev )
 
+def prices_load( filename ):
+    price_list=[]
+    with open( filename ) as prices_in:
+        for row in prices_in:
+            srow = ( row.split( ',' ) )
+            #print( srow )
+            price_list.append( float( srow[ 1 ] ) )
+    prices_in.close()
+    return price_list
 
 if __name__ == '__main__':
 
+    prices = prices_load( "sample/DIA_1hour_sample.txt" )
+    print( prices )
+    
     # try for different standard deviations
-    for stddev in np.arange( 0.1, .2, 0.1 ):
+    for stddev in np.arange( 0.1, .3, 0.1 ):
         print( f'{stddev:.2f} ')
         endprice = []
         num_reps = 100
 
-        test_this_stddev( stddev )
+        for cons1 in np.arange( .1, 10, 2):
+            test_this_cons1( cons1, stddev, prices )
+        
+        #test_this_stddev( stddev )
         
 
