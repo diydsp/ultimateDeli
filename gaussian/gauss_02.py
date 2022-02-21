@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
 
 """
-simple simuation where you know the mean and the standard deviation.
-you use the daily deviation to deicde how much to buy/sell
+
+simple simuation 
+reads data
+estimates mean and standard deviation
+uses the deviation
+to deicde how much to buy/sell
 all simplest assumtions made :)
 
 it appears that if you know the mean, not much else matters!
@@ -102,22 +106,32 @@ class Streak:
             self.printem( dayNum, price, perc_sell, perc_buy )
 
 
+def test_this_cons1( cons1 ):
+    for rep in range( num_reps ):
+        streak = Streak( mean, stddev, 10000, seq_len, cons1, 0 )  # last is verbose 0/1
+        #if rep != 0:
+        streak.run()
+        #print( f'{streak.reserve_funds:.2f} ')
+        endprice.append( streak.reserve_funds )
+        mean_end = np.mean( endprice )
+        std  = np.std( endprice )
+        growth_per_day = np.exp( np.log( mean_end ) / seq_len )
+    print( f'Const1: {cons1}, Average, stddev, growth/day: {mean_end:.2f}, {std:.2f}, {growth_per_day:.3f}')
+            
+
+def test_this_stddev( stddev ):
+    for cons1 in np.arange( .1, 10, .5):
+        test_this_cons1( cons1 )
+
+
 if __name__ == '__main__':
 
+    # try for different standard deviations
     for stddev in np.arange( 0.1, .2, 0.1 ):
         print( f'{stddev:.2f} ')
         endprice = []
         num_reps = 100
 
-        for cons1 in np.arange( .1, 10, .5):
-            for rep in range( num_reps ):
-                streak = Streak( mean, stddev, 10000, seq_len, cons1, 0 )  # last is verbose 0/1
-                #if rep != 0:
-                streak.run()
-                #print( f'{streak.reserve_funds:.2f} ')
-                endprice.append( streak.reserve_funds )
-                mean_end = np.mean( endprice )
-                std  = np.std( endprice )
-                growth_per_day = np.exp( np.log( mean_end ) / seq_len )
-            print( f'Const1: {cons1}, Average, stddev, growth/day: {mean_end:.2f}, {std:.2f}, {growth_per_day:.3f}')
+        test_this_stddev( stddev )
+        
 
