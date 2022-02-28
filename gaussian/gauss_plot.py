@@ -5,9 +5,8 @@ import matplotlib
 matplotlib.use( 'Agg' )
 import matplotlib.pyplot as plt
 
-from matplotlib.dates import DateFormatter, WeekdayLocate,
-    DayLocator, MONDAY
-from matplotlib.finance import candlestick_ohlc
+#from matplotlib.dates import DateFormatter, WeekdayLocater, DayLocator, MONDAY
+#from matplotlib.finance import candlestick_ohlc
 
 import datetime as dt
 
