@@ -1,0 +1,15 @@
+output:
+  start_date: 2021-08-12 
+  days_back: 4
+  operations:
+  - name: into_database
+  - name: compute_relative_volume
+    alg: mean
+  - name: compute_avg_price
+    alg: mean
+
+    
+    
+    
+  
+
