@@ -1,4 +1,14 @@
 
+this is data from firstratedata.com:
+
+
+https://firstratedata.com/_data/_deploy/sp500_bundle_sample.zip
+
+https://firstratedata.com/b/1/sp500-historical-intraday-stocks-bundle
+
+
+
+
 updated info. this looks like the dataset:
 https://data.nasdaq.com/tables/SEP/SHARADAR-SEP
 costs: $300/year
