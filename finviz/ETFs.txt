@@ -1,0 +1,12 @@
+XLE, energy select sector
+XLB, Materials select sector, basic materials
+XLI, Industrial
+XLF, financial
+XLV, healthcare
+XLK, technology
+XLY, consumer discretionary
+XLP, consumer staples
+XLC, communications
+XLU, utilities
+XLRE, real estate
+XME, metals and mining
