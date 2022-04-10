@@ -33,14 +33,19 @@ class Portfolio:
     def print(self):
         for holding in self.stockList:
             holding.print()
+    
+    #@classmethod
+    def iterate(self):
+        for holding in self.stockList:
+            holding.iterate()
         
-
 class Day:
 
     def __init__( self, portfolio ):
         self.portfolio = portfolio
 
 
+       
 DayList = []
 for dayNumb in range(1,seq_len+1):
 
