@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Group Screener - Sector, Industry, Country, Capitalization</title>
+<meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+                         <meta name="viewport" content="width=1024"><meta name="description" content="Stock screener for investors and traders, financial visualizations.">
+<meta name="keywords" content="Stock Screener, Charts, Quotes, Maps, News, Financial Visualizations, Research, Trading Systems">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+
+            <link rel="preload" href="/fonts/lato-v17-latin-ext_latin-regular.woff2" as="font" crossorigin>
+            <link rel="preload" href="/fonts/lato-v17-latin-ext_latin-700.woff2" as="font" crossorigin>
+            <link rel="preload" href="/fonts/lato-v17-latin-ext_latin-900.woff2" as="font" crossorigin>
+            <link rel="preload" href="/fonts/inter-latin.woff2" as="font" crossorigin>
+        <link rel="stylesheet" href="/assets/dist/finviz.29d940c1.css" type="text/css">
+<link rel="stylesheet" href="/assets/dist/main.29b3825b.css" type="text/css">
+<link rel="icon" type="image/png" href="/favicon_2x.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon.png" sizes="16x16">
+<script type="text/javascript">
+            FinvizSettings = {
+                hasUserPremium: false,
+                name: "",
+                chartsDomain: "https://charts2.finviz.com",
+                nodeChartsDomain: "https://charts2-node.finviz.com",
+                hasUserPersistentDrawings: false,
+                hasUserNodeCharts: true,
+                hasUserRetinaHoverCharts: false,
+                hasUserStickyHeader: true,
+                adsProvider: 1,
+                hasUserNewSettings: true
+            };
+        </script><script src="/script/vendor/boxover.js?rev=305" type="text/javascript"></script>
+<script src="/script/browser_support.js?rev=305" type="text/javascript"></script><script type="text/javascript" src="/assets/dist/runtime.198a4177.js"></script><script type="text/javascript" src="/assets/dist/471.d673ca55.js"></script><script type="text/javascript" src="/assets/dist/libs_init.6d37122b.js"></script><script type="text/javascript" src="/assets/dist/647.9e6c500e.js"></script><script type="text/javascript" src="/assets/dist/698.c4376194.js"></script><script type="text/javascript" src="/assets/dist/header.d4177ab9.js"></script>
+            <script src="/script/pubfig.min.js"></script>
+            <script>
+                if(window['FinvizLoadTagCode']) {
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.async = true;
+                    s.src = 'https://u5.investingchannel.com/static/uat.js';
+                    document.head.appendChild(s);
+
+                    InvestingChannelQueue = window.InvestingChannelQueue || [];
+                    var ic_page;
+                    InvestingChannelQueue.push(function() {
+                        ic_page = InvestingChannel.UAT.Run('df0d0d52-cc7f-11e8-82a5-0abbb61c4a6a');
+                    });
+                } else {
+                    (function() {
+                function ready(fn) {if (document.readyState != 'loading'){fn();}else{document.addEventListener('DOMContentLoaded', fn);} }
+                ready(function() {
+                    var banners = ['2', '4', '5', '6', '7'];
+                    var banner = banners[Math.floor(Math.random() * banners.length)];
+
+                    if (banner === '3') {
+                        document.getElementById('banner_position').innerHTML = '<iframe src="/img/a/' + banner + '/index.html?rev=2" frameBorder="0" width="728" height="90"></iframe>';
+                    } else {
+                        document.getElementById('banner_position').innerHTML = '<a href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=' + banner + '"><img src="/img/a/' + banner + '.jpg"></a>';
+                    }
+                    window.gtag && window.gtag('event', 'impression', { event_category: 'banner', event_label: banner, non_interaction: true });
+                })
+            })();
+                }
+            </script></head>
+<body class="yellow-tooltip is-groups" style="margin:0" bgcolor="#ffffff">
+          <script>
+            function checkMediaQuery(matches) {
+              if (matches) {
+                FinvizSettings.hasUserStickyHeader = true;
+                document.body.classList.add('is-header-sticky');
+              } else {
+                FinvizSettings.hasUserStickyHeader = false;
+                document.body.classList.remove('is-header-sticky');
+              }
+            }
+            var mediaMatch = window.matchMedia('(min-width: 1024px) and (min-height: 650px)');
+            checkMediaQuery(mediaMatch.matches);
+            mediaMatch.addListener(function (ev) { checkMediaQuery(ev.matches) });
+          </script>
+          <div id="unsupported-browser"></div>
+                <table class="header" width="100%" cellpadding="0" cellspacing="0" border="0" style="min-width: 1000px">
+                    <tr valign="top">
+                        <td>
+                            <table class="header-container" cellpadding="0">
+                                <tr>
+                                    <td width="30%">
+                                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td height="50" valign="middle">
+                                                    <a href="/" class="logo"></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="search" id="search" style="padding-top: 4px">
+                                                    <form style="margin: 0">
+                                                        <input placeholder="Search ticker, company or profile" type="text" value="">
+                                                        <span class="fa fa-search"></span>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td valign="bottom" style="padding-bottom: 4px">
+                                        <div id="microbar_position" style="height: 31px"></div>
+                                    </td>
+                                    <td width="730" align="right" class="relative">
+                                        <div id="banner_position" class="overflow-hidden absolute top-0 right-0 w-full h-24"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="1000" style="font-size:0">
+                            <img src="/gfx/nic2x2.gif" width="1000" style="height:1px" border="0">
+                        </td>
+                    </tr>
+                </table>
+            <table class="navbar" width="100%" height="30" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td height="30">
+                        <table class="header-container" cellpadding="0">
+                            <tr height="30"><td><a class="nav-link  is-first" href="/">Home</a></td><td><a class="nav-link " href="/news.ashx">News</a></td><td><a class="nav-link " href="/screener.ashx">Screener</a></td><td><a class="nav-link " href="/map.ashx">Maps</a></td><td><a class="nav-link is-active" href="/groups.ashx">Groups</a></td><td><a class="nav-link " href="/portfolio.ashx">Portfolio</a></td><td><a class="nav-link " href="/insidertrading.ashx">Insider</a></td><td><a class="nav-link " href="/futures.ashx">Futures</a></td><td><a class="nav-link " href="/forex.ashx">Forex</a></td><td><a class="nav-link " href="/crypto.ashx">Crypto</a></td><td><a class="nav-link " href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=main-navbar-backtests">Backtests</a></td><td><a class="nav-link  is-elite" href="/elite.ashx">Elite</a></td><td class="w-full"><div id="time"></div></td>
+                <td>
+                    <a href="/help/groups.ashx" class="nav-link is-help">
+                        <span class="fa fa-question-circle"></span>
+                        Help
+                    </a>
+                </td>
+                <td><a href="/login.ashx" class="nav-link sign-in">Login</a></td>
+                <td><a href="/register.ashx" class="nav-link sign-up">Register</a></td>
+            
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        <div class="content "><div class="fv-container"><tr>
+<td>
+<table width="100%" cellpadding="0" cellspacing="0" border="0" background="gfx/top_menu_screener_shadow.gif">
+<tr><td><img src="gfx/nic2x2.gif" style="display:block;width:2px;height:20px" alt="" border="0"></td></tr>
+<tr>
+<td align="right" width="6%">
+<span class="body-combo-title" style="cursor:pointer;" data-boxover="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Group] body=[<table width=300><tr><td class='tooltip_tab'>Select group - stocks organized by <b>sector</b>, <b>industry</b>, <b>country</b> or market <b>capitalization</b>.</td></tr></table>] delay=[500]">Group:&nbsp;&nbsp;</span></td>
+<td align="left" width="25%">
+<select id="groupSelect" style="width:100%;" class="body-combo-text" onchange='window.location=document.getElementById("groupSelect").value'>
+<option selected="selected" value="groups.ashx?g=sector&v=210&o=name">Sector</option><option value="groups.ashx?g=industry&v=210&o=name">Industry</option><option value="groups.ashx?g=industry&sg=basicmaterials&v=210&o=name">Industry (Basic Materials)</option><option value="groups.ashx?g=industry&sg=communicationservices&v=210&o=name">Industry (Communication Services)</option><option value="groups.ashx?g=industry&sg=consumercyclical&v=210&o=name">Industry (Consumer Cyclical)</option><option value="groups.ashx?g=industry&sg=consumerdefensive&v=210&o=name">Industry (Consumer Defensive)</option><option value="groups.ashx?g=industry&sg=energy&v=210&o=name">Industry (Energy)</option><option value="groups.ashx?g=industry&sg=financial&v=210&o=name">Industry (Financial)</option><option value="groups.ashx?g=industry&sg=healthcare&v=210&o=name">Industry (Healthcare)</option><option value="groups.ashx?g=industry&sg=industrials&v=210&o=name">Industry (Industrials)</option><option value="groups.ashx?g=industry&sg=realestate&v=210&o=name">Industry (Real Estate)</option><option value="groups.ashx?g=industry&sg=technology&v=210&o=name">Industry (Technology)</option><option value="groups.ashx?g=industry&sg=utilities&v=210&o=name">Industry (Utilities)</option><option value="groups.ashx?g=country&v=210&o=name">Country (U.S. listed stocks only)</option><option value="groups.ashx?g=capitalization&v=210&o=name">Capitalization</option></select>
+</td>
+<td align="right" width="12%">
+<span class="body-combo-title" style="cursor:pointer;" data-boxover="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Order] body=[<table width=300><tr><td class='tooltip_tab'>Select the criteria by which the output information will be sorted. Use the <b>ascending</b> and <b>descending</b> option to invert the current order.<br><br> TIP: In table views you can click on top of a column to sort the table by the underlying values.</td></tr></table>] delay=[500]">Order:&nbsp;&nbsp;</span></td>
+<td align="left" width="25%">
+<select id="orderSelect" style="width:100%;" class="body-combo-text" onchange='window.location=document.getElementById("orderSelect").value'>
+<option selected="selected" value="groups.ashx?g=sector&v=210&o=name">Name</option><option value="groups.ashx?g=sector&v=210&o=marketcap">Market Capitalization</option><option value="groups.ashx?g=sector&v=210&o=pe">Price/Earnings</option><option value="groups.ashx?g=sector&v=210&o=forwardpe">Forward Price/Earnings</option><option value="groups.ashx?g=sector&v=210&o=peg">PEG (Price/Earnings/Growth)</option><option value="groups.ashx?g=sector&v=210&o=ps">Price/Sales</option><option value="groups.ashx?g=sector&v=210&o=pb">Price/Book</option><option value="groups.ashx?g=sector&v=210&o=pc">Price/Cash</option><option value="groups.ashx?g=sector&v=210&o=pfcf">Price/Free Cash Flow</option><option value="groups.ashx?g=sector&v=210&o=dividendyield">Dividend Yield</option><option value="groups.ashx?g=sector&v=210&o=eps5years">EPS growth past 5 years</option><option value="groups.ashx?g=sector&v=210&o=estltgrowth">EPS growth next 5 years</option><option value="groups.ashx?g=sector&v=210&o=sales5years">Sales growth past 5 years</option><option value="groups.ashx?g=sector&v=210&o=shortinterestshare">Short Interest Share</option><option value="groups.ashx?g=sector&v=210&o=recom">Analyst Recommendation</option><option value="groups.ashx?g=sector&v=210&o=perf1w">Performance (Week)</option><option value="groups.ashx?g=sector&v=210&o=perf4w">Performance (Month)</option><option value="groups.ashx?g=sector&v=210&o=perf13w">Performance (Quarter)</option><option value="groups.ashx?g=sector&v=210&o=perf26w">Performance (Half Year)</option><option value="groups.ashx?g=sector&v=210&o=perf52w">Performance (Year)</option><option value="groups.ashx?g=sector&v=210&o=perfytd">Performance (Year To Date)</option><option value="groups.ashx?g=sector&v=210&o=averagevolume">Average Volume (3 Month)</option><option value="groups.ashx?g=sector&v=210&o=relativevolume">Relative Volume</option><option value="groups.ashx?g=sector&v=210&o=change">Change</option><option value="groups.ashx?g=sector&v=210&o=volume">Volume</option><option value="groups.ashx?g=sector&v=210&o=count">Number of Stocks</option></select>
+</td>
+<td align="left" width="11%">
+<select id="orderDirSelect" style="width: 100%;" class="body-combo-text" onchange='window.location=document.getElementById("orderDirSelect").value'>
+<option selected="selected" value="groups.ashx?g=sector&v=210&o=name">Ascending</option><option value="groups.ashx?g=sector&v=210&o=-name">Descending</option></select>
+</td>
+<td align="right" width="21%" valign="top">
+<img src="gfx/nic2x2.gif" style="width:83px;height:22px" alt="" border="0"></td>
+</tr>
+<tr><td colspan="30"><img src="gfx/nic2x2.gif" style="display:block;width:2px;height:6px" alt="" border="0"></td></tr>
+</table>
+</td>
+</tr>
+<tr><td width="100%">
+<table width="100%" cellpadding="3" cellspacing="0" class="screener-view-table">
+<tr>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=sector&v=110&o=name">Overview</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=sector&v=120&o=name">Valuation</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=sector&v=140&o=name">Performance</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=sector&v=150&o=name">Custom</a></td>
+<td width="12%" align="center" class="screener-view screener-view-a" style="cursor:pointer;"><a href="groups.ashx?g=sector&v=210&o=name">Bar Chart</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=sector&v=310&o=name">Spectrum</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=sector&v=410&o=name">Charts</a></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td width="100%"><img src="gfx/nic2x2.gif" style="display:block;width:2px;height:16px" alt="" border="0"></td></tr>
+<tr>
+<td align="center">
+<div id="groups"></div></td>
+</tr>
+
+            <script type="text/javascript" src="/script/vendor/d3.js"></script>
+            <script type="text/javascript" src="/script/vendor/hammer.min.js"></script>
+            <script type="text/javascript" src="/assets/dist/groups.1d006203.js"></script>
+            <script type="text/javascript">
+                (function() {
+                    function ready(fn) {
+                        if (document.readyState != 'loading') {
+                            fn();
+                        } else {
+                            document.addEventListener('DOMContentLoaded', fn);
+                        }
+                    }
+
+                    ready(function() {
+                        var rows = [{"ticker":"basicmaterials","label":"Basic Materials","group":"","screenerUrl":"screener.ashx?f=sec_basicmaterials&v=211","perfT":2.22,"perfW":-8.71,"perfM":-7.55,"perfQ":5.52,"perfH":3.14,"perfY":-1.63,"perfYtd":-0.02},{"ticker":"communicationservices","label":"Communication Services","group":"","screenerUrl":"screener.ashx?f=sec_communicationservices&v=211","perfT":-2.35,"perfW":-9.28,"perfM":-16.41,"perfQ":-13.9,"perfH":-25.86,"perfY":-21.38,"perfYtd":-24.2},{"ticker":"consumercyclical","label":"Consumer Cyclical","group":"","screenerUrl":"screener.ashx?f=sec_consumercyclical&v=211","perfT":0.66,"perfW":-7.13,"perfM":-12.15,"perfQ":-9.23,"perfH":-22.11,"perfY":-21.43,"perfYtd":-20.79},{"ticker":"consumerdefensive","label":"Consumer Defensive","group":"","screenerUrl":"screener.ashx?f=sec_consumerdefensive&v=211","perfT":0.47,"perfW":-2.9,"perfM":3.12,"perfQ":5.11,"perfH":5.62,"perfY":6.15,"perfYtd":0.39},{"ticker":"energy","label":"Energy","group":"","screenerUrl":"screener.ashx?f=sec_energy&v=211","perfT":1.53,"perfW":-7.29,"perfM":-2.62,"perfQ":10.55,"perfH":17.88,"perfY":41.42,"perfYtd":26.65},{"ticker":"financial","label":"Financial","group":"","screenerUrl":"screener.ashx?f=sec_financial,ind_stocksonly&v=211","perfT":0.65,"perfW":-6.4,"perfM":-9.52,"perfQ":-7.8,"perfH":-13.04,"perfY":-6.03,"perfYtd":-9.09},{"ticker":"healthcare","label":"Healthcare","group":"","screenerUrl":"screener.ashx?f=sec_healthcare&v=211","perfT":0.29,"perfW":-6.11,"perfM":-4.55,"perfQ":1.85,"perfH":-9.19,"perfY":-5.29,"perfYtd":-10.09},{"ticker":"industrials","label":"Industrials","group":"","screenerUrl":"screener.ashx?f=sec_industrials&v=211","perfT":0.68,"perfW":-5.37,"perfM":-7.16,"perfQ":-3.08,"perfH":-9.35,"perfY":-7.04,"perfYtd":-10.51},{"ticker":"realestate","label":"Real Estate","group":"","screenerUrl":"screener.ashx?f=sec_realestate&v=211","perfT":-0.07,"perfW":-4.36,"perfM":-0.67,"perfQ":2.21,"perfH":-4.56,"perfY":3.13,"perfYtd":-8.72},{"ticker":"technology","label":"Technology","group":"","screenerUrl":"screener.ashx?f=sec_technology&v=211","perfT":0.82,"perfW":-6.19,"perfM":-13.65,"perfQ":-9.64,"perfH":-19.28,"perfY":-9.49,"perfYtd":-22.71},{"ticker":"utilities","label":"Utilities","group":"","screenerUrl":"screener.ashx?f=sec_utilities&v=211","perfT":0.06,"perfW":-5.12,"perfM":-1.09,"perfQ":8.43,"perfH":6.84,"perfY":8.55,"perfYtd":0.96}];
+                        FinvizInitGroupsPerformance(rows);
+                    });
+                })();
+            </script>
+            <div class="footer" style="margin-top: 20px">
+                <div class="footer_links">
+                    <a class="tab-link" href="/affiliate.ashx">affiliate</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/advertise.ashx">advertise</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/contact.ashx">contact</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/privacy.ashx">privacy</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/help/screener.ashx">help</a><br><a class="tab-link" href="/do_not_sell.ashx">Do not sell my personal information</a>
+                </div>
+                <span class="copyright">Quotes delayed 15 minutes for NASDAQ, and 20 minutes for NYSE and AMEX.</span>
+                <br>
+                Copyright © 2007-2022 FINVIZ.com. All Rights Reserved.</span>
+            </div>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3261808-1"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('set', {'dimension1': 'NotLoggedIn'});
+              gtag('set', {'dimension3': window.devicePixelRatio || 'unknown'});
+
+              gtag('config', 'UA-3261808-1', { sample_rate: 10 });
+              gtag('config', 'G-ZT9VQEWD4N');
+              
+            </script>
+        <script type="text/javascript">
+_qoptions={qacct:"p-c2W8esUZ6Q8oA"};
+</script>
+<script type="text/javascript" src="https://secure.quantserve.com/quant.js"></script>
+<noscript>
+<img src="https://pixel.quantserve.com/pixel/p-c2W8esUZ6Q8oA.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/>
+</noscript>
+<div id="modal-elite-ad" class="modal-elite-ad">
+                            <div id="modal-elite-ad_content" class="modal-elite-ad_content">
+			                    <button id="modal-elite-ad-close" type="button" class="modal-elite-ad_close">×</button>
+
+                                <!--<div id="modal-elite-ad-content-0" style="display: none">
+			                        <h2>Ever heard of Finviz*Elite?</h2>
+                                    <p>
+                                        Our premium service offers you real-time quotes, advanced visualizations, technical studies, and much more.<br>
+                                        Become Elite and make informed financial decisions.
+                                    </p>
+                                    <a href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=modal-0" id="modal-elite-ad-btn-0" class="" target="_blank">Find out more</a>
+                                </div>-->
+
+                                <div id="modal-elite-ad-content-1" style="display: block">
+			                        <h2>Upgrade your FINVIZ experience</h2>
+                                    <p>
+                                        Join thousands of traders who make more informed decisions with&nbsp;our&nbsp;premium features.
+                                        Real-time quotes, advanced&nbsp;visualizations, backtesting, and much more.
+                                    </p>
+                                    <a href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=modal-1" id="modal-elite-ad-btn-1" class="modal-elite_button" target="_blank">Learn more about FINVIZ*Elite</a>
+                                </div>
+                            </div>
+                         </div><script src="/script/pv.js?rev=305" async></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon='{"rayId":"702a2a53caab19e7","token":"e53f08f6c9e04bfd9760701085ec93b4","version":"2021.12.0","si":100}' crossorigin="anonymous"></script>
+</body>
+</html>

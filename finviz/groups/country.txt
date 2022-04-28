@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Group Screener - Bar Chart country name</title>
+<meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+                         <meta name="viewport" content="width=1024"><meta name="description" content="Stock screener for investors and traders, financial visualizations.">
+<meta name="keywords" content="Stock Screener, Charts, Quotes, Maps, News, Financial Visualizations, Research, Trading Systems">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+
+            <link rel="preload" href="/fonts/lato-v17-latin-ext_latin-regular.woff2" as="font" crossorigin>
+            <link rel="preload" href="/fonts/lato-v17-latin-ext_latin-700.woff2" as="font" crossorigin>
+            <link rel="preload" href="/fonts/lato-v17-latin-ext_latin-900.woff2" as="font" crossorigin>
+            <link rel="preload" href="/fonts/inter-latin.woff2" as="font" crossorigin>
+        <link rel="stylesheet" href="/assets/dist/finviz.29d940c1.css" type="text/css">
+<link rel="stylesheet" href="/assets/dist/main.29b3825b.css" type="text/css">
+<link rel="icon" type="image/png" href="/favicon_2x.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon.png" sizes="16x16">
+<script type="text/javascript">
+            FinvizSettings = {
+                hasUserPremium: false,
+                name: "",
+                chartsDomain: "https://charts2.finviz.com",
+                nodeChartsDomain: "https://charts2-node.finviz.com",
+                hasUserPersistentDrawings: false,
+                hasUserNodeCharts: true,
+                hasUserRetinaHoverCharts: false,
+                hasUserStickyHeader: true,
+                adsProvider: 1,
+                hasUserNewSettings: true
+            };
+        </script><script src="/script/vendor/boxover.js?rev=305" type="text/javascript"></script>
+<script src="/script/browser_support.js?rev=305" type="text/javascript"></script><script type="text/javascript" src="/assets/dist/runtime.198a4177.js"></script><script type="text/javascript" src="/assets/dist/471.d673ca55.js"></script><script type="text/javascript" src="/assets/dist/libs_init.6d37122b.js"></script><script type="text/javascript" src="/assets/dist/647.9e6c500e.js"></script><script type="text/javascript" src="/assets/dist/698.c4376194.js"></script><script type="text/javascript" src="/assets/dist/header.d4177ab9.js"></script>
+            <script src="/script/pubfig.min.js"></script>
+            <script>
+                if(window['FinvizLoadTagCode']) {
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.async = true;
+                    s.src = 'https://u5.investingchannel.com/static/uat.js';
+                    document.head.appendChild(s);
+
+                    InvestingChannelQueue = window.InvestingChannelQueue || [];
+                    var ic_page;
+                    InvestingChannelQueue.push(function() {
+                        ic_page = InvestingChannel.UAT.Run('df0d0d52-cc7f-11e8-82a5-0abbb61c4a6a');
+                    });
+                } else {
+                    (function() {
+                function ready(fn) {if (document.readyState != 'loading'){fn();}else{document.addEventListener('DOMContentLoaded', fn);} }
+                ready(function() {
+                    var banners = ['2', '4', '5', '6', '7'];
+                    var banner = banners[Math.floor(Math.random() * banners.length)];
+
+                    if (banner === '3') {
+                        document.getElementById('banner_position').innerHTML = '<iframe src="/img/a/' + banner + '/index.html?rev=2" frameBorder="0" width="728" height="90"></iframe>';
+                    } else {
+                        document.getElementById('banner_position').innerHTML = '<a href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=' + banner + '"><img src="/img/a/' + banner + '.jpg"></a>';
+                    }
+                    window.gtag && window.gtag('event', 'impression', { event_category: 'banner', event_label: banner, non_interaction: true });
+                })
+            })();
+                }
+            </script></head>
+<body class="yellow-tooltip is-groups" style="margin:0" bgcolor="#ffffff">
+          <script>
+            function checkMediaQuery(matches) {
+              if (matches) {
+                FinvizSettings.hasUserStickyHeader = true;
+                document.body.classList.add('is-header-sticky');
+              } else {
+                FinvizSettings.hasUserStickyHeader = false;
+                document.body.classList.remove('is-header-sticky');
+              }
+            }
+            var mediaMatch = window.matchMedia('(min-width: 1024px) and (min-height: 650px)');
+            checkMediaQuery(mediaMatch.matches);
+            mediaMatch.addListener(function (ev) { checkMediaQuery(ev.matches) });
+          </script>
+          <div id="unsupported-browser"></div>
+                <table class="header" width="100%" cellpadding="0" cellspacing="0" border="0" style="min-width: 1000px">
+                    <tr valign="top">
+                        <td>
+                            <table class="header-container" cellpadding="0">
+                                <tr>
+                                    <td width="30%">
+                                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td height="50" valign="middle">
+                                                    <a href="/" class="logo"></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="search" id="search" style="padding-top: 4px">
+                                                    <form style="margin: 0">
+                                                        <input placeholder="Search ticker, company or profile" type="text" value="">
+                                                        <span class="fa fa-search"></span>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td valign="bottom" style="padding-bottom: 4px">
+                                        <div id="microbar_position" style="height: 31px"></div>
+                                    </td>
+                                    <td width="730" align="right" class="relative">
+                                        <div id="banner_position" class="overflow-hidden absolute top-0 right-0 w-full h-24"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="1000" style="font-size:0">
+                            <img src="/gfx/nic2x2.gif" width="1000" style="height:1px" border="0">
+                        </td>
+                    </tr>
+                </table>
+            <table class="navbar" width="100%" height="30" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td height="30">
+                        <table class="header-container" cellpadding="0">
+                            <tr height="30"><td><a class="nav-link  is-first" href="/">Home</a></td><td><a class="nav-link " href="/news.ashx">News</a></td><td><a class="nav-link " href="/screener.ashx">Screener</a></td><td><a class="nav-link " href="/map.ashx">Maps</a></td><td><a class="nav-link is-active" href="/groups.ashx">Groups</a></td><td><a class="nav-link " href="/portfolio.ashx">Portfolio</a></td><td><a class="nav-link " href="/insidertrading.ashx">Insider</a></td><td><a class="nav-link " href="/futures.ashx">Futures</a></td><td><a class="nav-link " href="/forex.ashx">Forex</a></td><td><a class="nav-link " href="/crypto.ashx">Crypto</a></td><td><a class="nav-link " href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=main-navbar-backtests">Backtests</a></td><td><a class="nav-link  is-elite" href="/elite.ashx">Elite</a></td><td class="w-full"><div id="time"></div></td>
+                <td>
+                    <a href="/help/groups.ashx" class="nav-link is-help">
+                        <span class="fa fa-question-circle"></span>
+                        Help
+                    </a>
+                </td>
+                <td><a href="/login.ashx" class="nav-link sign-in">Login</a></td>
+                <td><a href="/register.ashx" class="nav-link sign-up">Register</a></td>
+            
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        <div class="content "><div class="fv-container"><tr>
+<td>
+<table width="100%" cellpadding="0" cellspacing="0" border="0" background="gfx/top_menu_screener_shadow.gif">
+<tr><td><img src="gfx/nic2x2.gif" style="display:block;width:2px;height:20px" alt="" border="0"></td></tr>
+<tr>
+<td align="right" width="6%">
+<span class="body-combo-title" style="cursor:pointer;" data-boxover="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Group] body=[<table width=300><tr><td class='tooltip_tab'>Select group - stocks organized by <b>sector</b>, <b>industry</b>, <b>country</b> or market <b>capitalization</b>.</td></tr></table>] delay=[500]">Group:&nbsp;&nbsp;</span></td>
+<td align="left" width="25%">
+<select id="groupSelect" style="width:100%;" class="body-combo-text" onchange='window.location=document.getElementById("groupSelect").value'>
+<option value="groups.ashx?g=sector&v=210&o=name">Sector</option><option value="groups.ashx?g=industry&v=210&o=name">Industry</option><option value="groups.ashx?g=industry&sg=basicmaterials&v=210&o=name">Industry (Basic Materials)</option><option value="groups.ashx?g=industry&sg=communicationservices&v=210&o=name">Industry (Communication Services)</option><option value="groups.ashx?g=industry&sg=consumercyclical&v=210&o=name">Industry (Consumer Cyclical)</option><option value="groups.ashx?g=industry&sg=consumerdefensive&v=210&o=name">Industry (Consumer Defensive)</option><option value="groups.ashx?g=industry&sg=energy&v=210&o=name">Industry (Energy)</option><option value="groups.ashx?g=industry&sg=financial&v=210&o=name">Industry (Financial)</option><option value="groups.ashx?g=industry&sg=healthcare&v=210&o=name">Industry (Healthcare)</option><option value="groups.ashx?g=industry&sg=industrials&v=210&o=name">Industry (Industrials)</option><option value="groups.ashx?g=industry&sg=realestate&v=210&o=name">Industry (Real Estate)</option><option value="groups.ashx?g=industry&sg=technology&v=210&o=name">Industry (Technology)</option><option value="groups.ashx?g=industry&sg=utilities&v=210&o=name">Industry (Utilities)</option><option selected="selected" value="groups.ashx?g=country&v=210&o=name">Country (U.S. listed stocks only)</option><option value="groups.ashx?g=capitalization&v=210&o=name">Capitalization</option></select>
+</td>
+<td align="right" width="12%">
+<span class="body-combo-title" style="cursor:pointer;" data-boxover="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Order] body=[<table width=300><tr><td class='tooltip_tab'>Select the criteria by which the output information will be sorted. Use the <b>ascending</b> and <b>descending</b> option to invert the current order.<br><br> TIP: In table views you can click on top of a column to sort the table by the underlying values.</td></tr></table>] delay=[500]">Order:&nbsp;&nbsp;</span></td>
+<td align="left" width="25%">
+<select id="orderSelect" style="width:100%;" class="body-combo-text" onchange='window.location=document.getElementById("orderSelect").value'>
+<option selected="selected" value="groups.ashx?g=country&v=210&o=name">Name</option><option value="groups.ashx?g=country&v=210&o=marketcap">Market Capitalization</option><option value="groups.ashx?g=country&v=210&o=pe">Price/Earnings</option><option value="groups.ashx?g=country&v=210&o=forwardpe">Forward Price/Earnings</option><option value="groups.ashx?g=country&v=210&o=peg">PEG (Price/Earnings/Growth)</option><option value="groups.ashx?g=country&v=210&o=ps">Price/Sales</option><option value="groups.ashx?g=country&v=210&o=pb">Price/Book</option><option value="groups.ashx?g=country&v=210&o=pc">Price/Cash</option><option value="groups.ashx?g=country&v=210&o=pfcf">Price/Free Cash Flow</option><option value="groups.ashx?g=country&v=210&o=dividendyield">Dividend Yield</option><option value="groups.ashx?g=country&v=210&o=eps5years">EPS growth past 5 years</option><option value="groups.ashx?g=country&v=210&o=estltgrowth">EPS growth next 5 years</option><option value="groups.ashx?g=country&v=210&o=sales5years">Sales growth past 5 years</option><option value="groups.ashx?g=country&v=210&o=shortinterestshare">Short Interest Share</option><option value="groups.ashx?g=country&v=210&o=recom">Analyst Recommendation</option><option value="groups.ashx?g=country&v=210&o=perf1w">Performance (Week)</option><option value="groups.ashx?g=country&v=210&o=perf4w">Performance (Month)</option><option value="groups.ashx?g=country&v=210&o=perf13w">Performance (Quarter)</option><option value="groups.ashx?g=country&v=210&o=perf26w">Performance (Half Year)</option><option value="groups.ashx?g=country&v=210&o=perf52w">Performance (Year)</option><option value="groups.ashx?g=country&v=210&o=perfytd">Performance (Year To Date)</option><option value="groups.ashx?g=country&v=210&o=averagevolume">Average Volume (3 Month)</option><option value="groups.ashx?g=country&v=210&o=relativevolume">Relative Volume</option><option value="groups.ashx?g=country&v=210&o=change">Change</option><option value="groups.ashx?g=country&v=210&o=volume">Volume</option><option value="groups.ashx?g=country&v=210&o=count">Number of Stocks</option></select>
+</td>
+<td align="left" width="11%">
+<select id="orderDirSelect" style="width: 100%;" class="body-combo-text" onchange='window.location=document.getElementById("orderDirSelect").value'>
+<option selected="selected" value="groups.ashx?g=country&v=210&o=name">Ascending</option><option value="groups.ashx?g=country&v=210&o=-name">Descending</option></select>
+</td>
+<td align="right" width="21%" valign="top">
+<img src="gfx/nic2x2.gif" style="width:83px;height:22px" alt="" border="0"></td>
+</tr>
+<tr><td colspan="30"><img src="gfx/nic2x2.gif" style="display:block;width:2px;height:6px" alt="" border="0"></td></tr>
+</table>
+</td>
+</tr>
+<tr><td width="100%">
+<table width="100%" cellpadding="3" cellspacing="0" class="screener-view-table">
+<tr>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=country&v=110&o=name">Overview</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=country&v=120&o=name">Valuation</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=country&v=140&o=name">Performance</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=country&v=150&o=name">Custom</a></td>
+<td width="12%" align="center" class="screener-view screener-view-a" style="cursor:pointer;"><a href="groups.ashx?g=country&v=210&o=name">Bar Chart</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=country&v=310&o=name">Spectrum</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=country&v=410&o=name">Charts</a></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td width="100%"><img src="gfx/nic2x2.gif" style="display:block;width:2px;height:16px" alt="" border="0"></td></tr>
+<tr>
+<td align="center">
+<div id="groups"></div></td>
+</tr>
+
+            <script type="text/javascript" src="/script/vendor/d3.js"></script>
+            <script type="text/javascript" src="/script/vendor/hammer.min.js"></script>
+            <script type="text/javascript" src="/assets/dist/groups.1d006203.js"></script>
+            <script type="text/javascript">
+                (function() {
+                    function ready(fn) {
+                        if (document.readyState != 'loading') {
+                            fn();
+                        } else {
+                            document.addEventListener('DOMContentLoaded', fn);
+                        }
+                    }
+
+                    ready(function() {
+                        var rows = [{"ticker":"argentina","label":"Argentina","group":"","screenerUrl":"screener.ashx?f=geo_argentina&v=211","perfT":2.05,"perfW":-11.43,"perfM":-8.59,"perfQ":12.28,"perfH":-9.29,"perfY":16.05,"perfYtd":6.29},{"ticker":"australia","label":"Australia","group":"","screenerUrl":"screener.ashx?f=geo_australia&v=211","perfT":3.35,"perfW":-11.47,"perfM":-13.46,"perfQ":-2.26,"perfH":-8.16,"perfY":-8.63,"perfYtd":-7.08},{"ticker":"bahamas","label":"Bahamas","group":"","screenerUrl":"screener.ashx?f=geo_bahamas&v=211","perfT":-0.56,"perfW":-4.98,"perfM":-3.87,"perfQ":1.19,"perfH":-12.35,"perfY":-8.68,"perfYtd":0.35},{"ticker":"belgium","label":"Belgium","group":"","screenerUrl":"screener.ashx?f=geo_belgium&v=211","perfT":-1.34,"perfW":-6.51,"perfM":-4.5,"perfQ":-8.32,"perfH":1.22,"perfY":-19.36,"perfYtd":-4.43},{"ticker":"bermuda","label":"Bermuda","group":"","screenerUrl":"screener.ashx?f=geo_bermuda&v=211","perfT":1.85,"perfW":-5.92,"perfM":-3.82,"perfQ":1.57,"perfH":-3.25,"perfY":-1.32,"perfYtd":-0.17},{"ticker":"brazil","label":"Brazil","group":"","screenerUrl":"screener.ashx?f=geo_brazil&v=211","perfT":0.9,"perfW":-11.49,"perfM":-11.84,"perfQ":1.67,"perfH":7.48,"perfY":-5.53,"perfYtd":9.48},{"ticker":"canada","label":"Canada","group":"","screenerUrl":"screener.ashx?f=geo_canada&v=211","perfT":0.23,"perfW":-8.47,"perfM":-8.69,"perfQ":-1.09,"perfH":-8.74,"perfY":-0.83,"perfYtd":-5.79},{"ticker":"caymanislands","label":"Cayman Islands","group":"","screenerUrl":"screener.ashx?f=geo_caymanislands&v=211","perfT":0.38,"perfW":-3.86,"perfM":-8.19,"perfQ":-12.42,"perfH":-39.91,"perfY":-59.38,"perfYtd":-19.63},{"ticker":"chile","label":"Chile","group":"","screenerUrl":"screener.ashx?f=geo_chile&v=211","perfT":0.75,"perfW":-10.73,"perfM":-11.33,"perfQ":6.72,"perfH":4.98,"perfY":-10.4,"perfYtd":17.51},{"ticker":"china","label":"China","group":"","screenerUrl":"screener.ashx?f=geo_china&v=211","perfT":3.95,"perfW":-2.81,"perfM":-13.23,"perfQ":-19.01,"perfH":-38.86,"perfY":-52.97,"perfYtd":-22.88},{"ticker":"colombia","label":"Colombia","group":"","screenerUrl":"screener.ashx?f=geo_colombia&v=211","perfT":1.38,"perfW":-7.24,"perfM":-10.06,"perfQ":8.63,"perfH":2.61,"perfY":20.95,"perfYtd":21.57},{"ticker":"denmark","label":"Denmark","group":"","screenerUrl":"screener.ashx?f=geo_denmark&v=211","perfT":1.49,"perfW":-3.98,"perfM":2.41,"perfQ":17.24,"perfH":-0.87,"perfY":38.22,"perfYtd":-2.44},{"ticker":"france","label":"France","group":"","screenerUrl":"screener.ashx?f=geo_france&v=211","perfT":0.88,"perfW":-3.92,"perfM":-0.97,"perfQ":-5.04,"perfH":1.15,"perfY":2.05,"perfYtd":2.61},{"ticker":"germany","label":"Germany","group":"","screenerUrl":"screener.ashx?f=geo_germany&v=211","perfT":-1.41,"perfW":-7.95,"perfM":-12.21,"perfQ":-20.66,"perfH":-36.57,"perfY":-35.09,"perfYtd":-31.02},{"ticker":"greece","label":"Greece","group":"","screenerUrl":"screener.ashx?f=geo_greece&v=211","perfT":7.11,"perfW":-6.25,"perfM":-9.18,"perfQ":25.55,"perfH":15.23,"perfY":40.98,"perfYtd":19.58},{"ticker":"hongkong","label":"Hong Kong","group":"","screenerUrl":"screener.ashx?f=geo_hongkong&v=211","perfT":0.42,"perfW":-5.4,"perfM":-13.11,"perfQ":-28.88,"perfH":-43.67,"perfY":-66.18,"perfYtd":-35.64},{"ticker":"india","label":"India","group":"","screenerUrl":"screener.ashx?f=geo_india&v=211","perfT":0.27,"perfW":-2.28,"perfM":-9.31,"perfQ":-10.79,"perfH":-18.79,"perfY":-5.01,"perfYtd":-16.28},{"ticker":"ireland","label":"Ireland","group":"","screenerUrl":"screener.ashx?f=geo_ireland&v=211","perfT":0.38,"perfW":-6.33,"perfM":-6.38,"perfQ":-6.3,"perfH":-15.24,"perfY":-6.39,"perfYtd":-17.78},{"ticker":"israel","label":"Israel","group":"","screenerUrl":"screener.ashx?f=geo_israel&v=211","perfT":-0.44,"perfW":-7.99,"perfM":-13.24,"perfQ":-4.64,"perfH":-30.17,"perfY":-24.83,"perfYtd":-23.09},{"ticker":"italy","label":"Italy","group":"","screenerUrl":"screener.ashx?f=geo_italy&v=211","perfT":0.2,"perfW":-8.99,"perfM":-5.4,"perfQ":-8.12,"perfH":-8.94,"perfY":1.26,"perfYtd":-10.95},{"ticker":"japan","label":"Japan","group":"","screenerUrl":"screener.ashx?f=geo_japan&v=211","perfT":0.46,"perfW":-4.39,"perfM":-9.45,"perfQ":-13.36,"perfH":-8.79,"perfY":-4.44,"perfYtd":-12.28},{"ticker":"luxembourg","label":"Luxembourg","group":"","screenerUrl":"screener.ashx?f=geo_luxembourg&v=211","perfT":-0.59,"perfW":-12.2,"perfM":-17.24,"perfQ":-13.34,"perfH":-33.33,"perfY":-31.87,"perfYtd":-26.06},{"ticker":"malaysia","label":"Malaysia","group":"","screenerUrl":"screener.ashx?f=geo_malaysia&v=211","perfT":-0.18,"perfW":-0.31,"perfM":-4.3,"perfQ":11.05,"perfH":-62.32,"perfY":-68.13,"perfYtd":-22.67},{"ticker":"mexico","label":"Mexico","group":"","screenerUrl":"screener.ashx?f=geo_mexico&v=211","perfT":-1.09,"perfW":-5.08,"perfM":-3.76,"perfQ":0.96,"perfH":0.36,"perfY":10.83,"perfYtd":-4.52},{"ticker":"monaco","label":"Monaco","group":"","screenerUrl":"screener.ashx?f=geo_monaco&v=211","perfT":5.07,"perfW":-7.15,"perfM":-8.32,"perfQ":30.3,"perfH":0.02,"perfY":5.3,"perfYtd":25.06},{"ticker":"netherlands","label":"Netherlands","group":"","screenerUrl":"screener.ashx?f=geo_netherlands&v=211","perfT":0.04,"perfW":-9.47,"perfM":-11.88,"perfQ":-11.74,"perfH":-19.87,"perfY":-7.84,"perfYtd":-16.98},{"ticker":"norway","label":"Norway","group":"","screenerUrl":"screener.ashx?f=geo_norway&v=211","perfT":-2.23,"perfW":-8.01,"perfM":-3.62,"perfQ":24.07,"perfH":25.56,"perfY":66.26,"perfYtd":33.85},{"ticker":"peru","label":"Peru","group":"","screenerUrl":"screener.ashx?f=geo_peru&v=211","perfT":0.35,"perfW":-10.2,"perfM":-19.53,"perfQ":0.31,"perfH":5.66,"perfY":9.91,"perfYtd":12.65},{"ticker":"singapore","label":"Singapore","group":"","screenerUrl":"screener.ashx?f=geo_singapore&v=211","perfT":-0.58,"perfW":-14.11,"perfM":-23.67,"perfQ":-35.32,"perfH":-71.07,"perfY":-65.67,"perfYtd":-56.37},{"ticker":"southafrica","label":"South Africa","group":"","screenerUrl":"screener.ashx?f=geo_southafrica&v=211","perfT":0.13,"perfW":-10.42,"perfM":-11.89,"perfQ":7.21,"perfH":15.38,"perfY":3.01,"perfYtd":16.08},{"ticker":"southkorea","label":"South Korea","group":"","screenerUrl":"screener.ashx?f=geo_southkorea&v=211","perfT":-1.14,"perfW":-9.09,"perfM":-12.61,"perfQ":-10.71,"perfH":-26.41,"perfY":-40.03,"perfYtd":-22.32},{"ticker":"spain","label":"Spain","group":"","screenerUrl":"screener.ashx?f=geo_spain&v=211","perfT":-1.5,"perfW":-10.63,"perfM":-8.59,"perfQ":-12.41,"perfH":-17.69,"perfY":-14.09,"perfYtd":-6.79},{"ticker":"sweden","label":"Sweden","group":"","screenerUrl":"screener.ashx?f=geo_sweden&v=211","perfT":0.12,"perfW":-7.0,"perfM":-12.97,"perfQ":-30.15,"perfH":-34.29,"perfY":-48.67,"perfYtd":-28.41},{"ticker":"switzerland","label":"Switzerland","group":"","screenerUrl":"screener.ashx?f=geo_switzerland&v=211","perfT":1.02,"perfW":-3.76,"perfM":-4.98,"perfQ":-3.54,"perfH":-6.48,"perfY":-3.36,"perfYtd":-8.87},{"ticker":"taiwan","label":"Taiwan","group":"","screenerUrl":"screener.ashx?f=geo_taiwan&v=211","perfT":-2.24,"perfW":-8.2,"perfM":-14.44,"perfQ":-24.75,"perfH":-19.44,"perfY":-23.26,"perfYtd":-23.9},{"ticker":"unitedarabemirates","label":"United Arab Emirates","group":"","screenerUrl":"screener.ashx?f=geo_unitedarabemirates&v=211","perfT":-1.03,"perfW":-5.33,"perfM":-14.71,"perfQ":-32.48,"perfH":-34.39,"perfY":-80.62,"perfYtd":-35.65},{"ticker":"unitedkingdom","label":"United Kingdom","group":"","screenerUrl":"screener.ashx?f=geo_unitedkingdom&v=211","perfT":0.88,"perfW":-5.81,"perfM":-4.55,"perfQ":-5.38,"perfH":-6.18,"perfY":-3.93,"perfYtd":-6.28},{"ticker":"uruguay","label":"Uruguay","group":"","screenerUrl":"screener.ashx?f=geo_uruguay&v=211","perfT":0.19,"perfW":-5.72,"perfM":-17.16,"perfQ":3.71,"perfH":-35.78,"perfY":-36.34,"perfYtd":-24.5},{"ticker":"usa","label":"USA","group":"","screenerUrl":"screener.ashx?f=geo_usa&v=211","perfT":-0.05,"perfW":-6.73,"perfM":-9.56,"perfQ":-4.44,"perfH":-12.61,"perfY":-5.56,"perfYtd":-13.97}];
+                        FinvizInitGroupsPerformance(rows);
+                    });
+                })();
+            </script>
+            <div class="footer" style="margin-top: 20px">
+                <div class="footer_links">
+                    <a class="tab-link" href="/affiliate.ashx">affiliate</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/advertise.ashx">advertise</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/contact.ashx">contact</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/privacy.ashx">privacy</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/help/screener.ashx">help</a><br><a class="tab-link" href="/do_not_sell.ashx">Do not sell my personal information</a>
+                </div>
+                <span class="copyright">Quotes delayed 15 minutes for NASDAQ, and 20 minutes for NYSE and AMEX.</span>
+                <br>
+                Copyright © 2007-2022 FINVIZ.com. All Rights Reserved.</span>
+            </div>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3261808-1"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('set', {'dimension1': 'NotLoggedIn'});
+              gtag('set', {'dimension3': window.devicePixelRatio || 'unknown'});
+
+              gtag('config', 'UA-3261808-1', { sample_rate: 10 });
+              gtag('config', 'G-ZT9VQEWD4N');
+              
+            </script>
+        <script type="text/javascript">
+_qoptions={qacct:"p-c2W8esUZ6Q8oA"};
+</script>
+<script type="text/javascript" src="https://secure.quantserve.com/quant.js"></script>
+<noscript>
+<img src="https://pixel.quantserve.com/pixel/p-c2W8esUZ6Q8oA.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/>
+</noscript>
+<div id="modal-elite-ad" class="modal-elite-ad">
+                            <div id="modal-elite-ad_content" class="modal-elite-ad_content">
+			                    <button id="modal-elite-ad-close" type="button" class="modal-elite-ad_close">×</button>
+
+                                <!--<div id="modal-elite-ad-content-0" style="display: none">
+			                        <h2>Ever heard of Finviz*Elite?</h2>
+                                    <p>
+                                        Our premium service offers you real-time quotes, advanced visualizations, technical studies, and much more.<br>
+                                        Become Elite and make informed financial decisions.
+                                    </p>
+                                    <a href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=modal-0" id="modal-elite-ad-btn-0" class="" target="_blank">Find out more</a>
+                                </div>-->
+
+                                <div id="modal-elite-ad-content-1" style="display: block">
+			                        <h2>Upgrade your FINVIZ experience</h2>
+                                    <p>
+                                        Join thousands of traders who make more informed decisions with&nbsp;our&nbsp;premium features.
+                                        Real-time quotes, advanced&nbsp;visualizations, backtesting, and much more.
+                                    </p>
+                                    <a href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=modal-1" id="modal-elite-ad-btn-1" class="modal-elite_button" target="_blank">Learn more about FINVIZ*Elite</a>
+                                </div>
+                            </div>
+                         </div><script src="/script/pv.js?rev=305" async></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon='{"rayId":"702a79f89d8e1a0f","token":"e53f08f6c9e04bfd9760701085ec93b4","version":"2021.12.0","si":100}' crossorigin="anonymous"></script>
+</body>
+</html>
