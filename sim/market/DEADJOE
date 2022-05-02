@@ -1,0 +1,34 @@
+
+*** These modified files were found in JOE when it aborted on Wed Mar 23 23:45:26 2022
+*** JOE was aborted by UNIX signal 1
+
+*** File '(Unnamed)'
+
+
+
+
+
+
+
+
+
+
+
+*** File '(Unnamed)'
+deliPC.py
+dlipower.py
+readme.txt
+readme.txt
+readme.txt
+simple_01.yml
+master.py
+master.py
+master.py
+unvetted/basicPubSubAsync.py
+marketsim.py
+
+*** File '* Startup Log *'
+Processing '/etc/joe/jmacsrc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/jmacsrc
