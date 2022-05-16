@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
-curl "https://finviz.com/groups.ashx" -o groups.txt
-grep "var rows" groups.txt > rows_groups.txt
+# first arg is directory where everything for a specific date is found
+
+dataDir=$1/data
+
+curl "https://finviz.com/groups.ashx" -o $dataDir/groups.txt
+grep "var rows" $dataDir/groups.txt > $dataDir/rows_groups.txt

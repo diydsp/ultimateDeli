@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Group Screener - Bar Chart industry name</title>
+<meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+                         <meta name="viewport" content="width=1024"><meta name="description" content="Stock screener for investors and traders, financial visualizations.">
+<meta name="keywords" content="Stock Screener, Charts, Quotes, Maps, News, Financial Visualizations, Research, Trading Systems">
+
+            <link rel="preload" href="/fonts/lato-v17-latin-ext_latin-regular.woff2" as="font" crossorigin>
+            <link rel="preload" href="/fonts/lato-v17-latin-ext_latin-700.woff2" as="font" crossorigin>
+            <link rel="preload" href="/fonts/lato-v17-latin-ext_latin-900.woff2" as="font" crossorigin>
+            <link rel="preload" href="/fonts/inter-latin.woff2" as="font" crossorigin>
+        <link rel="stylesheet" href="/assets/dist/finviz.f6728ad6.css" type="text/css">
+<link rel="stylesheet" href="/assets/dist/main.86fcafbe.css" type="text/css">
+<link rel="icon" type="image/png" href="/favicon_2x.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon.png" sizes="16x16">
+
+          <script>
+          (function() {
+            var host = 'finviz.com';
+            var element = document.createElement('script');
+            var firstScript = document.getElementsByTagName('script')[0];
+            var url = 'https://quantcast.mgr.consensu.org'
+              .concat('/choice/', 'c2W8esUZ6Q8oA', '/', host, '/choice.js')
+            var uspTries = 0;
+            var uspTriesLimit = 3;
+            element.async = true;
+            element.type = 'text/javascript';
+            element.src = url;
+
+            firstScript.parentNode.insertBefore(element, firstScript);
+
+            function makeStub() {
+              var TCF_LOCATOR_NAME = '__tcfapiLocator';
+              var queue = [];
+              var win = window;
+              var cmpFrame;
+
+              function addFrame() {
+                var doc = win.document;
+                var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+                if (!otherCMP) {
+                  if (doc.body) {
+                    var iframe = doc.createElement('iframe');
+
+                    iframe.style.cssText = 'display:none';
+                    iframe.name = TCF_LOCATOR_NAME;
+                    doc.body.appendChild(iframe);
+                  } else {
+                    setTimeout(addFrame, 5);
+                  }
+                }
+                return !otherCMP;
+              }
+
+              function tcfAPIHandler() {
+                var gdprApplies;
+                var args = arguments;
+
+                if (!args.length) {
+                  return queue;
+                } else if (args[0] === 'setGdprApplies') {
+                  if (
+                    args.length > 3 &&
+                    args[2] === 2 &&
+                    typeof args[3] === 'boolean'
+                  ) {
+                    gdprApplies = args[3];
+                    if (typeof args[2] === 'function') {
+                      args[2]('set', true);
+                    }
+                  }
+                } else if (args[0] === 'ping') {
+                  var retr = {
+                    gdprApplies: gdprApplies,
+                    cmpLoaded: false,
+                    cmpStatus: 'stub'
+                  };
+
+                  if (typeof args[2] === 'function') {
+                    args[2](retr);
+                  }
+                } else {
+                  queue.push(args);
+                }
+              }
+
+              function postMessageEventHandler(event) {
+                var msgIsString = typeof event.data === 'string';
+                var json = {};
+
+                try {
+                  if (msgIsString) {
+                    json = JSON.parse(event.data);
+                  } else {
+                    json = event.data;
+                  }
+                } catch (ignore) {}
+
+                var payload = json.__tcfapiCall;
+
+                if (payload) {
+                  window.__tcfapi(
+                    payload.command,
+                    payload.version,
+                    function(retValue, success) {
+                      var returnMsg = {
+                        __tcfapiReturn: {
+                          returnValue: retValue,
+                          success: success,
+                          callId: payload.callId
+                        }
+                      };
+                      if (msgIsString) {
+                        returnMsg = JSON.stringify(returnMsg);
+                      }
+                      if (event && event.source && event.source.postMessage) {
+                        event.source.postMessage(returnMsg, '*');
+                      }
+                    },
+                    payload.parameter
+                  );
+                }
+              }
+
+              while (win) {
+                try {
+                  if (win.frames[TCF_LOCATOR_NAME]) {
+                    cmpFrame = win;
+                    break;
+                  }
+                } catch (ignore) {}
+
+                if (win === window.top) {
+                  break;
+                }
+                win = win.parent;
+              }
+              if (!cmpFrame) {
+                addFrame();
+                win.__tcfapi = tcfAPIHandler;
+                win.addEventListener('message', postMessageEventHandler, false);
+              }
+            };
+
+            makeStub();
+
+            var uspStubFunction = function() {
+              var arg = arguments;
+              if (typeof window.__uspapi !== uspStubFunction) {
+                setTimeout(function() {
+                  if (typeof window.__uspapi !== 'undefined') {
+                    window.__uspapi.apply(window.__uspapi, arg);
+                  }
+                }, 500);
+              }
+            };
+
+            var checkIfUspIsReady = function() {
+              uspTries++;
+              if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+                console.warn('USP is not accessible');
+              } else {
+                clearInterval(uspInterval);
+              }
+            };
+
+            if (typeof window.__uspapi === 'undefined') {
+              window.__uspapi = uspStubFunction;
+              var uspInterval = setInterval(checkIfUspIsReady, 6000);
+            }
+          })();
+          </script>
+        <script>
+            FinvizSettings = {
+                hasUserPremium: false,
+                name: "",
+                chartsDomain: "https://charts2.finviz.com",
+                nodeChartsDomain: "https://charts2-node.finviz.com",
+                hasUserPersistentDrawings: false,
+                hasUserNodeCharts: true,
+                hasUserRetinaHoverCharts: false,
+                hasUserStickyHeader: true,
+                adsProvider: 2,
+                hasUserNewSettings: true,
+                hasUserNewColors: true
+            };
+        </script><script src="/script/vendor/boxover.js?rev=305"></script>
+<script src="/script/browser_support.js?rev=305"></script><script src="/assets/dist/runtime.e20428ae.js"></script><script src="/assets/dist/818.4d8709a9.js"></script><script src="/assets/dist/libs_init.0822b197.js"></script><script src="/assets/dist/647.9e6c500e.js"></script><script src="/assets/dist/698.6206f11a.js"></script><script src="/assets/dist/header.63eeb90e.js"></script>
+            <script src="/script/pubfig.min.js"></script>
+            <script>
+                var freestar = freestar || {};
+                freestar.queue = freestar.queue || [];
+                freestar.config = freestar.config || {};
+                freestar.config.enabled_slots = [];
+                freestar.initCallback = function () { (freestar.config.enabled_slots.length === 0) ? freestar.initCallbackCalled = false : freestar.newAdSlots(freestar.config.enabled_slots) }
+
+                // Remove freestar footer on mobile
+                var mql = window.matchMedia('(max-width: 1024px) and (orientation: landscape)');
+                if (mql.matches) {
+                  freestar.queue.push(function() { freestar.deleteStickyFooter() });
+                }
+
+                if(window['FinvizLoadTagCode']) {
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.async = true;
+                    s.src = '//a.pub.network/finviz-com/pubfig.min.js';
+                    document.head.appendChild(s);
+                } else {
+                    (function() {
+                function ready(fn) {if (document.readyState != 'loading'){fn();}else{document.addEventListener('DOMContentLoaded', fn);} }
+                ready(function() {
+                    var banners = ['2', '4', '5', '6', '7'];
+                    var banner = banners[Math.floor(Math.random() * banners.length)];
+
+                    if (banner === '3') {
+                        document.getElementById('banner_position').innerHTML = '<iframe src="/img/a/' + banner + '/index.html?rev=2" frameBorder="0" width="728" height="90"></iframe>';
+                    } else {
+                        document.getElementById('banner_position').innerHTML = '<a href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=' + banner + '"><img src="/img/a/' + banner + '.jpg"></a>';
+                    }
+                    window.gtag && window.gtag('event', 'impression', { event_category: 'banner', event_label: banner, non_interaction: true });
+                })
+            })();
+                }
+            </script></head>
+<body class="m-0 yellow-tooltip is-groups">
+          <script>
+            function checkMediaQuery(matches) {
+              if (matches) {
+                FinvizSettings.hasUserStickyHeader = true;
+                document.body.classList.add('is-header-sticky');
+              } else {
+                FinvizSettings.hasUserStickyHeader = false;
+                document.body.classList.remove('is-header-sticky');
+              }
+            }
+            var mediaMatch = window.matchMedia('(min-width: 1024px) and (min-height: 650px)');
+            checkMediaQuery(mediaMatch.matches);
+            mediaMatch.addListener(function (ev) { checkMediaQuery(ev.matches) });
+          </script>
+          <div id="unsupported-browser"></div>
+                <table class="header">
+                    <tr class="align-top">
+                        <td>
+                            <table class="header-container">
+                                <tr>
+                                    <td class="w-[30%]">
+                                        <table class="w-full">
+                                            <tr>
+                                                <td class="h-[50px] align-middle">
+                                                    <a href="/" class="logo"></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="search" id="search" style="padding-top: 4px">
+                                                    <form style="margin: 0">
+                                                        <input placeholder="Search ticker, company or profile" type="text" value="">
+                                                        <span class="fa fa-search"></span>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td class="align-bottom pb-1">
+                                        <div id="microbar_position" style="height: 31px"></div>
+                                    </td>
+                                    <td class="relative w-[730px] text-right">
+                                        <div id="banner_position" class="overflow-hidden absolute top-0 right-0 w-full h-24">
+          <div id="finviz_header" class="relative overflow-hidden flex items-center justify-center w-full mx-auto" style="width:728px;height:90px;">
+            <script data-cfasync="false">
+              'freestar' in window && window.freestar.queue.push(function () { freestar.newAdSlots({ placementName: 'finviz_header', slotId: 'finviz_header' }) })
+            </script>
+          </div>
+        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="w-[1000px]" style="font-size:0">
+                            <img src="/gfx/nic2x2.gif" class="w-[1000px] h-px" alt="">
+                        </td>
+                    </tr>
+                </table>
+            <table class="navbar">
+                <tr>
+                    <td class="h-[30px]">
+                        <table class="header-container">
+                            <tr><td><a class="nav-link  is-first" href="/">Home</a></td><td><a class="nav-link " href="/news.ashx">News</a></td><td><a class="nav-link " href="/screener.ashx">Screener</a></td><td><a class="nav-link " href="/map.ashx">Maps</a></td><td><a class="nav-link is-active" href="/groups.ashx">Groups</a></td><td><a class="nav-link " href="/portfolio.ashx">Portfolio</a></td><td><a class="nav-link " href="/insidertrading.ashx">Insider</a></td><td><a class="nav-link " href="/futures.ashx">Futures</a></td><td><a class="nav-link " href="/forex.ashx">Forex</a></td><td><a class="nav-link " href="/crypto.ashx">Crypto</a></td><td><a class="nav-link " href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=main-navbar-backtests">Backtests</a></td><td><a class="nav-link  is-elite" href="/elite.ashx">Elite</a></td><td class="w-full"><div id="time"></div></td>
+                <td>
+                    <a href="/help/groups.ashx" class="nav-link is-help">
+                        <span class="fa fa-question-circle"></span>
+                        Help
+                    </a>
+                </td>
+                <td><a href="/login.ashx" class="nav-link sign-in">Login</a></td>
+                <td><a href="/register.ashx" class="nav-link sign-up">Register</a></td>
+            
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        <div class="content "><div class="fv-container"><tr>
+<td>
+<table width="100%" cellpadding="0" cellspacing="0" border="0" background="gfx/top_menu_screener_shadow.gif">
+<tr><td><img src="gfx/nic2x2.gif" style="display:block;width:2px;height:20px" alt="" border="0"></td></tr>
+<tr>
+<td align="right" width="6%">
+<span class="body-combo-title" style="cursor:pointer;" data-boxover="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Group] body=[<table width=300><tr><td class='tooltip_tab'>Select group - stocks organized by <b>sector</b>, <b>industry</b>, <b>country</b> or market <b>capitalization</b>.</td></tr></table>] delay=[500]">Group:&nbsp;&nbsp;</span></td>
+<td align="left" width="25%">
+<select id="groupSelect" style="width:100%;" class="body-combo-text" onchange='window.location=document.getElementById("groupSelect").value'>
+<option value="groups.ashx?g=sector&v=210&o=name">Sector</option><option selected="selected" value="groups.ashx?g=industry&v=210&o=name">Industry</option><option value="groups.ashx?g=industry&sg=basicmaterials&v=210&o=name">Industry (Basic Materials)</option><option value="groups.ashx?g=industry&sg=communicationservices&v=210&o=name">Industry (Communication Services)</option><option value="groups.ashx?g=industry&sg=consumercyclical&v=210&o=name">Industry (Consumer Cyclical)</option><option value="groups.ashx?g=industry&sg=consumerdefensive&v=210&o=name">Industry (Consumer Defensive)</option><option value="groups.ashx?g=industry&sg=energy&v=210&o=name">Industry (Energy)</option><option value="groups.ashx?g=industry&sg=financial&v=210&o=name">Industry (Financial)</option><option value="groups.ashx?g=industry&sg=healthcare&v=210&o=name">Industry (Healthcare)</option><option value="groups.ashx?g=industry&sg=industrials&v=210&o=name">Industry (Industrials)</option><option value="groups.ashx?g=industry&sg=realestate&v=210&o=name">Industry (Real Estate)</option><option value="groups.ashx?g=industry&sg=technology&v=210&o=name">Industry (Technology)</option><option value="groups.ashx?g=industry&sg=utilities&v=210&o=name">Industry (Utilities)</option><option value="groups.ashx?g=country&v=210&o=name">Country (U.S. listed stocks only)</option><option value="groups.ashx?g=capitalization&v=210&o=name">Capitalization</option></select>
+</td>
+<td align="right" width="12%">
+<span class="body-combo-title" style="cursor:pointer;" data-boxover="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Order] body=[<table width=300><tr><td class='tooltip_tab'>Select the criteria by which the output information will be sorted. Use the <b>ascending</b> and <b>descending</b> option to invert the current order.<br><br> TIP: In table views you can click on top of a column to sort the table by the underlying values.</td></tr></table>] delay=[500]">Order:&nbsp;&nbsp;</span></td>
+<td align="left" width="25%">
+<select id="orderSelect" style="width:100%;" class="body-combo-text" onchange='window.location=document.getElementById("orderSelect").value'>
+<option selected="selected" value="groups.ashx?g=industry&v=210&o=name">Name</option><option value="groups.ashx?g=industry&v=210&o=marketcap">Market Capitalization</option><option value="groups.ashx?g=industry&v=210&o=pe">Price/Earnings</option><option value="groups.ashx?g=industry&v=210&o=forwardpe">Forward Price/Earnings</option><option value="groups.ashx?g=industry&v=210&o=peg">PEG (Price/Earnings/Growth)</option><option value="groups.ashx?g=industry&v=210&o=ps">Price/Sales</option><option value="groups.ashx?g=industry&v=210&o=pb">Price/Book</option><option value="groups.ashx?g=industry&v=210&o=pc">Price/Cash</option><option value="groups.ashx?g=industry&v=210&o=pfcf">Price/Free Cash Flow</option><option value="groups.ashx?g=industry&v=210&o=dividendyield">Dividend Yield</option><option value="groups.ashx?g=industry&v=210&o=eps5years">EPS growth past 5 years</option><option value="groups.ashx?g=industry&v=210&o=estltgrowth">EPS growth next 5 years</option><option value="groups.ashx?g=industry&v=210&o=sales5years">Sales growth past 5 years</option><option value="groups.ashx?g=industry&v=210&o=shortinterestshare">Short Interest Share</option><option value="groups.ashx?g=industry&v=210&o=recom">Analyst Recommendation</option><option value="groups.ashx?g=industry&v=210&o=perf1w">Performance (Week)</option><option value="groups.ashx?g=industry&v=210&o=perf4w">Performance (Month)</option><option value="groups.ashx?g=industry&v=210&o=perf13w">Performance (Quarter)</option><option value="groups.ashx?g=industry&v=210&o=perf26w">Performance (Half Year)</option><option value="groups.ashx?g=industry&v=210&o=perf52w">Performance (Year)</option><option value="groups.ashx?g=industry&v=210&o=perfytd">Performance (Year To Date)</option><option value="groups.ashx?g=industry&v=210&o=averagevolume">Average Volume (3 Month)</option><option value="groups.ashx?g=industry&v=210&o=relativevolume">Relative Volume</option><option value="groups.ashx?g=industry&v=210&o=change">Change</option><option value="groups.ashx?g=industry&v=210&o=volume">Volume</option><option value="groups.ashx?g=industry&v=210&o=count">Number of Stocks</option></select>
+</td>
+<td align="left" width="11%">
+<select id="orderDirSelect" style="width: 100%;" class="body-combo-text" onchange='window.location=document.getElementById("orderDirSelect").value'>
+<option selected="selected" value="groups.ashx?g=industry&v=210&o=name">Ascending</option><option value="groups.ashx?g=industry&v=210&o=-name">Descending</option></select>
+</td>
+<td align="right" width="21%" valign="top">
+<img src="gfx/nic2x2.gif" style="width:83px;height:22px" alt="" border="0"></td>
+</tr>
+<tr><td colspan="30"><img src="gfx/nic2x2.gif" style="display:block;width:2px;height:6px" alt="" border="0"></td></tr>
+</table>
+</td>
+</tr>
+<tr><td width="100%">
+<table width="100%" cellpadding="3" cellspacing="0" class="screener-view-table">
+<tr>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=industry&v=110&o=name">Overview</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=industry&v=120&o=name">Valuation</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=industry&v=140&o=name">Performance</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=industry&v=150&o=name">Custom</a></td>
+<td width="12%" align="center" class="screener-view screener-view-a" style="cursor:pointer;"><a href="groups.ashx?g=industry&v=210&o=name">Bar Chart</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=industry&v=310&o=name">Spectrum</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=industry&v=410&o=name">Charts</a></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td width="100%"><img src="gfx/nic2x2.gif" style="display:block;width:2px;height:16px" alt="" border="0"></td></tr>
+<tr>
+<td align="center">
+<div id="groups"></div></td>
+</tr>
+<script src="/assets/dist/725.e6e9e2db.js"></script><script src="/assets/dist/groups.4790eb4a.js"></script>
+            <script type="text/javascript">
+                (function() {
+                    function ready(fn) {
+                        if (document.readyState != 'loading') {
+                            fn();
+                        } else {
+                            document.addEventListener('DOMContentLoaded', fn);
+                        }
+                    }
+
+                    ready(function() {
+                        var rows = [{"ticker":"advertisingagencies","label":"Advertising Agencies","group":"","screenerUrl":"screener.ashx?f=ind_advertisingagencies&v=211","perfT":-0.52,"perfW":0.28,"perfM":-9.38,"perfQ":-18.82,"perfH":-23.99,"perfY":-23.94,"perfYtd":-20.19},{"ticker":"aerospacedefense","label":"Aerospace & Defense","group":"","screenerUrl":"screener.ashx?f=ind_aerospacedefense&v=211","perfT":0.35,"perfW":0.02,"perfM":-11.92,"perfQ":-4.62,"perfH":-5.21,"perfY":-5.77,"perfYtd":-2.51},{"ticker":"agriculturalinputs","label":"Agricultural Inputs","group":"","screenerUrl":"screener.ashx?f=ind_agriculturalinputs&v=211","perfT":1.04,"perfW":8.54,"perfM":-10.47,"perfQ":23.66,"perfH":31.02,"perfY":37.37,"perfYtd":25.56},{"ticker":"airlines","label":"Airlines","group":"","screenerUrl":"screener.ashx?f=ind_airlines&v=211","perfT":-0.19,"perfW":0.44,"perfM":-11.25,"perfQ":-17.47,"perfH":-18.31,"perfY":-29.53,"perfYtd":-10.32},{"ticker":"airportsairservices","label":"Airports & Air Services","group":"","screenerUrl":"screener.ashx?f=ind_airportsairservices&v=211","perfT":-0.43,"perfW":4.34,"perfM":-6.89,"perfQ":-13.15,"perfH":-19.17,"perfY":-13.4,"perfYtd":-17.55},{"ticker":"aluminum","label":"Aluminum","group":"","screenerUrl":"screener.ashx?f=ind_aluminum&v=211","perfT":1.7,"perfW":8.06,"perfM":-31.28,"perfQ":-28.65,"perfH":-12.16,"perfY":-9.2,"perfYtd":-14.86},{"ticker":"apparelmanufacturing","label":"Apparel Manufacturing","group":"","screenerUrl":"screener.ashx?f=ind_apparelmanufacturing&v=211","perfT":-1.04,"perfW":1.05,"perfM":-16.98,"perfQ":-24.89,"perfH":-40.12,"perfY":-40.29,"perfYtd":-34.1},{"ticker":"apparelretail","label":"Apparel Retail","group":"","screenerUrl":"screener.ashx?f=ind_apparelretail&v=211","perfT":-1.51,"perfW":-2.51,"perfM":-14.11,"perfQ":-14.12,"perfH":-28.68,"perfY":-29.0,"perfYtd":-27.11},{"ticker":"assetmanagement","label":"Asset Management","group":"","screenerUrl":"screener.ashx?f=ind_assetmanagement&v=211","perfT":-1.34,"perfW":1.76,"perfM":-10.25,"perfQ":-18.06,"perfH":-31.88,"perfY":-14.29,"perfYtd":-25.52},{"ticker":"autotruckdealerships","label":"Auto & Truck Dealerships","group":"","screenerUrl":"screener.ashx?f=ind_autotruckdealerships&v=211","perfT":-0.64,"perfW":1.34,"perfM":6.92,"perfQ":-3.22,"perfH":-20.83,"perfY":-17.21,"perfYtd":-12.88},{"ticker":"automanufacturers","label":"Auto Manufacturers","group":"","screenerUrl":"screener.ashx?f=ind_automanufacturers&v=211","perfT":-1.9,"perfW":-2.75,"perfM":-18.15,"perfQ":-18.56,"perfH":-31.9,"perfY":3.37,"perfYtd":-30.42},{"ticker":"autoparts","label":"Auto Parts","group":"","screenerUrl":"screener.ashx?f=ind_autoparts&v=211","perfT":-1.91,"perfW":0.81,"perfM":-5.72,"perfQ":-18.27,"perfH":-33.96,"perfY":-30.93,"perfYtd":-28.81},{"ticker":"banksdiversified","label":"Banks - Diversified","group":"","screenerUrl":"screener.ashx?f=ind_banksdiversified&v=211","perfT":-0.17,"perfW":-0.87,"perfM":-7.24,"perfQ":-21.71,"perfH":-19.29,"perfY":-17.08,"perfYtd":-15.9},{"ticker":"banksregional","label":"Banks - Regional","group":"","screenerUrl":"screener.ashx?f=ind_banksregional&v=211","perfT":-0.23,"perfW":-0.69,"perfM":-8.18,"perfQ":-16.77,"perfH":-17.22,"perfY":-15.84,"perfYtd":-12.48},{"ticker":"beveragesbrewers","label":"Beverages - Brewers","group":"","screenerUrl":"screener.ashx?f=ind_beveragesbrewers&v=211","perfT":-0.25,"perfW":5.09,"perfM":-5.55,"perfQ":-5.9,"perfH":-6.16,"perfY":-22.19,"perfYtd":-4.54},{"ticker":"beveragesnonalcoholic","label":"Beverages - Non-Alcoholic","group":"","screenerUrl":"screener.ashx?f=ind_beveragesnonalcoholic&v=211","perfT":0.2,"perfW":2.34,"perfM":1.65,"perfQ":4.65,"perfH":7.33,"perfY":12.84,"perfYtd":2.96},{"ticker":"beverageswineriesdistilleries","label":"Beverages - Wineries & Distilleries","group":"","screenerUrl":"screener.ashx?f=ind_beverageswineriesdistilleries&v=211","perfT":-0.0,"perfW":2.44,"perfM":-5.82,"perfQ":-0.75,"perfH":-3.34,"perfY":-1.86,"perfYtd":-9.82},{"ticker":"biotechnology","label":"Biotechnology","group":"","screenerUrl":"screener.ashx?f=ind_biotechnology&v=211","perfT":-1.0,"perfW":5.57,"perfM":-18.0,"perfQ":-15.16,"perfH":-37.36,"perfY":-36.58,"perfYtd":-32.26},{"ticker":"broadcasting","label":"Broadcasting","group":"","screenerUrl":"screener.ashx?f=ind_broadcasting&v=211","perfT":0.08,"perfW":4.24,"perfM":-11.55,"perfQ":-14.28,"perfH":-16.46,"perfY":-4.85,"perfYtd":-11.6},{"ticker":"buildingmaterials","label":"Building Materials","group":"","screenerUrl":"screener.ashx?f=ind_buildingmaterials&v=211","perfT":-2.38,"perfW":-0.5,"perfM":-7.28,"perfQ":-16.87,"perfH":-25.6,"perfY":-23.03,"perfYtd":-27.59},{"ticker":"buildingproductsequipment","label":"Building Products & Equipment","group":"","screenerUrl":"screener.ashx?f=ind_buildingproductsequipment&v=211","perfT":-1.22,"perfW":0.73,"perfM":-0.09,"perfQ":-9.59,"perfH":-23.74,"perfY":-13.39,"perfYtd":-25.82},{"ticker":"businessequipmentsupplies","label":"Business Equipment & Supplies","group":"","screenerUrl":"screener.ashx?f=ind_businessequipmentsupplies&v=211","perfT":-0.61,"perfW":-0.8,"perfM":2.58,"perfQ":-2.35,"perfH":-20.89,"perfY":-16.68,"perfYtd":-16.16},{"ticker":"capitalmarkets","label":"Capital Markets","group":"","screenerUrl":"screener.ashx?f=ind_capitalmarkets&v=211","perfT":-0.93,"perfW":0.19,"perfM":-12.98,"perfQ":-22.59,"perfH":-25.57,"perfY":-18.87,"perfYtd":-22.61},{"ticker":"chemicals","label":"Chemicals","group":"","screenerUrl":"screener.ashx?f=ind_chemicals&v=211","perfT":-0.77,"perfW":1.01,"perfM":-3.87,"perfQ":-3.02,"perfH":-9.55,"perfY":-11.63,"perfYtd":-7.06},{"ticker":"cokingcoal","label":"Coking Coal","group":"","screenerUrl":"screener.ashx?f=ind_cokingcoal&v=211","perfT":2.85,"perfW":10.42,"perfM":-6.5,"perfQ":37.39,"perfH":85.26,"perfY":187.03,"perfYtd":70.57},{"ticker":"communicationequipment","label":"Communication Equipment","group":"","screenerUrl":"screener.ashx?f=ind_communicationequipment&v=211","perfT":-0.25,"perfW":1.73,"perfM":-5.82,"perfQ":-10.7,"perfH":-16.84,"perfY":-11.18,"perfYtd":-22.99},{"ticker":"computerhardware","label":"Computer Hardware","group":"","screenerUrl":"screener.ashx?f=ind_computerhardware&v=211","perfT":-0.4,"perfW":1.35,"perfM":-5.15,"perfQ":-13.47,"perfH":-15.84,"perfY":-10.43,"perfYtd":-18.88},{"ticker":"confectioners","label":"Confectioners","group":"","screenerUrl":"screener.ashx?f=ind_confectioners&v=211","perfT":0.18,"perfW":0.72,"perfM":2.71,"perfQ":3.89,"perfH":12.16,"perfY":13.52,"perfYtd":5.13},{"ticker":"conglomerates","label":"Conglomerates","group":"","screenerUrl":"screener.ashx?f=ind_conglomerates&v=211","perfT":0.53,"perfW":1.97,"perfM":-2.49,"perfQ":-2.89,"perfH":-9.51,"perfY":-6.79,"perfYtd":-0.24},{"ticker":"consultingservices","label":"Consulting Services","group":"","screenerUrl":"screener.ashx?f=ind_consultingservices&v=211","perfT":-0.32,"perfW":-0.49,"perfM":-11.31,"perfQ":-5.0,"perfH":-19.39,"perfY":-6.21,"perfYtd":-20.74},{"ticker":"consumerelectronics","label":"Consumer Electronics","group":"","screenerUrl":"screener.ashx?f=ind_consumerelectronics&v=211","perfT":-1.37,"perfW":-4.13,"perfM":-11.9,"perfQ":-14.42,"perfH":-5.18,"perfY":13.01,"perfYtd":-19.14},{"ticker":"copper","label":"Copper","group":"","screenerUrl":"screener.ashx?f=ind_copper&v=211","perfT":-0.82,"perfW":-3.92,"perfM":-26.78,"perfQ":-16.65,"perfH":-11.7,"perfY":-23.72,"perfYtd":-12.4},{"ticker":"creditservices","label":"Credit Services","group":"","screenerUrl":"screener.ashx?f=ind_creditservices&v=211","perfT":-1.26,"perfW":-0.48,"perfM":-10.27,"perfQ":-16.5,"perfH":-22.13,"perfY":-23.99,"perfYtd":-18.59},{"ticker":"departmentstores","label":"Department Stores","group":"","screenerUrl":"screener.ashx?f=ind_departmentstores&v=211","perfT":-1.01,"perfW":-1.28,"perfM":-13.37,"perfQ":-1.86,"perfH":-18.76,"perfY":-7.33,"perfYtd":0.16},{"ticker":"diagnosticsresearch","label":"Diagnostics & Research","group":"","screenerUrl":"screener.ashx?f=ind_diagnosticsresearch&v=211","perfT":-0.78,"perfW":3.16,"perfM":-12.71,"perfQ":-13.57,"perfH":-27.37,"perfY":-12.18,"perfYtd":-28.26},{"ticker":"discountstores","label":"Discount Stores","group":"","screenerUrl":"screener.ashx?f=ind_discountstores&v=211","perfT":0.06,"perfW":-1.39,"perfM":-8.92,"perfQ":6.76,"perfH":-1.84,"perfY":13.01,"perfYtd":-2.83},{"ticker":"drugmanufacturersgeneral","label":"Drug Manufacturers - General","group":"","screenerUrl":"screener.ashx?f=ind_drugmanufacturersgeneral&v=211","perfT":0.58,"perfW":1.92,"perfM":-3.89,"perfQ":8.23,"perfH":7.68,"perfY":13.53,"perfYtd":2.9},{"ticker":"drugmanufacturersspecialtygeneric","label":"Drug Manufacturers - Specialty & Generic","group":"","screenerUrl":"screener.ashx?f=ind_drugmanufacturersspecialtygeneric&v=211","perfT":-0.47,"perfW":2.09,"perfM":-11.77,"perfQ":-15.4,"perfH":-26.0,"perfY":-26.71,"perfYtd":-24.12},{"ticker":"educationtrainingservices","label":"Education & Training Services","group":"","screenerUrl":"screener.ashx?f=ind_educationtrainingservices&v=211","perfT":-0.87,"perfW":-0.96,"perfM":-14.78,"perfQ":-12.4,"perfH":-32.5,"perfY":-72.02,"perfYtd":-24.31},{"ticker":"electricalequipmentparts","label":"Electrical Equipment & Parts","group":"","screenerUrl":"screener.ashx?f=ind_electricalequipmentparts&v=211","perfT":-1.43,"perfW":-1.91,"perfM":-14.25,"perfQ":-16.15,"perfH":-41.2,"perfY":-26.46,"perfYtd":-31.14},{"ticker":"electroniccomponents","label":"Electronic Components","group":"","screenerUrl":"screener.ashx?f=ind_electroniccomponents&v=211","perfT":-1.02,"perfW":0.14,"perfM":0.48,"perfQ":-10.82,"perfH":-19.77,"perfY":-7.16,"perfYtd":-18.58},{"ticker":"electronicgamingmultimedia","label":"Electronic Gaming & Multimedia","group":"","screenerUrl":"screener.ashx?f=ind_electronicgamingmultimedia&v=211","perfT":-1.45,"perfW":7.38,"perfM":-15.03,"perfQ":-26.92,"perfH":-52.81,"perfY":-46.18,"perfYtd":-39.63},{"ticker":"electronicscomputerdistribution","label":"Electronics & Computer Distribution","group":"","screenerUrl":"screener.ashx?f=ind_electronicscomputerdistribution&v=211","perfT":-0.17,"perfW":0.71,"perfM":12.58,"perfQ":1.51,"perfH":-0.44,"perfY":1.91,"perfYtd":-3.35},{"ticker":"engineeringconstruction","label":"Engineering & Construction","group":"","screenerUrl":"screener.ashx?f=ind_engineeringconstruction&v=211","perfT":-0.47,"perfW":0.83,"perfM":-12.85,"perfQ":-9.72,"perfH":-22.27,"perfY":-10.25,"perfYtd":-22.09},{"ticker":"entertainment","label":"Entertainment","group":"","screenerUrl":"screener.ashx?f=ind_entertainment&v=211","perfT":-0.04,"perfW":3.29,"perfM":-20.6,"perfQ":-27.18,"perfH":-39.77,"perfY":-37.15,"perfYtd":-34.77},{"ticker":"farmheavyconstructionmachinery","label":"Farm & Heavy Construction Machinery","group":"","screenerUrl":"screener.ashx?f=ind_farmheavyconstructionmachinery&v=211","perfT":0.51,"perfW":0.44,"perfM":-11.22,"perfQ":-4.16,"perfH":-4.34,"perfY":-13.25,"perfYtd":-1.45},{"ticker":"farmproducts","label":"Farm Products","group":"","screenerUrl":"screener.ashx?f=ind_farmproducts&v=211","perfT":1.37,"perfW":1.34,"perfM":-8.78,"perfQ":6.17,"perfH":17.04,"perfY":14.9,"perfYtd":15.59},{"ticker":"financialconglomerates","label":"Financial Conglomerates","group":"","screenerUrl":"screener.ashx?f=ind_financialconglomerates&v=211","perfT":0.17,"perfW":-2.41,"perfM":-6.02,"perfQ":-15.22,"perfH":-21.75,"perfY":-9.42,"perfYtd":-18.45},{"ticker":"financialdatastockexchanges","label":"Financial Data & Stock Exchanges","group":"","screenerUrl":"screener.ashx?f=ind_financialdatastockexchanges&v=211","perfT":-0.86,"perfW":0.94,"perfM":-15.61,"perfQ":-15.57,"perfH":-24.87,"perfY":-9.67,"perfYtd":-26.22},{"ticker":"fooddistribution","label":"Food Distribution","group":"","screenerUrl":"screener.ashx?f=ind_fooddistribution&v=211","perfT":-0.03,"perfW":3.1,"perfM":-4.09,"perfQ":0.27,"perfH":6.61,"perfY":-0.59,"perfYtd":4.49},{"ticker":"footwearaccessories","label":"Footwear & Accessories","group":"","screenerUrl":"screener.ashx?f=ind_footwearaccessories&v=211","perfT":-0.64,"perfW":1.28,"perfM":-15.02,"perfQ":-20.98,"perfH":-34.91,"perfY":-20.15,"perfYtd":-32.42},{"ticker":"furnishingsfixturesappliances","label":"Furnishings, Fixtures & Appliances","group":"","screenerUrl":"screener.ashx?f=ind_furnishingsfixturesappliances&v=211","perfT":-2.43,"perfW":-5.09,"perfM":-3.02,"perfQ":-18.54,"perfH":-33.72,"perfY":-40.67,"perfYtd":-31.49},{"ticker":"gambling","label":"Gambling","group":"","screenerUrl":"screener.ashx?f=ind_gambling&v=211","perfT":-0.74,"perfW":8.79,"perfM":-15.25,"perfQ":-29.11,"perfH":-49.04,"perfY":-43.43,"perfYtd":-38.36},{"ticker":"gold","label":"Gold","group":"","screenerUrl":"screener.ashx?f=ind_gold&v=211","perfT":0.23,"perfW":-4.37,"perfM":-22.94,"perfQ":-5.78,"perfH":-6.8,"perfY":-20.74,"perfYtd":-1.48},{"ticker":"grocerystores","label":"Grocery Stores","group":"","screenerUrl":"screener.ashx?f=ind_grocerystores&v=211","perfT":0.37,"perfW":0.76,"perfM":-7.0,"perfQ":11.72,"perfH":1.87,"perfY":14.97,"perfYtd":5.29},{"ticker":"healthinformationservices","label":"Health Information Services","group":"","screenerUrl":"screener.ashx?f=ind_healthinformationservices&v=211","perfT":-1.17,"perfW":2.12,"perfM":-17.87,"perfQ":-23.04,"perfH":-43.1,"perfY":-39.03,"perfYtd":-32.98},{"ticker":"healthcareplans","label":"Healthcare Plans","group":"","screenerUrl":"screener.ashx?f=ind_healthcareplans&v=211","perfT":0.8,"perfW":0.71,"perfM":-6.4,"perfQ":3.76,"perfH":6.66,"perfY":13.09,"perfYtd":-0.82},{"ticker":"homeimprovementretail","label":"Home Improvement Retail","group":"","screenerUrl":"screener.ashx?f=ind_homeimprovementretail&v=211","perfT":-1.2,"perfW":-1.8,"perfM":-4.55,"perfQ":-16.65,"perfH":-21.63,"perfY":-7.93,"perfYtd":-28.91},{"ticker":"householdpersonalproducts","label":"Household & Personal Products","group":"","screenerUrl":"screener.ashx?f=ind_householdpersonalproducts&v=211","perfT":-0.54,"perfW":-0.41,"perfM":-3.04,"perfQ":-6.17,"perfH":-6.35,"perfY":-5.3,"perfYtd":-13.05},{"ticker":"industrialdistribution","label":"Industrial Distribution","group":"","screenerUrl":"screener.ashx?f=ind_industrialdistribution&v=211","perfT":-0.96,"perfW":0.69,"perfM":-6.29,"perfQ":-5.97,"perfH":-17.37,"perfY":-5.21,"perfYtd":-21.43},{"ticker":"informationtechnologyservices","label":"Information Technology Services","group":"","screenerUrl":"screener.ashx?f=ind_informationtechnologyservices&v=211","perfT":-0.64,"perfW":0.02,"perfM":-7.26,"perfQ":-9.7,"perfH":-18.29,"perfY":-12.82,"perfYtd":-21.59},{"ticker":"insurancediversified","label":"Insurance - Diversified","group":"","screenerUrl":"screener.ashx?f=ind_insurancediversified&v=211","perfT":0.11,"perfW":-0.93,"perfM":-9.61,"perfQ":-1.83,"perfH":6.6,"perfY":6.54,"perfYtd":2.7},{"ticker":"insurancelife","label":"Insurance - Life","group":"","screenerUrl":"screener.ashx?f=ind_insurancelife&v=211","perfT":-0.3,"perfW":-1.13,"perfM":-11.65,"perfQ":-17.03,"perfH":-15.33,"perfY":-19.99,"perfYtd":-10.28},{"ticker":"insurancepropertycasualty","label":"Insurance - Property & Casualty","group":"","screenerUrl":"screener.ashx?f=ind_insurancepropertycasualty&v=211","perfT":0.62,"perfW":0.68,"perfM":-4.37,"perfQ":3.2,"perfH":6.77,"perfY":6.26,"perfYtd":6.09},{"ticker":"insurancereinsurance","label":"Insurance - Reinsurance","group":"","screenerUrl":"screener.ashx?f=ind_insurancereinsurance&v=211","perfT":-0.32,"perfW":1.03,"perfM":-2.01,"perfQ":-3.78,"perfH":-2.06,"perfY":-6.27,"perfYtd":-2.94},{"ticker":"insurancespecialty","label":"Insurance - Specialty","group":"","screenerUrl":"screener.ashx?f=ind_insurancespecialty&v=211","perfT":-0.02,"perfW":1.74,"perfM":-3.36,"perfQ":-7.41,"perfH":-12.93,"perfY":-6.05,"perfYtd":-11.82},{"ticker":"insurancebrokers","label":"Insurance Brokers","group":"","screenerUrl":"screener.ashx?f=ind_insurancebrokers&v=211","perfT":-0.05,"perfW":1.38,"perfM":-10.76,"perfQ":0.04,"perfH":-8.83,"perfY":2.95,"perfYtd":-10.2},{"ticker":"integratedfreightlogistics","label":"Integrated Freight & Logistics","group":"","screenerUrl":"screener.ashx?f=ind_integratedfreightlogistics&v=211","perfT":-0.23,"perfW":-0.31,"perfM":-1.78,"perfQ":-12.06,"perfH":-15.57,"perfY":-18.68,"perfYtd":-16.54},{"ticker":"internetcontentinformation","label":"Internet Content & Information","group":"","screenerUrl":"screener.ashx?f=ind_internetcontentinformation&v=211","perfT":-0.88,"perfW":2.09,"perfM":-9.55,"perfQ":-15.29,"perfH":-28.83,"perfY":-13.81,"perfYtd":-25.54},{"ticker":"internetretail","label":"Internet Retail","group":"","screenerUrl":"screener.ashx?f=ind_internetretail&v=211","perfT":-1.05,"perfW":2.9,"perfM":-23.29,"perfQ":-29.83,"perfH":-43.0,"perfY":-42.15,"perfYtd":-34.81},{"ticker":"leisure","label":"Leisure","group":"","screenerUrl":"screener.ashx?f=ind_leisure&v=211","perfT":-1.02,"perfW":2.63,"perfM":-10.35,"perfQ":-19.46,"perfH":-29.37,"perfY":-33.1,"perfYtd":-23.84},{"ticker":"lodging","label":"Lodging","group":"","screenerUrl":"screener.ashx?f=ind_lodging&v=211","perfT":-0.94,"perfW":2.1,"perfM":-11.43,"perfQ":-11.64,"perfH":-8.03,"perfY":-0.47,"perfYtd":-10.85},{"ticker":"lumberwoodproduction","label":"Lumber & Wood Production","group":"","screenerUrl":"screener.ashx?f=ind_lumberwoodproduction&v=211","perfT":0.18,"perfW":-4.33,"perfM":1.93,"perfQ":-6.25,"perfH":1.5,"perfY":13.42,"perfYtd":-7.44},{"ticker":"luxurygoods","label":"Luxury Goods","group":"","screenerUrl":"screener.ashx?f=ind_luxurygoods&v=211","perfT":0.19,"perfW":-0.66,"perfM":-14.45,"perfQ":-24.43,"perfH":-41.45,"perfY":-36.54,"perfYtd":-32.8},{"ticker":"marineshipping","label":"Marine Shipping","group":"","screenerUrl":"screener.ashx?f=ind_marineshipping&v=211","perfT":1.43,"perfW":6.52,"perfM":0.51,"perfQ":4.36,"perfH":17.2,"perfY":25.65,"perfYtd":16.49},{"ticker":"medicalcarefacilities","label":"Medical Care Facilities","group":"","screenerUrl":"screener.ashx?f=ind_medicalcarefacilities&v=211","perfT":-0.5,"perfW":-0.78,"perfM":-15.9,"perfQ":-6.79,"perfH":-18.38,"perfY":-21.95,"perfYtd":-16.68},{"ticker":"medicaldevices","label":"Medical Devices","group":"","screenerUrl":"screener.ashx?f=ind_medicaldevices&v=211","perfT":-0.54,"perfW":2.75,"perfM":-12.3,"perfQ":-11.04,"perfH":-21.65,"perfY":-16.44,"perfYtd":-20.61},{"ticker":"medicaldistribution","label":"Medical Distribution","group":"","screenerUrl":"screener.ashx?f=ind_medicaldistribution&v=211","perfT":1.35,"perfW":-0.33,"perfM":-3.3,"perfQ":13.52,"perfH":23.89,"perfY":30.92,"perfYtd":18.46},{"ticker":"medicalinstrumentssupplies","label":"Medical Instruments & Supplies","group":"","screenerUrl":"screener.ashx?f=ind_medicalinstrumentssupplies&v=211","perfT":-0.52,"perfW":2.71,"perfM":-13.88,"perfQ":-14.54,"perfH":-22.83,"perfY":-12.93,"perfYtd":-23.72},{"ticker":"metalfabrication","label":"Metal Fabrication","group":"","screenerUrl":"screener.ashx?f=ind_metalfabrication&v=211","perfT":0.37,"perfW":-0.04,"perfM":-7.74,"perfQ":-2.17,"perfH":-6.19,"perfY":-12.36,"perfYtd":-0.91},{"ticker":"mortgagefinance","label":"Mortgage Finance","group":"","screenerUrl":"screener.ashx?f=ind_mortgagefinance&v=211","perfT":0.97,"perfW":-0.24,"perfM":-9.74,"perfQ":-22.0,"perfH":-37.33,"perfY":-40.25,"perfYtd":-29.73},{"ticker":"oilgasdrilling","label":"Oil & Gas Drilling","group":"","screenerUrl":"screener.ashx?f=ind_oilgasdrilling&v=211","perfT":1.72,"perfW":8.12,"perfM":-7.26,"perfQ":29.11,"perfH":46.24,"perfY":60.92,"perfYtd":68.81},{"ticker":"oilgasep","label":"Oil & Gas E&P","group":"","screenerUrl":"screener.ashx?f=ind_oilgasep&v=211","perfT":1.46,"perfW":7.31,"perfM":-1.16,"perfQ":21.24,"perfH":42.68,"perfY":75.21,"perfYtd":48.04},{"ticker":"oilgasequipmentservices","label":"Oil & Gas Equipment & Services","group":"","screenerUrl":"screener.ashx?f=ind_oilgasequipmentservices&v=211","perfT":1.89,"perfW":9.46,"perfM":-8.33,"perfQ":11.57,"perfH":30.07,"perfY":22.25,"perfYtd":40.91},{"ticker":"oilgasintegrated","label":"Oil & Gas Integrated","group":"","screenerUrl":"screener.ashx?f=ind_oilgasintegrated&v=211","perfT":0.84,"perfW":5.87,"perfM":-0.92,"perfQ":7.33,"perfH":29.39,"perfY":35.99,"perfYtd":30.48},{"ticker":"oilgasmidstream","label":"Oil & Gas Midstream","group":"","screenerUrl":"screener.ashx?f=ind_oilgasmidstream&v=211","perfT":0.96,"perfW":2.59,"perfM":-4.09,"perfQ":8.4,"perfH":13.64,"perfY":16.4,"perfYtd":20.26},{"ticker":"oilgasrefiningmarketing","label":"Oil & Gas Refining & Marketing","group":"","screenerUrl":"screener.ashx?f=ind_oilgasrefiningmarketing&v=211","perfT":1.04,"perfW":7.04,"perfM":10.56,"perfQ":17.69,"perfH":32.86,"perfY":26.02,"perfYtd":38.35},{"ticker":"otherindustrialmetalsmining","label":"Other Industrial Metals & Mining","group":"","screenerUrl":"screener.ashx?f=ind_otherindustrialmetalsmining&v=211","perfT":0.84,"perfW":3.05,"perfM":-18.81,"perfQ":-9.47,"perfH":12.4,"perfY":-20.2,"perfYtd":4.54},{"ticker":"otherpreciousmetalsmining","label":"Other Precious Metals & Mining","group":"","screenerUrl":"screener.ashx?f=ind_otherpreciousmetalsmining&v=211","perfT":0.59,"perfW":-2.98,"perfM":-29.16,"perfQ":-18.31,"perfH":-30.95,"perfY":-46.92,"perfYtd":-18.45},{"ticker":"packagedfoods","label":"Packaged Foods","group":"","screenerUrl":"screener.ashx?f=ind_packagedfoods&v=211","perfT":-0.05,"perfW":1.2,"perfM":-0.58,"perfQ":5.58,"perfH":6.44,"perfY":-1.96,"perfYtd":3.89},{"ticker":"packagingcontainers","label":"Packaging & Containers","group":"","screenerUrl":"screener.ashx?f=ind_packagingcontainers&v=211","perfT":-0.19,"perfW":-1.96,"perfM":-4.77,"perfQ":-1.96,"perfH":-6.96,"perfY":-13.33,"perfYtd":-4.24},{"ticker":"paperpaperproducts","label":"Paper & Paper Products","group":"","screenerUrl":"screener.ashx?f=ind_paperpaperproducts&v=211","perfT":-0.62,"perfW":4.14,"perfM":-4.89,"perfQ":-4.52,"perfH":6.54,"perfY":-15.61,"perfYtd":-2.14},{"ticker":"personalservices","label":"Personal Services","group":"","screenerUrl":"screener.ashx?f=ind_personalservices&v=211","perfT":-0.17,"perfW":1.58,"perfM":-8.7,"perfQ":-5.3,"perfH":-16.34,"perfY":-21.56,"perfYtd":-14.02},{"ticker":"pharmaceuticalretailers","label":"Pharmaceutical Retailers","group":"","screenerUrl":"screener.ashx?f=ind_pharmaceuticalretailers&v=211","perfT":0.2,"perfW":-0.57,"perfM":-3.46,"perfQ":-8.64,"perfH":-14.36,"perfY":-24.79,"perfYtd":-17.27},{"ticker":"pollutiontreatmentcontrols","label":"Pollution & Treatment Controls","group":"","screenerUrl":"screener.ashx?f=ind_pollutiontreatmentcontrols&v=211","perfT":-1.42,"perfW":-0.21,"perfM":-13.94,"perfQ":-12.47,"perfH":-31.47,"perfY":-19.45,"perfYtd":-24.81},{"ticker":"publishing","label":"Publishing","group":"","screenerUrl":"screener.ashx?f=ind_publishing&v=211","perfT":0.71,"perfW":0.75,"perfM":-10.86,"perfQ":-6.71,"perfH":-11.15,"perfY":-0.54,"perfYtd":-12.93},{"ticker":"railroads","label":"Railroads","group":"","screenerUrl":"screener.ashx?f=ind_railroads&v=211","perfT":0.09,"perfW":0.71,"perfM":-7.57,"perfQ":-5.37,"perfH":-8.58,"perfY":-2.72,"perfYtd":-9.28},{"ticker":"realestatedevelopment","label":"Real Estate - Development","group":"","screenerUrl":"screener.ashx?f=ind_realestatedevelopment&v=211","perfT":-0.2,"perfW":1.49,"perfM":-6.86,"perfQ":-2.01,"perfH":-16.8,"perfY":-23.66,"perfYtd":-9.08},{"ticker":"realestatediversified","label":"Real Estate - Diversified","group":"","screenerUrl":"screener.ashx?f=ind_realestatediversified&v=211","perfT":0.12,"perfW":-0.4,"perfM":-15.33,"perfQ":-4.76,"perfH":-8.31,"perfY":-7.27,"perfYtd":-11.97},{"ticker":"realestateservices","label":"Real Estate Services","group":"","screenerUrl":"screener.ashx?f=ind_realestateservices&v=211","perfT":-1.4,"perfW":4.82,"perfM":-11.1,"perfQ":-30.68,"perfH":-40.79,"perfY":-63.93,"perfYtd":-35.28},{"ticker":"recreationalvehicles","label":"Recreational Vehicles","group":"","screenerUrl":"screener.ashx?f=ind_recreationalvehicles&v=211","perfT":-1.96,"perfW":1.98,"perfM":-0.82,"perfQ":-15.45,"perfH":-27.44,"perfY":-33.28,"perfYtd":-24.11},{"ticker":"reitdiversified","label":"REIT - Diversified","group":"","screenerUrl":"screener.ashx?f=ind_reitdiversified&v=211","perfT":0.32,"perfW":4.34,"perfM":-4.66,"perfQ":-4.0,"perfH":-9.79,"perfY":-5.21,"perfYtd":-13.14},{"ticker":"reithealthcarefacilities","label":"REIT - Healthcare Facilities","group":"","screenerUrl":"screener.ashx?f=ind_reithealthcarefacilities&v=211","perfT":0.58,"perfW":0.86,"perfM":-7.37,"perfQ":2.21,"perfH":-4.51,"perfY":-0.38,"perfYtd":-5.34},{"ticker":"reithotelmotel","label":"REIT - Hotel & Motel","group":"","screenerUrl":"screener.ashx?f=ind_reithotelmotel&v=211","perfT":-0.08,"perfW":3.64,"perfM":-4.44,"perfQ":1.5,"perfH":-1.86,"perfY":-1.5,"perfYtd":1.29},{"ticker":"reitindustrial","label":"REIT - Industrial","group":"","screenerUrl":"screener.ashx?f=ind_reitindustrial&v=211","perfT":0.03,"perfW":1.31,"perfM":-18.47,"perfQ":-10.32,"perfH":-11.9,"perfY":11.18,"perfYtd":-21.74},{"ticker":"reitmortgage","label":"REIT - Mortgage","group":"","screenerUrl":"screener.ashx?f=ind_reitmortgage&v=211","perfT":0.11,"perfW":1.33,"perfM":-3.49,"perfQ":-6.3,"perfH":-17.8,"perfY":-17.89,"perfYtd":-11.43},{"ticker":"reitoffice","label":"REIT - Office","group":"","screenerUrl":"screener.ashx?f=ind_reitoffice&v=211","perfT":0.04,"perfW":-1.02,"perfM":-12.12,"perfQ":-7.69,"perfH":-16.04,"perfY":-10.16,"perfYtd":-18.44},{"ticker":"reitresidential","label":"REIT - Residential","group":"","screenerUrl":"screener.ashx?f=ind_reitresidential&v=211","perfT":0.37,"perfW":2.59,"perfM":-12.39,"perfQ":-9.02,"perfH":-11.05,"perfY":7.64,"perfYtd":-16.82},{"ticker":"reitretail","label":"REIT - Retail","group":"","screenerUrl":"screener.ashx?f=ind_reitretail&v=211","perfT":0.21,"perfW":1.68,"perfM":-7.0,"perfQ":-3.57,"perfH":-12.64,"perfY":2.76,"perfYtd":-12.64},{"ticker":"reitspecialty","label":"REIT - Specialty","group":"","screenerUrl":"screener.ashx?f=ind_reitspecialty&v=211","perfT":-0.27,"perfW":0.5,"perfM":-8.71,"perfQ":1.26,"perfH":-8.8,"perfY":-1.83,"perfYtd":-16.66},{"ticker":"rentalleasingservices","label":"Rental & Leasing Services","group":"","screenerUrl":"screener.ashx?f=ind_rentalleasingservices&v=211","perfT":-0.88,"perfW":0.07,"perfM":-12.26,"perfQ":-8.94,"perfH":-25.58,"perfY":-11.1,"perfYtd":-18.14},{"ticker":"residentialconstruction","label":"Residential Construction","group":"","screenerUrl":"screener.ashx?f=ind_residentialconstruction&v=211","perfT":-2.43,"perfW":-3.16,"perfM":-2.81,"perfQ":-16.79,"perfH":-27.2,"perfY":-24.63,"perfYtd":-33.53},{"ticker":"resortscasinos","label":"Resorts & Casinos","group":"","screenerUrl":"screener.ashx?f=ind_resortscasinos&v=211","perfT":-1.29,"perfW":3.52,"perfM":-12.96,"perfQ":-24.52,"perfH":-27.92,"perfY":-34.48,"perfYtd":-24.25},{"ticker":"restaurants","label":"Restaurants","group":"","screenerUrl":"screener.ashx?f=ind_restaurants&v=211","perfT":-0.62,"perfW":-0.29,"perfM":-8.17,"perfQ":-12.82,"perfH":-19.27,"perfY":-14.79,"perfYtd":-21.3},{"ticker":"scientifictechnicalinstruments","label":"Scientific & Technical Instruments","group":"","screenerUrl":"screener.ashx?f=ind_scientifictechnicalinstruments&v=211","perfT":-1.1,"perfW":0.74,"perfM":-7.63,"perfQ":-12.67,"perfH":-26.09,"perfY":-19.82,"perfYtd":-25.77},{"ticker":"securityprotectionservices","label":"Security & Protection Services","group":"","screenerUrl":"screener.ashx?f=ind_securityprotectionservices&v=211","perfT":-0.63,"perfW":1.47,"perfM":-1.81,"perfQ":-8.46,"perfH":-18.91,"perfY":-23.93,"perfYtd":-16.53},{"ticker":"semiconductorequipmentmaterials","label":"Semiconductor Equipment & Materials","group":"","screenerUrl":"screener.ashx?f=ind_semiconductorequipmentmaterials&v=211","perfT":-2.73,"perfW":3.68,"perfM":-5.73,"perfQ":-15.27,"perfH":-32.41,"perfY":-14.12,"perfYtd":-31.8},{"ticker":"semiconductors","label":"Semiconductors","group":"","screenerUrl":"screener.ashx?f=ind_semiconductors&v=211","perfT":-1.71,"perfW":2.56,"perfM":-6.69,"perfQ":-17.06,"perfH":-25.1,"perfY":0.14,"perfYtd":-27.01},{"ticker":"shellcompanies","label":"Shell Companies","group":"","screenerUrl":"screener.ashx?f=ind_shellcompanies&v=211","perfT":0.11,"perfW":-0.25,"perfM":-0.94,"perfQ":-2.16,"perfH":-3.63,"perfY":-1.74,"perfYtd":-1.05},{"ticker":"silver","label":"Silver","group":"","screenerUrl":"screener.ashx?f=ind_silver&v=211","perfT":0.31,"perfW":-0.92,"perfM":-31.88,"perfQ":-16.42,"perfH":-31.13,"perfY":-44.06,"perfYtd":-18.18},{"ticker":"softwareapplication","label":"Software - Application","group":"","screenerUrl":"screener.ashx?f=ind_softwareapplication&v=211","perfT":-2.4,"perfW":1.48,"perfM":-19.63,"perfQ":-30.32,"perfH":-50.45,"perfY":-34.65,"perfYtd":-42.46},{"ticker":"softwareinfrastructure","label":"Software - Infrastructure","group":"","screenerUrl":"screener.ashx?f=ind_softwareinfrastructure&v=211","perfT":-1.58,"perfW":-0.68,"perfM":-11.93,"perfQ":-15.7,"perfH":-31.22,"perfY":-8.72,"perfYtd":-26.95},{"ticker":"solar","label":"Solar","group":"","screenerUrl":"screener.ashx?f=ind_solar&v=211","perfT":-3.2,"perfW":-1.63,"perfM":-21.11,"perfQ":-3.84,"perfH":-47.17,"perfY":-10.36,"perfYtd":-25.87},{"ticker":"specialtybusinessservices","label":"Specialty Business Services","group":"","screenerUrl":"screener.ashx?f=ind_specialtybusinessservices&v=211","perfT":-0.74,"perfW":1.25,"perfM":-9.84,"perfQ":-9.67,"perfH":-20.37,"perfY":-18.4,"perfYtd":-18.27},{"ticker":"specialtychemicals","label":"Specialty Chemicals","group":"","screenerUrl":"screener.ashx?f=ind_specialtychemicals&v=211","perfT":-0.96,"perfW":0.25,"perfM":-1.46,"perfQ":-1.46,"perfH":-15.01,"perfY":-7.26,"perfYtd":-15.35},{"ticker":"specialtyindustrialmachinery","label":"Specialty Industrial Machinery","group":"","screenerUrl":"screener.ashx?f=ind_specialtyindustrialmachinery&v=211","perfT":-0.81,"perfW":-1.01,"perfM":-5.8,"perfQ":-10.38,"perfH":-21.76,"perfY":-18.16,"perfYtd":-19.76},{"ticker":"specialtyretail","label":"Specialty Retail","group":"","screenerUrl":"screener.ashx?f=ind_specialtyretail&v=211","perfT":-1.02,"perfW":0.57,"perfM":-11.81,"perfQ":-8.94,"perfH":-25.08,"perfY":-16.27,"perfYtd":-19.81},{"ticker":"staffingemploymentservices","label":"Staffing & Employment Services","group":"","screenerUrl":"screener.ashx?f=ind_staffingemploymentservices&v=211","perfT":-0.32,"perfW":-1.08,"perfM":-11.05,"perfQ":-5.0,"perfH":-15.86,"perfY":0.39,"perfYtd":-17.58},{"ticker":"steel","label":"Steel","group":"","screenerUrl":"screener.ashx?f=ind_steel&v=211","perfT":0.57,"perfW":-1.28,"perfM":-18.55,"perfQ":1.68,"perfH":-0.08,"perfY":-9.36,"perfYtd":0.34},{"ticker":"telecomservices","label":"Telecom Services","group":"","screenerUrl":"screener.ashx?f=ind_telecomservices&v=211","perfT":0.3,"perfW":1.34,"perfM":-7.93,"perfQ":-3.71,"perfH":-5.11,"perfY":-13.49,"perfYtd":-2.81},{"ticker":"textilemanufacturing","label":"Textile Manufacturing","group":"","screenerUrl":"screener.ashx?f=ind_textilemanufacturing&v=211","perfT":-0.88,"perfW":3.07,"perfM":-3.65,"perfQ":-11.92,"perfH":-15.57,"perfY":-15.89,"perfYtd":-14.85},{"ticker":"thermalcoal","label":"Thermal Coal","group":"","screenerUrl":"screener.ashx?f=ind_thermalcoal&v=211","perfT":2.15,"perfW":4.93,"perfM":-10.53,"perfQ":37.31,"perfH":80.59,"perfY":172.1,"perfYtd":80.13},{"ticker":"tobacco","label":"Tobacco","group":"","screenerUrl":"screener.ashx?f=ind_tobacco&v=211","perfT":0.1,"perfW":2.1,"perfM":-0.13,"perfQ":-3.57,"perfH":13.02,"perfY":1.76,"perfYtd":10.21},{"ticker":"toolsaccessories","label":"Tools & Accessories","group":"","screenerUrl":"screener.ashx?f=ind_toolsaccessories&v=211","perfT":-1.0,"perfW":-2.86,"perfM":-5.69,"perfQ":-13.81,"perfH":-25.02,"perfY":-29.17,"perfYtd":-21.22},{"ticker":"travelservices","label":"Travel Services","group":"","screenerUrl":"screener.ashx?f=ind_travelservices&v=211","perfT":-1.58,"perfW":1.26,"perfM":-21.24,"perfQ":-26.09,"perfH":-30.64,"perfY":-20.62,"perfYtd":-21.96},{"ticker":"trucking","label":"Trucking","group":"","screenerUrl":"screener.ashx?f=ind_trucking&v=211","perfT":-1.69,"perfW":-1.73,"perfM":1.78,"perfQ":-15.31,"perfH":-30.04,"perfY":-12.56,"perfYtd":-29.12},{"ticker":"uranium","label":"Uranium","group":"","screenerUrl":"screener.ashx?f=ind_uranium&v=211","perfT":-0.48,"perfW":3.32,"perfM":-34.15,"perfQ":-4.18,"perfH":-31.24,"perfY":0.93,"perfYtd":-7.04},{"ticker":"utilitiesdiversified","label":"Utilities - Diversified","group":"","screenerUrl":"screener.ashx?f=ind_utilitiesdiversified&v=211","perfT":0.34,"perfW":0.76,"perfM":-5.56,"perfQ":7.83,"perfH":13.68,"perfY":13.96,"perfYtd":6.77},{"ticker":"utilitiesindependentpowerproducers","label":"Utilities - Independent Power Producers","group":"","screenerUrl":"screener.ashx?f=ind_utilitiesindependentpowerproducers&v=211","perfT":-0.42,"perfW":1.5,"perfM":4.71,"perfQ":2.5,"perfH":12.44,"perfY":32.53,"perfYtd":-12.93},{"ticker":"utilitiesregulatedelectric","label":"Utilities - Regulated Electric","group":"","screenerUrl":"screener.ashx?f=ind_utilitiesregulatedelectric&v=211","perfT":0.39,"perfW":0.03,"perfM":-5.9,"perfQ":6.75,"perfH":4.52,"perfY":5.89,"perfYtd":-1.93},{"ticker":"utilitiesregulatedgas","label":"Utilities - Regulated Gas","group":"","screenerUrl":"screener.ashx?f=ind_utilitiesregulatedgas&v=211","perfT":0.5,"perfW":2.23,"perfM":-2.09,"perfQ":15.89,"perfH":17.63,"perfY":12.08,"perfYtd":11.42},{"ticker":"utilitiesregulatedwater","label":"Utilities - Regulated Water","group":"","screenerUrl":"screener.ashx?f=ind_utilitiesregulatedwater&v=211","perfT":0.49,"perfW":2.56,"perfM":-10.9,"perfQ":0.38,"perfH":-9.27,"perfY":-0.34,"perfYtd":-17.2},{"ticker":"utilitiesrenewable","label":"Utilities - Renewable","group":"","screenerUrl":"screener.ashx?f=ind_utilitiesrenewable&v=211","perfT":-0.42,"perfW":-1.84,"perfM":-12.68,"perfQ":0.09,"perfH":-16.26,"perfY":-7.18,"perfYtd":-12.06},{"ticker":"wastemanagement","label":"Waste Management","group":"","screenerUrl":"screener.ashx?f=ind_wastemanagement&v=211","perfT":0.51,"perfW":0.44,"perfM":-5.05,"perfQ":6.5,"perfH":-8.61,"perfY":5.75,"perfYtd":-9.01}];
+                        FinvizInitGroupsPerformance(rows);
+                    });
+                })();
+            </script>
+            <div class="footer" style="margin-top: 20px">
+                <div class="footer_links">
+                    <a class="tab-link" href="/affiliate.ashx">affiliate</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/advertise.ashx">advertise</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/contact.ashx">contact</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/privacy.ashx">privacy</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/help/screener.ashx">help</a>
+                <br>
+                <a class="tab-link" href="javascript:void(0)" onclick="window.__uspapi && window.__uspapi('displayUspUi');">Do Not Sell My Data</a>
+                <span class="footer_dot"> • </span>
+                <a class="tab-link" href="javascript:void(0)" onClick="window.__tcfapi && window.__tcfapi('displayConsentUi', 2, function() {})">Privacy Settings</a>
+            
+                </div>
+                Quotes delayed 15 minutes for NASDAQ, and 20 minutes for NYSE and AMEX.
+                <br>
+                Copyright © 2007-2022 FINVIZ.com. All Rights Reserved.
+            </div>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3261808-1"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('set', {'dimension1': 'NotLoggedIn'});
+              gtag('set', {'dimension3': window.devicePixelRatio || 'unknown'});
+
+              gtag('config', 'UA-3261808-1', { sample_rate: 10 });
+              gtag('config', 'G-ZT9VQEWD4N');
+              
+            </script>
+        <div id="modal-elite-ad" class="modal-elite-ad">
+                            <div id="modal-elite-ad_content" class="modal-elite-ad_content">
+			                    <button id="modal-elite-ad-close" type="button" class="modal-elite-ad_close">×</button>
+
+                                <!--<div id="modal-elite-ad-content-0" style="display: none">
+			                        <h2>Ever heard of Finviz*Elite?</h2>
+                                    <p>
+                                        Our premium service offers you real-time quotes, advanced visualizations, technical studies, and much more.<br>
+                                        Become Elite and make informed financial decisions.
+                                    </p>
+                                    <a href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=modal-0" id="modal-elite-ad-btn-0" class="" target="_blank">Find out more</a>
+                                </div>-->
+
+                                <div id="modal-elite-ad-content-1" style="display: block">
+			                        <h2>Upgrade your FINVIZ experience</h2>
+                                    <p>
+                                        Join thousands of traders who make more informed decisions with&nbsp;our&nbsp;premium features.
+                                        Real-time quotes, advanced&nbsp;visualizations, backtesting, and much more.
+                                    </p>
+                                    <a href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=modal-1" id="modal-elite-ad-btn-1" class="modal-elite_button" target="_blank">Learn more about FINVIZ*Elite</a>
+                                </div>
+                            </div>
+                         </div><script src="/script/pv.js?rev=305" async></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon='{"rayId":"70c49717290e9e17","token":"e53f08f6c9e04bfd9760701085ec93b4","version":"2021.12.0","si":100}' crossorigin="anonymous"></script>
+</body>
+</html>
