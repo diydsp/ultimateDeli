@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Group Screener - Bar Chart country name</title>
+<meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+                         <meta name="viewport" content="width=1024"><meta name="description" content="Stock screener for investors and traders, financial visualizations.">
+<meta name="keywords" content="Stock Screener, Charts, Quotes, Maps, News, Financial Visualizations, Research, Trading Systems">
+
+            <link rel="preload" href="/fonts/lato-v17-latin-ext_latin-regular.woff2" as="font" crossorigin>
+            <link rel="preload" href="/fonts/lato-v17-latin-ext_latin-700.woff2" as="font" crossorigin>
+            <link rel="preload" href="/fonts/lato-v17-latin-ext_latin-900.woff2" as="font" crossorigin>
+            <link rel="preload" href="/fonts/inter-latin.woff2" as="font" crossorigin>
+        <link rel="stylesheet" href="/assets/dist/finviz.f6728ad6.css" type="text/css">
+<link rel="stylesheet" href="/assets/dist/main.86fcafbe.css" type="text/css">
+<link rel="icon" type="image/png" href="/favicon_2x.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon.png" sizes="16x16">
+
+          <script>
+          (function() {
+            var host = 'finviz.com';
+            var element = document.createElement('script');
+            var firstScript = document.getElementsByTagName('script')[0];
+            var url = 'https://quantcast.mgr.consensu.org'
+              .concat('/choice/', 'c2W8esUZ6Q8oA', '/', host, '/choice.js')
+            var uspTries = 0;
+            var uspTriesLimit = 3;
+            element.async = true;
+            element.type = 'text/javascript';
+            element.src = url;
+
+            firstScript.parentNode.insertBefore(element, firstScript);
+
+            function makeStub() {
+              var TCF_LOCATOR_NAME = '__tcfapiLocator';
+              var queue = [];
+              var win = window;
+              var cmpFrame;
+
+              function addFrame() {
+                var doc = win.document;
+                var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+                if (!otherCMP) {
+                  if (doc.body) {
+                    var iframe = doc.createElement('iframe');
+
+                    iframe.style.cssText = 'display:none';
+                    iframe.name = TCF_LOCATOR_NAME;
+                    doc.body.appendChild(iframe);
+                  } else {
+                    setTimeout(addFrame, 5);
+                  }
+                }
+                return !otherCMP;
+              }
+
+              function tcfAPIHandler() {
+                var gdprApplies;
+                var args = arguments;
+
+                if (!args.length) {
+                  return queue;
+                } else if (args[0] === 'setGdprApplies') {
+                  if (
+                    args.length > 3 &&
+                    args[2] === 2 &&
+                    typeof args[3] === 'boolean'
+                  ) {
+                    gdprApplies = args[3];
+                    if (typeof args[2] === 'function') {
+                      args[2]('set', true);
+                    }
+                  }
+                } else if (args[0] === 'ping') {
+                  var retr = {
+                    gdprApplies: gdprApplies,
+                    cmpLoaded: false,
+                    cmpStatus: 'stub'
+                  };
+
+                  if (typeof args[2] === 'function') {
+                    args[2](retr);
+                  }
+                } else {
+                  queue.push(args);
+                }
+              }
+
+              function postMessageEventHandler(event) {
+                var msgIsString = typeof event.data === 'string';
+                var json = {};
+
+                try {
+                  if (msgIsString) {
+                    json = JSON.parse(event.data);
+                  } else {
+                    json = event.data;
+                  }
+                } catch (ignore) {}
+
+                var payload = json.__tcfapiCall;
+
+                if (payload) {
+                  window.__tcfapi(
+                    payload.command,
+                    payload.version,
+                    function(retValue, success) {
+                      var returnMsg = {
+                        __tcfapiReturn: {
+                          returnValue: retValue,
+                          success: success,
+                          callId: payload.callId
+                        }
+                      };
+                      if (msgIsString) {
+                        returnMsg = JSON.stringify(returnMsg);
+                      }
+                      if (event && event.source && event.source.postMessage) {
+                        event.source.postMessage(returnMsg, '*');
+                      }
+                    },
+                    payload.parameter
+                  );
+                }
+              }
+
+              while (win) {
+                try {
+                  if (win.frames[TCF_LOCATOR_NAME]) {
+                    cmpFrame = win;
+                    break;
+                  }
+                } catch (ignore) {}
+
+                if (win === window.top) {
+                  break;
+                }
+                win = win.parent;
+              }
+              if (!cmpFrame) {
+                addFrame();
+                win.__tcfapi = tcfAPIHandler;
+                win.addEventListener('message', postMessageEventHandler, false);
+              }
+            };
+
+            makeStub();
+
+            var uspStubFunction = function() {
+              var arg = arguments;
+              if (typeof window.__uspapi !== uspStubFunction) {
+                setTimeout(function() {
+                  if (typeof window.__uspapi !== 'undefined') {
+                    window.__uspapi.apply(window.__uspapi, arg);
+                  }
+                }, 500);
+              }
+            };
+
+            var checkIfUspIsReady = function() {
+              uspTries++;
+              if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+                console.warn('USP is not accessible');
+              } else {
+                clearInterval(uspInterval);
+              }
+            };
+
+            if (typeof window.__uspapi === 'undefined') {
+              window.__uspapi = uspStubFunction;
+              var uspInterval = setInterval(checkIfUspIsReady, 6000);
+            }
+          })();
+          </script>
+        <script>
+            FinvizSettings = {
+                hasUserPremium: false,
+                name: "",
+                chartsDomain: "https://charts2.finviz.com",
+                nodeChartsDomain: "https://charts2-node.finviz.com",
+                hasUserPersistentDrawings: false,
+                hasUserNodeCharts: true,
+                hasUserRetinaHoverCharts: false,
+                hasUserStickyHeader: true,
+                adsProvider: 2,
+                hasUserNewSettings: true,
+                hasUserNewColors: true
+            };
+        </script><script src="/script/vendor/boxover.js?rev=305"></script>
+<script src="/script/browser_support.js?rev=305"></script><script src="/assets/dist/runtime.e20428ae.js"></script><script src="/assets/dist/818.4d8709a9.js"></script><script src="/assets/dist/libs_init.0822b197.js"></script><script src="/assets/dist/647.9e6c500e.js"></script><script src="/assets/dist/698.6206f11a.js"></script><script src="/assets/dist/header.63eeb90e.js"></script>
+            <script src="/script/pubfig.min.js"></script>
+            <script>
+                var freestar = freestar || {};
+                freestar.queue = freestar.queue || [];
+                freestar.config = freestar.config || {};
+                freestar.config.enabled_slots = [];
+                freestar.initCallback = function () { (freestar.config.enabled_slots.length === 0) ? freestar.initCallbackCalled = false : freestar.newAdSlots(freestar.config.enabled_slots) }
+
+                // Remove freestar footer on mobile
+                var mql = window.matchMedia('(max-width: 1024px) and (orientation: landscape)');
+                if (mql.matches) {
+                  freestar.queue.push(function() { freestar.deleteStickyFooter() });
+                }
+
+                if(window['FinvizLoadTagCode']) {
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.async = true;
+                    s.src = '//a.pub.network/finviz-com/pubfig.min.js';
+                    document.head.appendChild(s);
+                } else {
+                    (function() {
+                function ready(fn) {if (document.readyState != 'loading'){fn();}else{document.addEventListener('DOMContentLoaded', fn);} }
+                ready(function() {
+                    var banners = ['2', '4', '5', '6', '7'];
+                    var banner = banners[Math.floor(Math.random() * banners.length)];
+
+                    if (banner === '3') {
+                        document.getElementById('banner_position').innerHTML = '<iframe src="/img/a/' + banner + '/index.html?rev=2" frameBorder="0" width="728" height="90"></iframe>';
+                    } else {
+                        document.getElementById('banner_position').innerHTML = '<a href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=' + banner + '"><img src="/img/a/' + banner + '.jpg"></a>';
+                    }
+                    window.gtag && window.gtag('event', 'impression', { event_category: 'banner', event_label: banner, non_interaction: true });
+                })
+            })();
+                }
+            </script></head>
+<body class="m-0 yellow-tooltip is-groups">
+          <script>
+            function checkMediaQuery(matches) {
+              if (matches) {
+                FinvizSettings.hasUserStickyHeader = true;
+                document.body.classList.add('is-header-sticky');
+              } else {
+                FinvizSettings.hasUserStickyHeader = false;
+                document.body.classList.remove('is-header-sticky');
+              }
+            }
+            var mediaMatch = window.matchMedia('(min-width: 1024px) and (min-height: 650px)');
+            checkMediaQuery(mediaMatch.matches);
+            mediaMatch.addListener(function (ev) { checkMediaQuery(ev.matches) });
+          </script>
+          <div id="unsupported-browser"></div>
+                <table class="header">
+                    <tr class="align-top">
+                        <td>
+                            <table class="header-container">
+                                <tr>
+                                    <td class="w-[30%]">
+                                        <table class="w-full">
+                                            <tr>
+                                                <td class="h-[50px] align-middle">
+                                                    <a href="/" class="logo"></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="search" id="search" style="padding-top: 4px">
+                                                    <form style="margin: 0">
+                                                        <input placeholder="Search ticker, company or profile" type="text" value="">
+                                                        <span class="fa fa-search"></span>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td class="align-bottom pb-1">
+                                        <div id="microbar_position" style="height: 31px"></div>
+                                    </td>
+                                    <td class="relative w-[730px] text-right">
+                                        <div id="banner_position" class="overflow-hidden absolute top-0 right-0 w-full h-24">
+          <div id="finviz_header" class="relative overflow-hidden flex items-center justify-center w-full mx-auto" style="width:728px;height:90px;">
+            <script data-cfasync="false">
+              'freestar' in window && window.freestar.queue.push(function () { freestar.newAdSlots({ placementName: 'finviz_header', slotId: 'finviz_header' }) })
+            </script>
+          </div>
+        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="w-[1000px]" style="font-size:0">
+                            <img src="/gfx/nic2x2.gif" class="w-[1000px] h-px" alt="">
+                        </td>
+                    </tr>
+                </table>
+            <table class="navbar">
+                <tr>
+                    <td class="h-[30px]">
+                        <table class="header-container">
+                            <tr><td><a class="nav-link  is-first" href="/">Home</a></td><td><a class="nav-link " href="/news.ashx">News</a></td><td><a class="nav-link " href="/screener.ashx">Screener</a></td><td><a class="nav-link " href="/map.ashx">Maps</a></td><td><a class="nav-link is-active" href="/groups.ashx">Groups</a></td><td><a class="nav-link " href="/portfolio.ashx">Portfolio</a></td><td><a class="nav-link " href="/insidertrading.ashx">Insider</a></td><td><a class="nav-link " href="/futures.ashx">Futures</a></td><td><a class="nav-link " href="/forex.ashx">Forex</a></td><td><a class="nav-link " href="/crypto.ashx">Crypto</a></td><td><a class="nav-link " href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=main-navbar-backtests">Backtests</a></td><td><a class="nav-link  is-elite" href="/elite.ashx">Elite</a></td><td class="w-full"><div id="time"></div></td>
+                <td>
+                    <a href="/help/groups.ashx" class="nav-link is-help">
+                        <span class="fa fa-question-circle"></span>
+                        Help
+                    </a>
+                </td>
+                <td><a href="/login.ashx" class="nav-link sign-in">Login</a></td>
+                <td><a href="/register.ashx" class="nav-link sign-up">Register</a></td>
+            
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        <div class="content "><div class="fv-container"><tr>
+<td>
+<table width="100%" cellpadding="0" cellspacing="0" border="0" background="gfx/top_menu_screener_shadow.gif">
+<tr><td><img src="gfx/nic2x2.gif" style="display:block;width:2px;height:20px" alt="" border="0"></td></tr>
+<tr>
+<td align="right" width="6%">
+<span class="body-combo-title" style="cursor:pointer;" data-boxover="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Group] body=[<table width=300><tr><td class='tooltip_tab'>Select group - stocks organized by <b>sector</b>, <b>industry</b>, <b>country</b> or market <b>capitalization</b>.</td></tr></table>] delay=[500]">Group:&nbsp;&nbsp;</span></td>
+<td align="left" width="25%">
+<select id="groupSelect" style="width:100%;" class="body-combo-text" onchange='window.location=document.getElementById("groupSelect").value'>
+<option value="groups.ashx?g=sector&v=210&o=name">Sector</option><option value="groups.ashx?g=industry&v=210&o=name">Industry</option><option value="groups.ashx?g=industry&sg=basicmaterials&v=210&o=name">Industry (Basic Materials)</option><option value="groups.ashx?g=industry&sg=communicationservices&v=210&o=name">Industry (Communication Services)</option><option value="groups.ashx?g=industry&sg=consumercyclical&v=210&o=name">Industry (Consumer Cyclical)</option><option value="groups.ashx?g=industry&sg=consumerdefensive&v=210&o=name">Industry (Consumer Defensive)</option><option value="groups.ashx?g=industry&sg=energy&v=210&o=name">Industry (Energy)</option><option value="groups.ashx?g=industry&sg=financial&v=210&o=name">Industry (Financial)</option><option value="groups.ashx?g=industry&sg=healthcare&v=210&o=name">Industry (Healthcare)</option><option value="groups.ashx?g=industry&sg=industrials&v=210&o=name">Industry (Industrials)</option><option value="groups.ashx?g=industry&sg=realestate&v=210&o=name">Industry (Real Estate)</option><option value="groups.ashx?g=industry&sg=technology&v=210&o=name">Industry (Technology)</option><option value="groups.ashx?g=industry&sg=utilities&v=210&o=name">Industry (Utilities)</option><option selected="selected" value="groups.ashx?g=country&v=210&o=name">Country (U.S. listed stocks only)</option><option value="groups.ashx?g=capitalization&v=210&o=name">Capitalization</option></select>
+</td>
+<td align="right" width="12%">
+<span class="body-combo-title" style="cursor:pointer;" data-boxover="cssbody=[tooltip_bdy] cssheader=[tooltip_hdr] header=[Order] body=[<table width=300><tr><td class='tooltip_tab'>Select the criteria by which the output information will be sorted. Use the <b>ascending</b> and <b>descending</b> option to invert the current order.<br><br> TIP: In table views you can click on top of a column to sort the table by the underlying values.</td></tr></table>] delay=[500]">Order:&nbsp;&nbsp;</span></td>
+<td align="left" width="25%">
+<select id="orderSelect" style="width:100%;" class="body-combo-text" onchange='window.location=document.getElementById("orderSelect").value'>
+<option selected="selected" value="groups.ashx?g=country&v=210&o=name">Name</option><option value="groups.ashx?g=country&v=210&o=marketcap">Market Capitalization</option><option value="groups.ashx?g=country&v=210&o=pe">Price/Earnings</option><option value="groups.ashx?g=country&v=210&o=forwardpe">Forward Price/Earnings</option><option value="groups.ashx?g=country&v=210&o=peg">PEG (Price/Earnings/Growth)</option><option value="groups.ashx?g=country&v=210&o=ps">Price/Sales</option><option value="groups.ashx?g=country&v=210&o=pb">Price/Book</option><option value="groups.ashx?g=country&v=210&o=pc">Price/Cash</option><option value="groups.ashx?g=country&v=210&o=pfcf">Price/Free Cash Flow</option><option value="groups.ashx?g=country&v=210&o=dividendyield">Dividend Yield</option><option value="groups.ashx?g=country&v=210&o=eps5years">EPS growth past 5 years</option><option value="groups.ashx?g=country&v=210&o=estltgrowth">EPS growth next 5 years</option><option value="groups.ashx?g=country&v=210&o=sales5years">Sales growth past 5 years</option><option value="groups.ashx?g=country&v=210&o=shortinterestshare">Short Interest Share</option><option value="groups.ashx?g=country&v=210&o=recom">Analyst Recommendation</option><option value="groups.ashx?g=country&v=210&o=perf1w">Performance (Week)</option><option value="groups.ashx?g=country&v=210&o=perf4w">Performance (Month)</option><option value="groups.ashx?g=country&v=210&o=perf13w">Performance (Quarter)</option><option value="groups.ashx?g=country&v=210&o=perf26w">Performance (Half Year)</option><option value="groups.ashx?g=country&v=210&o=perf52w">Performance (Year)</option><option value="groups.ashx?g=country&v=210&o=perfytd">Performance (Year To Date)</option><option value="groups.ashx?g=country&v=210&o=averagevolume">Average Volume (3 Month)</option><option value="groups.ashx?g=country&v=210&o=relativevolume">Relative Volume</option><option value="groups.ashx?g=country&v=210&o=change">Change</option><option value="groups.ashx?g=country&v=210&o=volume">Volume</option><option value="groups.ashx?g=country&v=210&o=count">Number of Stocks</option></select>
+</td>
+<td align="left" width="11%">
+<select id="orderDirSelect" style="width: 100%;" class="body-combo-text" onchange='window.location=document.getElementById("orderDirSelect").value'>
+<option selected="selected" value="groups.ashx?g=country&v=210&o=name">Ascending</option><option value="groups.ashx?g=country&v=210&o=-name">Descending</option></select>
+</td>
+<td align="right" width="21%" valign="top">
+<img src="gfx/nic2x2.gif" style="width:83px;height:22px" alt="" border="0"></td>
+</tr>
+<tr><td colspan="30"><img src="gfx/nic2x2.gif" style="display:block;width:2px;height:6px" alt="" border="0"></td></tr>
+</table>
+</td>
+</tr>
+<tr><td width="100%">
+<table width="100%" cellpadding="3" cellspacing="0" class="screener-view-table">
+<tr>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=country&v=110&o=name">Overview</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=country&v=120&o=name">Valuation</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=country&v=140&o=name">Performance</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=country&v=150&o=name">Custom</a></td>
+<td width="12%" align="center" class="screener-view screener-view-a" style="cursor:pointer;"><a href="groups.ashx?g=country&v=210&o=name">Bar Chart</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=country&v=310&o=name">Spectrum</a></td>
+<td width="12%" align="center" class="screener-view" style="cursor:pointer;"><a href="groups.ashx?g=country&v=410&o=name">Charts</a></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr><td width="100%"><img src="gfx/nic2x2.gif" style="display:block;width:2px;height:16px" alt="" border="0"></td></tr>
+<tr>
+<td align="center">
+<div id="groups"></div></td>
+</tr>
+<script src="/assets/dist/725.e6e9e2db.js"></script><script src="/assets/dist/groups.4790eb4a.js"></script>
+            <script type="text/javascript">
+                (function() {
+                    function ready(fn) {
+                        if (document.readyState != 'loading') {
+                            fn();
+                        } else {
+                            document.addEventListener('DOMContentLoaded', fn);
+                        }
+                    }
+
+                    ready(function() {
+                        var rows = [{"ticker":"argentina","label":"Argentina","group":"","screenerUrl":"screener.ashx?f=geo_argentina&v=211","perfT":2.65,"perfW":11.89,"perfM":-9.28,"perfQ":5.42,"perfH":-2.07,"perfY":8.33,"perfYtd":8.69},{"ticker":"australia","label":"Australia","group":"","screenerUrl":"screener.ashx?f=geo_australia&v=211","perfT":1.88,"perfW":2.65,"perfM":-20.46,"perfQ":-17.0,"perfH":-13.87,"perfY":-17.24,"perfYtd":-15.01},{"ticker":"bahamas","label":"Bahamas","group":"","screenerUrl":"screener.ashx?f=geo_bahamas&v=211","perfT":2.92,"perfW":2.57,"perfM":-4.51,"perfQ":-7.95,"perfH":-19.14,"perfY":-11.46,"perfYtd":-0.54},{"ticker":"belgium","label":"Belgium","group":"","screenerUrl":"screener.ashx?f=geo_belgium&v=211","perfT":1.13,"perfW":4.77,"perfM":-2.93,"perfQ":-8.42,"perfH":-4.09,"perfY":-22.82,"perfYtd":-4.78},{"ticker":"bermuda","label":"Bermuda","group":"","screenerUrl":"screener.ashx?f=geo_bermuda&v=211","perfT":1.47,"perfW":4.37,"perfM":-4.05,"perfQ":-1.06,"perfH":-0.03,"perfY":2.67,"perfYtd":0.32},{"ticker":"brazil","label":"Brazil","group":"","screenerUrl":"screener.ashx?f=geo_brazil&v=211","perfT":2.74,"perfW":10.2,"perfM":-8.17,"perfQ":-1.48,"perfH":12.7,"perfY":-6.06,"perfYtd":13.99},{"ticker":"canada","label":"Canada","group":"","screenerUrl":"screener.ashx?f=geo_canada&v=211","perfT":1.63,"perfW":4.21,"perfM":-8.8,"perfQ":-6.03,"perfH":-10.7,"perfY":-3.81,"perfYtd":-6.42},{"ticker":"caymanislands","label":"Cayman Islands","group":"","screenerUrl":"screener.ashx?f=geo_caymanislands&v=211","perfT":2.09,"perfW":6.35,"perfM":-4.42,"perfQ":-12.61,"perfH":-36.23,"perfY":-52.11,"perfYtd":-20.14},{"ticker":"chile","label":"Chile","group":"","screenerUrl":"screener.ashx?f=geo_chile&v=211","perfT":3.82,"perfW":11.0,"perfM":-0.94,"perfQ":5.95,"perfH":6.92,"perfY":7.59,"perfYtd":26.64},{"ticker":"china","label":"China","group":"","screenerUrl":"screener.ashx?f=geo_china&v=211","perfT":2.83,"perfW":5.9,"perfM":-6.0,"perfQ":-26.03,"perfH":-38.41,"perfY":-52.53,"perfYtd":-23.87},{"ticker":"colombia","label":"Colombia","group":"","screenerUrl":"screener.ashx?f=geo_colombia&v=211","perfT":0.94,"perfW":3.02,"perfM":-16.85,"perfQ":2.22,"perfH":2.89,"perfY":13.03,"perfYtd":13.93},{"ticker":"denmark","label":"Denmark","group":"","screenerUrl":"screener.ashx?f=geo_denmark&v=211","perfT":2.89,"perfW":-0.67,"perfM":-9.89,"perfQ":1.81,"perfH":-10.26,"perfY":22.08,"perfYtd":-8.36},{"ticker":"france","label":"France","group":"","screenerUrl":"screener.ashx?f=geo_france&v=211","perfT":1.19,"perfW":4.25,"perfM":1.42,"perfQ":-2.28,"perfH":6.12,"perfY":4.34,"perfYtd":8.11},{"ticker":"germany","label":"Germany","group":"","screenerUrl":"screener.ashx?f=geo_germany&v=211","perfT":2.67,"perfW":3.66,"perfM":-5.91,"perfQ":-17.36,"perfH":-31.87,"perfY":-33.71,"perfYtd":-30.31},{"ticker":"greece","label":"Greece","group":"","screenerUrl":"screener.ashx?f=geo_greece&v=211","perfT":1.25,"perfW":5.56,"perfM":-3.73,"perfQ":5.61,"perfH":27.2,"perfY":32.53,"perfYtd":25.6},{"ticker":"hongkong","label":"Hong Kong","group":"","screenerUrl":"screener.ashx?f=geo_hongkong&v=211","perfT":2.35,"perfW":3.7,"perfM":-10.41,"perfQ":-35.78,"perfH":-45.28,"perfY":-62.49,"perfYtd":-39.39},{"ticker":"india","label":"India","group":"","screenerUrl":"screener.ashx?f=geo_india&v=211","perfT":3.29,"perfW":0.78,"perfM":-4.38,"perfQ":-15.81,"perfH":-20.16,"perfY":-9.26,"perfYtd":-19.12},{"ticker":"ireland","label":"Ireland","group":"","screenerUrl":"screener.ashx?f=geo_ireland&v=211","perfT":1.94,"perfW":2.86,"perfM":-6.64,"perfQ":-11.09,"perfH":-19.89,"perfY":-9.16,"perfYtd":-21.1},{"ticker":"israel","label":"Israel","group":"","screenerUrl":"screener.ashx?f=geo_israel&v=211","perfT":2.71,"perfW":5.24,"perfM":-13.33,"perfQ":-18.82,"perfH":-33.7,"perfY":-20.45,"perfYtd":-26.51},{"ticker":"italy","label":"Italy","group":"","screenerUrl":"screener.ashx?f=geo_italy&v=211","perfT":1.81,"perfW":3.4,"perfM":-8.61,"perfQ":-7.25,"perfH":-12.51,"perfY":3.56,"perfYtd":-11.02},{"ticker":"japan","label":"Japan","group":"","screenerUrl":"screener.ashx?f=geo_japan&v=211","perfT":0.19,"perfW":-0.97,"perfM":-4.23,"perfQ":-15.82,"perfH":-13.91,"perfY":-7.58,"perfYtd":-13.57},{"ticker":"luxembourg","label":"Luxembourg","group":"","screenerUrl":"screener.ashx?f=geo_luxembourg&v=211","perfT":2.56,"perfW":6.25,"perfM":-13.89,"perfQ":-14.99,"perfH":-30.78,"perfY":-26.26,"perfYtd":-23.76},{"ticker":"malaysia","label":"Malaysia","group":"","screenerUrl":"screener.ashx?f=geo_malaysia&v=211","perfT":-0.06,"perfW":-0.59,"perfM":-8.89,"perfQ":1.84,"perfH":-55.93,"perfY":-54.7,"perfYtd":-28.79},{"ticker":"mexico","label":"Mexico","group":"","screenerUrl":"screener.ashx?f=geo_mexico&v=211","perfT":2.26,"perfW":6.98,"perfM":-6.38,"perfQ":0.92,"perfH":0.23,"perfY":6.54,"perfYtd":-4.46},{"ticker":"monaco","label":"Monaco","group":"","screenerUrl":"screener.ashx?f=geo_monaco&v=211","perfT":0.2,"perfW":7.56,"perfM":-0.66,"perfQ":15.56,"perfH":21.27,"perfY":7.78,"perfYtd":33.39},{"ticker":"netherlands","label":"Netherlands","group":"","screenerUrl":"screener.ashx?f=geo_netherlands&v=211","perfT":2.67,"perfW":6.23,"perfM":-2.8,"perfQ":-9.41,"perfH":-17.47,"perfY":-2.52,"perfYtd":-12.87},{"ticker":"norway","label":"Norway","group":"","screenerUrl":"screener.ashx?f=geo_norway&v=211","perfT":1.82,"perfW":4.16,"perfM":-11.09,"perfQ":16.5,"perfH":30.91,"perfY":55.85,"perfYtd":30.57},{"ticker":"peru","label":"Peru","group":"","screenerUrl":"screener.ashx?f=geo_peru&v=211","perfT":4.9,"perfW":8.98,"perfM":-10.1,"perfQ":-14.01,"perfH":7.49,"perfY":-8.48,"perfYtd":9.72},{"ticker":"singapore","label":"Singapore","group":"","screenerUrl":"screener.ashx?f=geo_singapore&v=211","perfT":8.45,"perfW":12.51,"perfM":-16.13,"perfQ":-41.03,"perfH":-71.71,"perfY":-60.72,"perfYtd":-56.08},{"ticker":"southafrica","label":"South Africa","group":"","screenerUrl":"screener.ashx?f=geo_southafrica&v=211","perfT":1.12,"perfW":6.4,"perfM":-19.72,"perfQ":-4.19,"perfH":4.91,"perfY":-9.46,"perfYtd":9.49},{"ticker":"southkorea","label":"South Korea","group":"","screenerUrl":"screener.ashx?f=geo_southkorea&v=211","perfT":1.87,"perfW":6.64,"perfM":-5.03,"perfQ":-15.26,"perfH":-18.43,"perfY":-31.73,"perfYtd":-17.57},{"ticker":"spain","label":"Spain","group":"","screenerUrl":"screener.ashx?f=geo_spain&v=211","perfT":2.1,"perfW":5.22,"perfM":-7.17,"perfQ":-16.62,"perfH":-12.02,"perfY":-19.42,"perfYtd":-4.25},{"ticker":"sweden","label":"Sweden","group":"","screenerUrl":"screener.ashx?f=geo_sweden&v=211","perfT":2.31,"perfW":5.56,"perfM":-5.47,"perfQ":-35.4,"perfH":-30.75,"perfY":-45.33,"perfYtd":-29.23},{"ticker":"switzerland","label":"Switzerland","group":"","screenerUrl":"screener.ashx?f=geo_switzerland&v=211","perfT":1.82,"perfW":4.75,"perfM":-2.66,"perfQ":-6.63,"perfH":-7.08,"perfY":-2.59,"perfYtd":-8.82},{"ticker":"taiwan","label":"Taiwan","group":"","screenerUrl":"screener.ashx?f=geo_taiwan&v=211","perfT":2.84,"perfW":4.52,"perfM":-5.09,"perfQ":-23.32,"perfH":-19.79,"perfY":-14.32,"perfYtd":-21.5},{"ticker":"unitedarabemirates","label":"United Arab Emirates","group":"","screenerUrl":"screener.ashx?f=geo_unitedarabemirates&v=211","perfT":4.27,"perfW":1.96,"perfM":1.5,"perfQ":-44.5,"perfH":-50.51,"perfY":-67.37,"perfYtd":-42.76},{"ticker":"unitedkingdom","label":"United Kingdom","group":"","screenerUrl":"screener.ashx?f=geo_unitedkingdom&v=211","perfT":1.96,"perfW":4.52,"perfM":-4.81,"perfQ":-7.71,"perfH":-5.08,"perfY":-6.46,"perfYtd":-5.89},{"ticker":"uruguay","label":"Uruguay","group":"","screenerUrl":"screener.ashx?f=geo_uruguay&v=211","perfT":2.77,"perfW":4.66,"perfM":-24.07,"perfQ":-31.73,"perfH":-50.39,"perfY":-39.09,"perfYtd":-39.65},{"ticker":"usa","label":"USA","group":"","screenerUrl":"screener.ashx?f=geo_usa&v=211","perfT":1.56,"perfW":1.92,"perfM":-8.32,"perfQ":-10.71,"perfH":-17.0,"perfY":-5.79,"perfYtd":-16.36}];
+                        FinvizInitGroupsPerformance(rows);
+                    });
+                })();
+            </script>
+            <div class="footer" style="margin-top: 20px">
+                <div class="footer_links">
+                    <a class="tab-link" href="/affiliate.ashx">affiliate</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/advertise.ashx">advertise</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/contact.ashx">contact</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/privacy.ashx">privacy</a>
+                    <span class="footer_dot"> • </span>
+                    <a class="tab-link" href="/help/screener.ashx">help</a>
+                <br>
+                <a class="tab-link" href="javascript:void(0)" onclick="window.__uspapi && window.__uspapi('displayUspUi');">Do Not Sell My Data</a>
+                <span class="footer_dot"> • </span>
+                <a class="tab-link" href="javascript:void(0)" onClick="window.__tcfapi && window.__tcfapi('displayConsentUi', 2, function() {})">Privacy Settings</a>
+            
+                </div>
+                Quotes delayed 15 minutes for NASDAQ, and 20 minutes for NYSE and AMEX.
+                <br>
+                Copyright © 2007-2022 FINVIZ.com. All Rights Reserved.
+            </div>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3261808-1"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('set', {'dimension1': 'NotLoggedIn'});
+              gtag('set', {'dimension3': window.devicePixelRatio || 'unknown'});
+
+              gtag('config', 'UA-3261808-1', { sample_rate: 10 });
+              gtag('config', 'G-ZT9VQEWD4N');
+              
+            </script>
+        <div id="modal-elite-ad" class="modal-elite-ad">
+                            <div id="modal-elite-ad_content" class="modal-elite-ad_content">
+			                    <button id="modal-elite-ad-close" type="button" class="modal-elite-ad_close">×</button>
+
+                                <!--<div id="modal-elite-ad-content-0" style="display: none">
+			                        <h2>Ever heard of Finviz*Elite?</h2>
+                                    <p>
+                                        Our premium service offers you real-time quotes, advanced visualizations, technical studies, and much more.<br>
+                                        Become Elite and make informed financial decisions.
+                                    </p>
+                                    <a href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=modal-0" id="modal-elite-ad-btn-0" class="" target="_blank">Find out more</a>
+                                </div>-->
+
+                                <div id="modal-elite-ad-content-1" style="display: block">
+			                        <h2>Upgrade your FINVIZ experience</h2>
+                                    <p>
+                                        Join thousands of traders who make more informed decisions with&nbsp;our&nbsp;premium features.
+                                        Real-time quotes, advanced&nbsp;visualizations, backtesting, and much more.
+                                    </p>
+                                    <a href="/elite.ashx?utm_source=finviz&utm_medium=banner&utm_campaign=modal-1" id="modal-elite-ad-btn-1" class="modal-elite_button" target="_blank">Learn more about FINVIZ*Elite</a>
+                                </div>
+                            </div>
+                         </div><script src="/script/pv.js?rev=305" async></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon='{"rayId":"70cdf98d8d278c47","token":"e53f08f6c9e04bfd9760701085ec93b4","version":"2021.12.0","si":100}' crossorigin="anonymous"></script>
+</body>
+</html>
