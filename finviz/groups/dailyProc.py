@@ -36,9 +36,9 @@ dir_add( dataDir )
 dir_add( procDir )
 
 # Download data into it
-cmd1 = [ './runme.sh', dataDir ]
-cmd2 = [ './runme2.sh', dataDir ]
-cmd3 = [ './runme3.sh', dataDir ]
+cmd1 = [ './runme.sh', dateStr ]
+cmd2 = [ './runme2.sh', dateStr ]
+cmd3 = [ './runme3.sh', dateStr ]
 print( cmd1 )
 print( cmd2 )
 print( cmd3 )
